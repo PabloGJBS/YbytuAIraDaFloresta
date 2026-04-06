@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dca077fd0a04d84f867b23509f6985a, type: 3}
+  m_Name: SoundLibrary
+  m_EditorClassIdentifier: 
+  playerPunch: {fileID: 8300000, guid: 7684aeb991ea79e4e8017b2bb1c4fd0f, type: 3}
+  playerKick: {fileID: 8300000, guid: f761d4f8dbe07ef4d89e7548f93b76c3, type: 3}
+  playerJab: {fileID: 8300000, guid: 7684aeb991ea79e4e8017b2bb1c4fd0f, type: 3}
+  playerJumpKick: {fileID: 8300000, guid: f761d4f8dbe07ef4d89e7548f93b76c3, type: 3}
+  playerDiveKick: {fileID: 8300000, guid: f761d4f8dbe07ef4d89e7548f93b76c3, type: 3}
+  playerJump: {fileID: 8300000, guid: 4874b790ceec548439d1677cd791edf2, type: 3}
+  playerLand: {fileID: 0}
+  playerStep: {fileID: 0}
+  playerHurt: {fileID: 8300000, guid: 2f5dec69f1f52014c88bd8fa44ce9205, type: 3}
+  playerDeath: {fileID: 0}
+  playerRevive: {fileID: 0}
+  enemyPunch: {fileID: 8300000, guid: 7684aeb991ea79e4e8017b2bb1c4fd0f, type: 3}
+  enemyHurt: {fileID: 8300000, guid: 2f5dec69f1f52014c88bd8fa44ce9205, type: 3}
+  enemyDeath: {fileID: 0}
+  enemyAlert: {fileID: 0}
+  hitConnect: {fileID: 0}
+  comboRankUp: {fileID: 0}
+  comboBreak: {fileID: 0}
+  uiSelect: {fileID: 8300000, guid: fd77c542ba3bc3646a1602e6732abf9f, type: 3}
+  uiConfirm: {fileID: 8300000, guid: fd77c542ba3bc3646a1602e6732abf9f, type: 3}
+  uiCancel: {fileID: 0}
+  uiPause: {fileID: 0}
+  uiUnpause: {fileID: 0}
+  itemPickup: {fileID: 0}
+  stageClear: {fileID: 0}
+  gameOver: {fileID: 0}

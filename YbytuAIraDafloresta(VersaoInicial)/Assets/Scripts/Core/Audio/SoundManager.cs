@@ -1,0 +1,154 @@
+using UnityEngine;
+using UnityEngine.Audio;
+using System.Collections;
+
+/// <summary>
+/// Singleton de audio. Carrega o SoundLibrary, mantem 1 AudioSource para BGM
+/// e um pool de AudioSources para SFX. Roteado via AudioMixer (Master/Music/SFX).
+/// Persiste entre cenas (DontDestroyOnLoad).
+///
+/// Uso:
+///   SoundManager.Instance.PlaySFX(SoundManager.Library.playerPunch);
+///   SoundManager.Instance.PlayBGM(myMusic);
+/// </summary>
+public class SoundManager : MonoBehaviour
+{
+    public static SoundManager Instance { get; private set; }
+
+    [Header("Configuracao")]
+    [SerializeField] private SoundLibrary library;
+    [SerializeField] private AudioMixer mixer;
+    [SerializeField] private AudioMixerGroup musicGroup;
+    [SerializeField] private AudioMixerGroup sfxGroup;
+
+    [Header("Pool de SFX")]
+    [SerializeField] private int sfxPoolSize = 8;
+
+    [Header("BGM")]
+    [SerializeField] private float bgmFadeDuration = 1f;
+
+    private AudioSource bgmSource;
+    private AudioSource[] sfxPool;
+
+    public SoundLibrary Library => library;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        SetupSources();
+    }
+
+    private void SetupSources()
+    {
+        var bgmGo = new GameObject("BGMSource");
+        bgmGo.transform.SetParent(transform);
+        bgmSource = bgmGo.AddComponent<AudioSource>();
+        bgmSource.loop = true;
+        bgmSource.playOnAwake = false;
+        bgmSource.outputAudioMixerGroup = musicGroup;
+        bgmSource.volume = 1f;
+
+        sfxPool = new AudioSource[sfxPoolSize];
+        for (int i = 0; i < sfxPoolSize; i++)
+        {
+            var go = new GameObject($"SFXSource_{i}");
+            go.transform.SetParent(transform);
+            var src = go.AddComponent<AudioSource>();
+            src.loop = false;
+            src.playOnAwake = false;
+            src.outputAudioMixerGroup = sfxGroup;
+            sfxPool[i] = src;
+        }
+    }
+
+    /// <summary>
+    /// Toca um SFX usando o pool. Pitch tem variacao aleatoria para evitar repeticao mecanica.
+    /// </summary>
+    public void PlaySFX(AudioClip clip, float volume = 1f, float pitchVariation = 0.06f)
+    {
+        if (clip == null) return;
+        var src = GetFreeSfxSource();
+        src.clip = clip;
+        src.volume = volume;
+        src.pitch = 1f + Random.Range(-pitchVariation, pitchVariation);
+        src.Play();
+    }
+
+    private AudioSource GetFreeSfxSource()
+    {
+        for (int i = 0; i < sfxPool.Length; i++)
+            if (!sfxPool[i].isPlaying) return sfxPool[i];
+        return sfxPool[0]; // fallback: rouba o canal 0
+    }
+
+    /// <summary>
+    /// Troca a BGM com crossfade. Se ja estiver tocando o mesmo clip, ignora.
+    /// </summary>
+    public void PlayBGM(AudioClip clip, bool loop = true)
+    {
+        if (bgmSource.clip == clip && bgmSource.isPlaying) return;
+        StopAllCoroutines();
+        StartCoroutine(SwapBGM(clip, loop));
+    }
+
+    public void StopBGM()
+    {
+        StopAllCoroutines();
+        StartCoroutine(FadeOutBGM());
+    }
+
+    private IEnumerator SwapBGM(AudioClip newClip, bool loop)
+    {
+        if (bgmSource.isPlaying)
+            yield return FadeOutBGM();
+
+        bgmSource.clip = newClip;
+        bgmSource.loop = loop;
+        if (newClip == null) yield break;
+
+        bgmSource.volume = 0f;
+        bgmSource.Play();
+        float t = 0f;
+        while (t < bgmFadeDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            bgmSource.volume = Mathf.Clamp01(t / bgmFadeDuration);
+            yield return null;
+        }
+        bgmSource.volume = 1f;
+    }
+
+    private IEnumerator FadeOutBGM()
+    {
+        float startVol = bgmSource.volume;
+        float t = 0f;
+        while (t < bgmFadeDuration)
+        {
+            t += Time.unscaledDeltaTime;
+            bgmSource.volume = Mathf.Lerp(startVol, 0f, t / bgmFadeDuration);
+            yield return null;
+        }
+        bgmSource.Stop();
+        bgmSource.volume = 0f;
+    }
+
+    // --- Volumes em dB (-80 a 0) ---
+
+    public void SetMasterVolume(float linear01) => SetMixerVolume("MasterVolume", linear01);
+    public void SetMusicVolume(float linear01)  => SetMixerVolume("MusicVolume", linear01);
+    public void SetSfxVolume(float linear01)    => SetMixerVolume("SfxVolume", linear01);
+
+    private void SetMixerVolume(string parameter, float linear01)
+    {
+        if (mixer == null) return;
+        float db = linear01 <= 0.0001f ? -80f : Mathf.Log10(linear01) * 20f;
+        mixer.SetFloat(parameter, db);
+    }
+}
