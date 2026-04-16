@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e93ac8c630f90844ab3a994bed2b97f9, type: 3}
+  m_Name: BrawlerGirl_EnemyData
+  m_EditorClassIdentifier: 
+  enemyName: Brawler
+  maxHealth: 90
+  moveSpeed: 2
+  patrolRadius: 2.5
+  patrolWaitTime: 1.5
+  detectionRange: 5
+  loseTargetRange: 8
+  attackDamage: 22
+  attackRange: 1.3
+  attackYTolerance: 0.4
+  attackCooldown: 1.4
+  hurtRecoveryTime: 0.8
+  attackTriggers:
+  - Attack
+  - Jab
+  - Kick
+  scoreValue: 4000
+  behaviorType: 0

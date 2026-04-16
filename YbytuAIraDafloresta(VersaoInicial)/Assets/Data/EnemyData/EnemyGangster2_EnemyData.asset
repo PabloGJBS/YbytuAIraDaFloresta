@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e93ac8c630f90844ab3a994bed2b97f9, type: 3}
+  m_Name: EnemyGangster2_EnemyData
+  m_EditorClassIdentifier: 
+  enemyName: Gangster 2
+  maxHealth: 45
+  moveSpeed: 3
+  patrolRadius: 3
+  patrolWaitTime: 1
+  detectionRange: 7
+  loseTargetRange: 10
+  attackDamage: 13
+  attackRange: 1.2
+  attackYTolerance: 0.7
+  attackCooldown: 1
+  hurtRecoveryTime: 0.8
+  attackTriggers:
+  - Attack
+  - Jab
+  - Kick
+  scoreValue: 2000
+  behaviorType: 0

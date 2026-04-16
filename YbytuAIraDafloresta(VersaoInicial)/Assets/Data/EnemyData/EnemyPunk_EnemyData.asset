@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e93ac8c630f90844ab3a994bed2b97f9, type: 3}
+  m_Name: EnemyPunk_EnemyData
+  m_EditorClassIdentifier: 
+  enemyName: Punk
+  maxHealth: 25
+  moveSpeed: 2.6
+  patrolRadius: 3
+  patrolWaitTime: 1
+  detectionRange: 6
+  loseTargetRange: 9
+  attackDamage: 8
+  attackRange: 1.2
+  attackYTolerance: 0.4
+  attackCooldown: 1.1
+  hurtRecoveryTime: 0.8
+  attackTriggers:
+  - Attack
+  scoreValue: 1000
+  behaviorType: 0
