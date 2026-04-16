@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 637f81523eca00543adbd5ebebe6bf6a, type: 3}
+  m_Name: EnemyChefe1Black_AnimData
+  m_EditorClassIdentifier: 
+  animatorOverride: {fileID: 22100000, guid: e629b34f74755454bbe14f1e9c623512, type: 2}
+  skinName: Chefe 1 (Black Hair)
+  description: Variant cosmetica do Chefe1 com cabelo preto. Mesma logica de combate.
