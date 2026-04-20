@@ -1,0 +1,4069 @@
+fileFormatVersion: 2
+guid: 43738fefa523cc842a9a527718c7a2c3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9173798934483350605
+    second: PreenchimentoBarraCombo_0
+  - first:
+      213: 5587570201886303902
+    second: PreenchimentoBarraCombo_1
+  - first:
+      213: -9010978298388306425
+    second: PreenchimentoBarraCombo_2
+  - first:
+      213: -364818580672171582
+    second: PreenchimentoBarraCombo_3
+  - first:
+      213: -8485202214904515314
+    second: PreenchimentoBarraCombo_4
+  - first:
+      213: 6046357574950538182
+    second: PreenchimentoBarraCombo_5
+  - first:
+      213: 2735012154586353282
+    second: PreenchimentoBarraCombo_6
+  - first:
+      213: -8030737132700642275
+    second: PreenchimentoBarraCombo_7
+  - first:
+      213: -6528760528448061245
+    second: PreenchimentoBarraCombo_8
+  - first:
+      213: 5335749416178567332
+    second: PreenchimentoBarraCombo_9
+  - first:
+      213: 4056496326608611554
+    second: PreenchimentoBarraCombo_10
+  - first:
+      213: -5188499761008794399
+    second: PreenchimentoBarraCombo_11
+  - first:
+      213: 6629241548293378450
+    second: PreenchimentoBarraCombo_12
+  - first:
+      213: -6842053966094818938
+    second: PreenchimentoBarraCombo_13
+  - first:
+      213: 1050554209062355620
+    second: PreenchimentoBarraCombo_14
+  - first:
+      213: 2994310598457839138
+    second: PreenchimentoBarraCombo_15
+  - first:
+      213: 8289990697870313265
+    second: PreenchimentoBarraCombo_16
+  - first:
+      213: -5064214463910048177
+    second: PreenchimentoBarraCombo_17
+  - first:
+      213: 590228092891113255
+    second: PreenchimentoBarraCombo_18
+  - first:
+      213: 6448676540422290812
+    second: PreenchimentoBarraCombo_19
+  - first:
+      213: 2879385976488376597
+    second: PreenchimentoBarraCombo_20
+  - first:
+      213: -4192134064449276444
+    second: PreenchimentoBarraCombo_21
+  - first:
+      213: -4417960213594243910
+    second: PreenchimentoBarraCombo_22
+  - first:
+      213: 4462215664046591114
+    second: PreenchimentoBarraCombo_23
+  - first:
+      213: 6714509069996648330
+    second: PreenchimentoBarraCombo_24
+  - first:
+      213: 682230741628899263
+    second: PreenchimentoBarraCombo_25
+  - first:
+      213: 4020498605402276568
+    second: PreenchimentoBarraCombo_26
+  - first:
+      213: 3536516910973221856
+    second: PreenchimentoBarraCombo_27
+  - first:
+      213: 2358748461627246129
+    second: PreenchimentoBarraCombo_28
+  - first:
+      213: -8222317174085572836
+    second: PreenchimentoBarraCombo_29
+  - first:
+      213: -3888164031655318855
+    second: PreenchimentoBarraCombo_30
+  - first:
+      213: -2627747955121541256
+    second: PreenchimentoBarraCombo_31
+  - first:
+      213: -3168226734934595898
+    second: PreenchimentoBarraCombo_32
+  - first:
+      213: 1251463842360385782
+    second: PreenchimentoBarraCombo_33
+  - first:
+      213: 6763218706765645865
+    second: PreenchimentoBarraCombo_34
+  - first:
+      213: 2888873031245285402
+    second: PreenchimentoBarraCombo_35
+  - first:
+      213: 4144456676449576740
+    second: PreenchimentoBarraCombo_36
+  - first:
+      213: -5772149932570118446
+    second: PreenchimentoBarraCombo_37
+  - first:
+      213: 4959350442751251833
+    second: PreenchimentoBarraCombo_38
+  - first:
+      213: 1802834139908583626
+    second: PreenchimentoBarraCombo_39
+  - first:
+      213: -5757895478692346041
+    second: PreenchimentoBarraCombo_40
+  - first:
+      213: 4848676834428524206
+    second: PreenchimentoBarraCombo_41
+  - first:
+      213: 6366738194361292224
+    second: PreenchimentoBarraCombo_42
+  - first:
+      213: -2391608392065657170
+    second: PreenchimentoBarraCombo_43
+  - first:
+      213: 7328171120484706770
+    second: PreenchimentoBarraCombo_44
+  - first:
+      213: 2310997842282873244
+    second: PreenchimentoBarraCombo_45
+  - first:
+      213: -1631262440605226200
+    second: PreenchimentoBarraCombo_46
+  - first:
+      213: 6240063805335115967
+    second: PreenchimentoBarraCombo_47
+  - first:
+      213: -6336762847574288291
+    second: PreenchimentoBarraCombo_48
+  - first:
+      213: 7256510368957385756
+    second: PreenchimentoBarraCombo_49
+  - first:
+      213: -3112749031063913487
+    second: PreenchimentoBarraCombo_50
+  - first:
+      213: 6950003001585694180
+    second: PreenchimentoBarraCombo_51
+  - first:
+      213: 2378120330915887597
+    second: PreenchimentoBarraCombo_52
+  - first:
+      213: 1244741521169337609
+    second: PreenchimentoBarraCombo_53
+  - first:
+      213: -5326042982486918624
+    second: PreenchimentoBarraCombo_54
+  - first:
+      213: -2716291221825018603
+    second: PreenchimentoBarraCombo_55
+  - first:
+      213: -7571365482763373158
+    second: PreenchimentoBarraCombo_56
+  - first:
+      213: -4343836526821540420
+    second: PreenchimentoBarraCombo_57
+  - first:
+      213: -4482010434581408349
+    second: PreenchimentoBarraCombo_58
+  - first:
+      213: -8797294985638463862
+    second: PreenchimentoBarraCombo_59
+  - first:
+      213: -7258367320326359701
+    second: PreenchimentoBarraCombo_60
+  - first:
+      213: -974825066767280466
+    second: PreenchimentoBarraCombo_61
+  - first:
+      213: -5229052416145981194
+    second: PreenchimentoBarraCombo_62
+  - first:
+      213: -5155590254560036549
+    second: PreenchimentoBarraCombo_63
+  - first:
+      213: 2091795158280898336
+    second: PreenchimentoBarraCombo_64
+  - first:
+      213: 8597182586062447434
+    second: PreenchimentoBarraCombo_65
+  - first:
+      213: 8140614899418526946
+    second: PreenchimentoBarraCombo_66
+  - first:
+      213: 505900433808338372
+    second: PreenchimentoBarraCombo_67
+  - first:
+      213: 8897932374841541491
+    second: PreenchimentoBarraCombo_68
+  - first:
+      213: 2557369837903009305
+    second: PreenchimentoBarraCombo_69
+  - first:
+      213: 8856914190180296212
+    second: PreenchimentoBarraCombo_70
+  - first:
+      213: 7523880473665595895
+    second: PreenchimentoBarraCombo_71
+  - first:
+      213: -266386442275709195
+    second: PreenchimentoBarraCombo_72
+  - first:
+      213: -1946607244531238041
+    second: PreenchimentoBarraCombo_73
+  - first:
+      213: -8498441942096799514
+    second: PreenchimentoBarraCombo_74
+  - first:
+      213: 6709515437717212170
+    second: PreenchimentoBarraCombo_75
+  - first:
+      213: -8170193107051486015
+    second: PreenchimentoBarraCombo_76
+  - first:
+      213: 4401881142360499090
+    second: PreenchimentoBarraCombo_77
+  - first:
+      213: 6438853772618186856
+    second: PreenchimentoBarraCombo_78
+  - first:
+      213: -1482234705797652391
+    second: PreenchimentoBarraCombo_79
+  - first:
+      213: -52224460997969723
+    second: PreenchimentoBarraCombo_80
+  - first:
+      213: 6173724264707763767
+    second: PreenchimentoBarraCombo_81
+  - first:
+      213: 6506388191244156255
+    second: PreenchimentoBarraCombo_82
+  - first:
+      213: 3532655368112846188
+    second: PreenchimentoBarraCombo_83
+  - first:
+      213: -985134962287368633
+    second: PreenchimentoBarraCombo_84
+  - first:
+      213: 1347908527910189199
+    second: PreenchimentoBarraCombo_85
+  - first:
+      213: 7218423365322071856
+    second: PreenchimentoBarraCombo_86
+  - first:
+      213: -2252266348876486571
+    second: PreenchimentoBarraCombo_87
+  - first:
+      213: 8284569448774390954
+    second: PreenchimentoBarraCombo_88
+  - first:
+      213: 5269352614352714117
+    second: PreenchimentoBarraCombo_89
+  - first:
+      213: -1598502955096553587
+    second: PreenchimentoBarraCombo_90
+  - first:
+      213: -7239610312504358598
+    second: PreenchimentoBarraCombo_91
+  - first:
+      213: 7135314801815513214
+    second: PreenchimentoBarraCombo_92
+  - first:
+      213: 2915787621470914588
+    second: PreenchimentoBarraCombo_93
+  - first:
+      213: 9172937235918972933
+    second: PreenchimentoBarraCombo_94
+  - first:
+      213: 250001660888196064
+    second: PreenchimentoBarraCombo_95
+  - first:
+      213: -6273392316808211714
+    second: PreenchimentoBarraCombo_96
+  - first:
+      213: -6863887378377844669
+    second: PreenchimentoBarraCombo_97
+  - first:
+      213: -5696466410945904258
+    second: PreenchimentoBarraCombo_98
+  - first:
+      213: 4151857309911287751
+    second: PreenchimentoBarraCombo_99
+  - first:
+      213: -8354744618070290339
+    second: PreenchimentoBarraCombo_100
+  - first:
+      213: -7242046884157292791
+    second: PreenchimentoBarraCombo_101
+  - first:
+      213: 319602662637380238
+    second: PreenchimentoBarraCombo_102
+  - first:
+      213: 7620004647441748638
+    second: PreenchimentoBarraCombo_103
+  - first:
+      213: -7501028533177168754
+    second: PreenchimentoBarraCombo_104
+  - first:
+      213: -735244690567099844
+    second: PreenchimentoBarraCombo_105
+  - first:
+      213: -5405336510896973163
+    second: PreenchimentoBarraCombo_106
+  - first:
+      213: 2432721189629669990
+    second: PreenchimentoBarraCombo_107
+  - first:
+      213: 3827147700018753531
+    second: PreenchimentoBarraCombo_108
+  - first:
+      213: 8154071927576671838
+    second: PreenchimentoBarraCombo_109
+  - first:
+      213: 2843231917795436115
+    second: PreenchimentoBarraCombo_110
+  - first:
+      213: -6416360211862734065
+    second: PreenchimentoBarraCombo_111
+  - first:
+      213: -102459690058494581
+    second: PreenchimentoBarraCombo_112
+  - first:
+      213: -5616097826640849592
+    second: PreenchimentoBarraCombo_113
+  - first:
+      213: 8605938729386803089
+    second: PreenchimentoBarraCombo_114
+  - first:
+      213: 5724942338813912360
+    second: PreenchimentoBarraCombo_115
+  - first:
+      213: 6946253188306231701
+    second: PreenchimentoBarraCombo_116
+  - first:
+      213: -1774678657312451798
+    second: PreenchimentoBarraCombo_117
+  - first:
+      213: -8778492943570034059
+    second: PreenchimentoBarraCombo_118
+  - first:
+      213: -7070884446714163628
+    second: PreenchimentoBarraCombo_119
+  - first:
+      213: 1227193473059505832
+    second: PreenchimentoBarraCombo_120
+  - first:
+      213: 8148144984811225842
+    second: PreenchimentoBarraCombo_121
+  - first:
+      213: 8504805858316933893
+    second: PreenchimentoBarraCombo_122
+  - first:
+      213: -3761967745773415131
+    second: PreenchimentoBarraCombo_123
+  - first:
+      213: 356118945415569725
+    second: PreenchimentoBarraCombo_124
+  - first:
+      213: -8354060086096949509
+    second: PreenchimentoBarraCombo_125
+  - first:
+      213: -9101019478690272738
+    second: PreenchimentoBarraCombo_126
+  - first:
+      213: -1556571578994931522
+    second: PreenchimentoBarraCombo_127
+  - first:
+      213: -3839292054806038024
+    second: PreenchimentoBarraCombo_128
+  - first:
+      213: -8121707145990014191
+    second: PreenchimentoBarraCombo_129
+  - first:
+      213: -5402538091588003655
+    second: PreenchimentoBarraCombo_130
+  - first:
+      213: -5072772834462496112
+    second: PreenchimentoBarraCombo_131
+  - first:
+      213: 1674889670607651679
+    second: PreenchimentoBarraCombo_132
+  - first:
+      213: 2056090817430605007
+    second: PreenchimentoBarraCombo_133
+  - first:
+      213: -4912391205109653983
+    second: PreenchimentoBarraCombo_134
+  - first:
+      213: 8358229570875601122
+    second: PreenchimentoBarraCombo_135
+  - first:
+      213: -1613174901913709110
+    second: PreenchimentoBarraCombo_136
+  - first:
+      213: -3557707594184033226
+    second: PreenchimentoBarraCombo_137
+  - first:
+      213: -10501692101236454
+    second: PreenchimentoBarraCombo_138
+  - first:
+      213: 8482858734734794918
+    second: PreenchimentoBarraCombo_139
+  - first:
+      213: 7714529261536510242
+    second: PreenchimentoBarraCombo_140
+  - first:
+      213: -4644136082217840635
+    second: PreenchimentoBarraCombo_141
+  - first:
+      213: 5342380574439188687
+    second: PreenchimentoBarraCombo_142
+  - first:
+      213: 5243493250595514753
+    second: PreenchimentoBarraCombo_143
+  - first:
+      213: -6847499032428901838
+    second: PreenchimentoBarraCombo_144
+  - first:
+      213: -5480138361741778415
+    second: PreenchimentoBarraCombo_145
+  - first:
+      213: -7043906510658728510
+    second: PreenchimentoBarraCombo_146
+  - first:
+      213: -7652395878076524477
+    second: PreenchimentoBarraCombo_147
+  - first:
+      213: 4579168897496758030
+    second: PreenchimentoBarraCombo_148
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: VisionOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 676
+        width: 44
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bb4345597e10b080800000000000000
+      internalID: -9173798934483350605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_1
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 628
+        width: 45
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e96adf09e790b8d40800000000000000
+      internalID: 5587570201886303902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_2
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 676
+        width: 45
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 706afc5daf292f280800000000000000
+      internalID: -9010978298388306425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_3
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 627
+        width: 46
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c1b29b0f67efeaf0800000000000000
+      internalID: -364818580672171582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_4
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e053245ca818e3a80800000000000000
+      internalID: -8485202214904515314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_5
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 628
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cb4befed2af8e350800000000000000
+      internalID: 6046357574950538182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_6
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28ece7a5017b4f520800000000000000
+      internalID: 2735012154586353282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_7
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 628
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d14d6d060271d8090800000000000000
+      internalID: -8030737132700642275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_8
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 676
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c00346e3ee2565a0800000000000000
+      internalID: -6528760528448061245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_9
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 628
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a842d1f2d36c0a40800000000000000
+      internalID: 5335749416178567332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_10
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 676
+        width: 48
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e8ee24bae19b4830800000000000000
+      internalID: 4056496326608611554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_11
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 628
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e42fdb05febef7b0800000000000000
+      internalID: -5188499761008794399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_12
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2919940a01ccffb50800000000000000
+      internalID: 6629241548293378450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_13
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 628
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 681add82b242c01a0800000000000000
+      internalID: -6842053966094818938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_14
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 676
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a20470bc71549e00800000000000000
+      internalID: 1050554209062355620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_15
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 628
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22e4440ff9ded8920800000000000000
+      internalID: 2994310598457839138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_16
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1374ad11e96fb0370800000000000000
+      internalID: 8289990697870313265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_17
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 628
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4e0f34c6cb48b9b0800000000000000
+      internalID: -5064214463910048177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_18
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7272b35c259e03800800000000000000
+      internalID: 590228092891113255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_19
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 628
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7df34f952d4e7950800000000000000
+      internalID: 6448676540422290812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_20
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 519b4db3a42a5f720800000000000000
+      internalID: 2879385976488376597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_21
+      rect:
+        serializedVersion: 2
+        x: 940
+        y: 627
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e5bfad774c82d5c0800000000000000
+      internalID: -4192134064449276444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_22
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abcf7e4d79040b2c0800000000000000
+      internalID: -4417960213594243910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_23
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 628
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8c4eae2189fced30800000000000000
+      internalID: 4462215664046591114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_24
+      rect:
+        serializedVersion: 2
+        x: 1076
+        y: 676
+        width: 48
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a87e9469c6abe2d50800000000000000
+      internalID: 6714509069996648330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_25
+      rect:
+        serializedVersion: 2
+        x: 1123
+        y: 628
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbf44a1be35c77900800000000000000
+      internalID: 682230741628899263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_26
+      rect:
+        serializedVersion: 2
+        x: 1168
+        y: 676
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d2c4fa1e2eabc730800000000000000
+      internalID: 4020498605402276568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_27
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 627
+        width: 92
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eb78bca46b341130800000000000000
+      internalID: 3536516910973221856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_28
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1368ac98a35fbb020800000000000000
+      internalID: 2358748461627246129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_29
+      rect:
+        serializedVersion: 2
+        x: 1348
+        y: 628
+        width: 48
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c172908081674ed80800000000000000
+      internalID: -8222317174085572836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_30
+      rect:
+        serializedVersion: 2
+        x: 1394
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9baebb0e9677a0ac0800000000000000
+      internalID: -3888164031655318855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_31
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 628
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87fa8bf382d588bd0800000000000000
+      internalID: -2627747955121541256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_32
+      rect:
+        serializedVersion: 2
+        x: 1485
+        y: 676
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c6e35012923804d0800000000000000
+      internalID: -3168226734934595898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_33
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 628
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f0e22debb71e5110800000000000000
+      internalID: 1251463842360385782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_34
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9280b0ba497cbdd50800000000000000
+      internalID: 6763218706765645865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_35
+      rect:
+        serializedVersion: 2
+        x: 1621
+        y: 627
+        width: 47
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a18c49c47b6571820800000000000000
+      internalID: 2888873031245285402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_36
+      rect:
+        serializedVersion: 2
+        x: 1667
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 427e5c29361148930800000000000000
+      internalID: 4144456676449576740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_37
+      rect:
+        serializedVersion: 2
+        x: 1713
+        y: 628
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d6fcdee73435efa0800000000000000
+      internalID: -5772149932570118446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_38
+      rect:
+        serializedVersion: 2
+        x: 1758
+        y: 676
+        width: 48
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9755dd0b3f623d440800000000000000
+      internalID: 4959350442751251833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_39
+      rect:
+        serializedVersion: 2
+        x: 1804
+        y: 628
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac0b2323914f40910800000000000000
+      internalID: 1802834139908583626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_40
+      rect:
+        serializedVersion: 2
+        x: 1849
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74707ba9198d710b0800000000000000
+      internalID: -5757895478692346041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_41
+      rect:
+        serializedVersion: 2
+        x: 1895
+        y: 627
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea617ca34e5f94340800000000000000
+      internalID: 4848676834428524206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_42
+      rect:
+        serializedVersion: 2
+        x: 1940
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c511d4c7a23b5850800000000000000
+      internalID: 6366738194361292224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_43
+      rect:
+        serializedVersion: 2
+        x: 1985
+        y: 628
+        width: 48
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea65515b6dc4fced0800000000000000
+      internalID: -2391608392065657170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_44
+      rect:
+        serializedVersion: 2
+        x: 2031
+        y: 676
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d964c9cec4e2b560800000000000000
+      internalID: 7328171120484706770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_45
+      rect:
+        serializedVersion: 2
+        x: 2076
+        y: 628
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9107f91b40521020800000000000000
+      internalID: 2310997842282873244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_46
+      rect:
+        serializedVersion: 2
+        x: 2122
+        y: 676
+        width: 48
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82be94cf3779c59e0800000000000000
+      internalID: -1631262440605226200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_47
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 581
+        width: 44
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb895cc38f8299650800000000000000
+      internalID: 6240063805335115967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_48
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 534
+        width: 45
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d58117483cb4f08a0800000000000000
+      internalID: -6336762847574288291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_49
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 581
+        width: 45
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1cc4a2ebbd44b460800000000000000
+      internalID: 7256510368957385756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_50
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 534
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fb7e709f3b4dc4d0800000000000000
+      internalID: -3112749031063913487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_51
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 581
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e5f96148ee537060800000000000000
+      internalID: 6950003001585694180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_52
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 534
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de9306557d7c00120800000000000000
+      internalID: 2378120330915887597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_53
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 534
+        width: 91
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90d4a7e81d5364110800000000000000
+      internalID: 1244741521169337609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_54
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 581
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02ab76240281616b0800000000000000
+      internalID: -5326042982486918624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_55
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 488
+        width: 92
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 515ab98768bcd4ad0800000000000000
+      internalID: -2716291221825018603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_56
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 534
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a953c3f453b1de690800000000000000
+      internalID: -7571365482763373158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_57
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 581
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cbd7f6881b797b3c0800000000000000
+      internalID: -4343836526821540420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_58
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 534
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a55e27a143bcc1c0800000000000000
+      internalID: -4482010434581408349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_59
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 581
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a86b1b412dab9e580800000000000000
+      internalID: -8797294985638463862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_60
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 534
+        width: 92
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b65b4aee069154b90800000000000000
+      internalID: -7258367320326359701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_61
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 534
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea6903144c9b872f0800000000000000
+      internalID: -974825066767280466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_62
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 581
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f088bf388cae67b0800000000000000
+      internalID: -5229052416145981194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_63
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 444
+        width: 182
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b39bb7d9af9a378b0800000000000000
+      internalID: -5155590254560036549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_64
+      rect:
+        serializedVersion: 2
+        x: 1031
+        y: 488
+        width: 93
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02707381d9c870d10800000000000000
+      internalID: 2091795158280898336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_65
+      rect:
+        serializedVersion: 2
+        x: 1076
+        y: 581
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a432d6f13045f4770800000000000000
+      internalID: 8597182586062447434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_66
+      rect:
+        serializedVersion: 2
+        x: 1123
+        y: 534
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e4f715ce1649f070800000000000000
+      internalID: 8140614899418526946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_67
+      rect:
+        serializedVersion: 2
+        x: 1168
+        y: 581
+        width: 88
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cdacd0a3c1550700800000000000000
+      internalID: 505900433808338372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_68
+      rect:
+        serializedVersion: 2
+        x: 1259
+        y: 534
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 373c0e50a5ecb7b70800000000000000
+      internalID: 8897932374841541491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_69
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 581
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 916d18b615a9d7320800000000000000
+      internalID: 2557369837903009305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_70
+      rect:
+        serializedVersion: 2
+        x: 1394
+        y: 581
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41620dfa7841aea70800000000000000
+      internalID: 8856914190180296212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_71
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 534
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f9e5557d613a6860800000000000000
+      internalID: 7523880473665595895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_72
+      rect:
+        serializedVersion: 2
+        x: 1485
+        y: 581
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fe1d2f21fa9d4cf0800000000000000
+      internalID: -266386442275709195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_73
+      rect:
+        serializedVersion: 2
+        x: 1529
+        y: 534
+        width: 93
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76b738056034cf4e0800000000000000
+      internalID: -1946607244531238041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_74
+      rect:
+        serializedVersion: 2
+        x: 1621
+        y: 534
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e81a0194187f0a80800000000000000
+      internalID: -8498441942096799514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_75
+      rect:
+        serializedVersion: 2
+        x: 1667
+        y: 581
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0c4228fdbcfc1d50800000000000000
+      internalID: 6709515437717212170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_76
+      rect:
+        serializedVersion: 2
+        x: 1713
+        y: 534
+        width: 92
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c4e9db18a4ad9e80800000000000000
+      internalID: -8170193107051486015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_77
+      rect:
+        serializedVersion: 2
+        x: 1804
+        y: 534
+        width: 47
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29363e9a39f961d30800000000000000
+      internalID: 4401881142360499090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_78
+      rect:
+        serializedVersion: 2
+        x: 1849
+        y: 581
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 860479544676b5950800000000000000
+      internalID: 6438853772618186856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_79
+      rect:
+        serializedVersion: 2
+        x: 1895
+        y: 534
+        width: 46
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 950ec27636b0e6be0800000000000000
+      internalID: -1482234705797652391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_80
+      rect:
+        serializedVersion: 2
+        x: 1940
+        y: 581
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c831a12126764ff0800000000000000
+      internalID: -52224460997969723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_81
+      rect:
+        serializedVersion: 2
+        x: 1940
+        y: 489
+        width: 92
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73ead1b42897da550800000000000000
+      internalID: 6173724264707763767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_82
+      rect:
+        serializedVersion: 2
+        x: 2031
+        y: 581
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5d77ed66955b4a50800000000000000
+      internalID: 6506388191244156255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_83
+      rect:
+        serializedVersion: 2
+        x: 2076
+        y: 534
+        width: 94
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c653e3a2753860130800000000000000
+      internalID: 3532655368112846188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_84
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 444
+        width: 86
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7462b05a8f81452f0800000000000000
+      internalID: -985134962287368633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_85
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 93
+        width: 2132
+        height: 443
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f887ec32aabb4b210800000000000000
+      internalID: 1347908527910189199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_86
+      rect:
+        serializedVersion: 2
+        x: 1348
+        y: 534
+        width: 48
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03fd6605ecdfc2460800000000000000
+      internalID: 7218423365322071856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_87
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 399
+        width: 43
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 558a6af40b75eb0e0800000000000000
+      internalID: -2252266348876486571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_88
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 321
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa450472504b8f270800000000000000
+      internalID: 8284569448774390954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_89
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 230
+        width: 44
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 589f4c6d840802940800000000000000
+      internalID: 5269352614352714117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_90
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 93
+        width: 182
+        height: 139
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d87ce05180af0d9e0800000000000000
+      internalID: -1598502955096553587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_91
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 93
+        width: 94
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a394ce227ccb78b90800000000000000
+      internalID: -7239610312504358598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_92
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 139
+        width: 43
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e78eccaf10bb50360800000000000000
+      internalID: 7135314801815513214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_93
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 93
+        width: 135
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c18414aa465f67820800000000000000
+      internalID: 2915787621470914588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_94
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 93
+        width: 91
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50867e5d0d1dc4f70800000000000000
+      internalID: 9172937235918972933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_95
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 93
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e3af7e9f2f287300800000000000000
+      internalID: 250001660888196064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_96
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 47
+        width: 93
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef25bfbfcee60f8a0800000000000000
+      internalID: -6273392316808211714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_97
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 93
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3485089bbc29eb0a0800000000000000
+      internalID: -6863887378377844669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_98
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 93
+        width: 92
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7100acfaf512f0b0800000000000000
+      internalID: -5696466410945904258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_99
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 93
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c70f53d93c5e9930800000000000000
+      internalID: 4151857309911287751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_100
+      rect:
+        serializedVersion: 2
+        x: 1123
+        y: 93
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5050d2090cfd0c80800000000000000
+      internalID: -8354744618070290339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_101
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 93
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90f74179ab41f7b90800000000000000
+      internalID: -7242046884157292791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_102
+      rect:
+        serializedVersion: 2
+        x: 2031
+        y: 47
+        width: 139
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8225c7ade47f6400800000000000000
+      internalID: 319602662637380238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_103
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 47
+        width: 44
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e925795bad1bfb960800000000000000
+      internalID: 7620004647441748638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_104
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 0
+        width: 45
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8cc7ed8a4ef6e790800000000000000
+      internalID: -7501028533177168754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_105
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 47
+        width: 45
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3a81c379d2ebc5f0800000000000000
+      internalID: -735244690567099844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_106
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 0
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59a598005136cf4b0800000000000000
+      internalID: -5405336510896973163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_107
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 47
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66231796803c2c120800000000000000
+      internalID: 2432721189629669990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_108
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 0
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bff229a5e82cc1530800000000000000
+      internalID: 3827147700018753531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_109
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 47
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e56313c4735192170800000000000000
+      internalID: 8154071927576671838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_110
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 0
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 356ef3a7d50357720800000000000000
+      internalID: 2843231917795436115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_111
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 47
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0bb8f4f16284f6a0800000000000000
+      internalID: -6416360211862734065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_112
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 0
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8d444a647df39ef0800000000000000
+      internalID: -102459690058494581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_113
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 47
+        width: 48
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8459a3338cc9f02b0800000000000000
+      internalID: -5616097826640849592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_114
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 0
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19f70eb9daf6e6770800000000000000
+      internalID: 8605938729386803089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_115
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 0
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 825e890a9b4137f40800000000000000
+      internalID: 5724942338813912360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_116
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 47
+        width: 46
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 591eae0d87c066060800000000000000
+      internalID: 6946253188306231701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_117
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 0
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a239c60f9231f57e0800000000000000
+      internalID: -1774678657312451798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_118
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 47
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5722c33ad278c2680800000000000000
+      internalID: -8778492943570034059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_119
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 0
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45e84c11f0c2fdd90800000000000000
+      internalID: -7070884446714163628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_120
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 47
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a6c36836fdd70110800000000000000
+      internalID: 1227193473059505832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_121
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 0
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f2cd0661b6041170800000000000000
+      internalID: 8148144984811225842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_122
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 47
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50b54a42ed3270670800000000000000
+      internalID: 8504805858316933893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_123
+      rect:
+        serializedVersion: 2
+        x: 940
+        y: 0
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 525d2b8544ecacbc0800000000000000
+      internalID: -3761967745773415131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_124
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 47
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3128474b4031f400800000000000000
+      internalID: 356118945415569725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_125
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfe0ce70d9a601c80800000000000000
+      internalID: -8354060086096949509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_126
+      rect:
+        serializedVersion: 2
+        x: 1076
+        y: 47
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1a61ced00fa2b180800000000000000
+      internalID: -9101019478690272738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_127
+      rect:
+        serializedVersion: 2
+        x: 1123
+        y: 0
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb8c98e5562f56ae0800000000000000
+      internalID: -1556571578994931522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_128
+      rect:
+        serializedVersion: 2
+        x: 1168
+        y: 47
+        width: 46
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f97e44b73818bac0800000000000000
+      internalID: -3839292054806038024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_129
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 0
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11b7381a166e94f80800000000000000
+      internalID: -8121707145990014191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_130
+      rect:
+        serializedVersion: 2
+        x: 1258
+        y: 47
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b85165ca345605b0800000000000000
+      internalID: -5402538091588003655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_131
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 0
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09a8c97dbf3e999b0800000000000000
+      internalID: -5072772834462496112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_132
+      rect:
+        serializedVersion: 2
+        x: 1348
+        y: 47
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f534a8e08476e3710800000000000000
+      internalID: 1674889670607651679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_133
+      rect:
+        serializedVersion: 2
+        x: 1394
+        y: 0
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fccc4ee64b3b88c10800000000000000
+      internalID: 2056090817430605007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_134
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 47
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12e9fa5d93ea3dbb0800000000000000
+      internalID: -4912391205109653983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_135
+      rect:
+        serializedVersion: 2
+        x: 1485
+        y: 0
+        width: 46
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e0b43bc2856ef370800000000000000
+      internalID: 8358229570875601122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_136
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 47
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac59bd249f9dc99e0800000000000000
+      internalID: -1613174901913709110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_137
+      rect:
+        serializedVersion: 2
+        x: 1575
+        y: 0
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63c73f9eacb70aec0800000000000000
+      internalID: -3557707594184033226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_138
+      rect:
+        serializedVersion: 2
+        x: 1621
+        y: 47
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a19e3c444c0badff0800000000000000
+      internalID: -10501692101236454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_139
+      rect:
+        serializedVersion: 2
+        x: 1667
+        y: 0
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a0efab331b29b570800000000000000
+      internalID: 8482858734734794918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_140
+      rect:
+        serializedVersion: 2
+        x: 1713
+        y: 47
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2218d337d738f0b60800000000000000
+      internalID: 7714529261536510242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_141
+      rect:
+        serializedVersion: 2
+        x: 1758
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 500d4d2c6d6bc8fb0800000000000000
+      internalID: -4644136082217840635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_142
+      rect:
+        serializedVersion: 2
+        x: 1804
+        y: 47
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc8256ac3d2f32a40800000000000000
+      internalID: 5342380574439188687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_143
+      rect:
+        serializedVersion: 2
+        x: 1849
+        y: 0
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18967e78451a4c840800000000000000
+      internalID: 5243493250595514753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_144
+      rect:
+        serializedVersion: 2
+        x: 1895
+        y: 47
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23a8e3cd8ebc8f0a0800000000000000
+      internalID: -6847499032428901838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_145
+      rect:
+        serializedVersion: 2
+        x: 1940
+        y: 0
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 112e36ce133a2f3b0800000000000000
+      internalID: -5480138361741778415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_146
+      rect:
+        serializedVersion: 2
+        x: 1985
+        y: 47
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cd002949540f3e90800000000000000
+      internalID: -7043906510658728510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_147
+      rect:
+        serializedVersion: 2
+        x: 2031
+        y: 0
+        width: 47
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 348d5963e7a3dc590800000000000000
+      internalID: -7652395878076524477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PreenchimentoBarraCombo_148
+      rect:
+        serializedVersion: 2
+        x: 2121
+        y: 0
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e07bfcdc9d97c8f30800000000000000
+      internalID: 4579168897496758030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      PreenchimentoBarraCombo_0: -9173798934483350605
+      PreenchimentoBarraCombo_1: 5587570201886303902
+      PreenchimentoBarraCombo_10: 4056496326608611554
+      PreenchimentoBarraCombo_100: -8354744618070290339
+      PreenchimentoBarraCombo_101: -7242046884157292791
+      PreenchimentoBarraCombo_102: 319602662637380238
+      PreenchimentoBarraCombo_103: 7620004647441748638
+      PreenchimentoBarraCombo_104: -7501028533177168754
+      PreenchimentoBarraCombo_105: -735244690567099844
+      PreenchimentoBarraCombo_106: -5405336510896973163
+      PreenchimentoBarraCombo_107: 2432721189629669990
+      PreenchimentoBarraCombo_108: 3827147700018753531
+      PreenchimentoBarraCombo_109: 8154071927576671838
+      PreenchimentoBarraCombo_11: -5188499761008794399
+      PreenchimentoBarraCombo_110: 2843231917795436115
+      PreenchimentoBarraCombo_111: -6416360211862734065
+      PreenchimentoBarraCombo_112: -102459690058494581
+      PreenchimentoBarraCombo_113: -5616097826640849592
+      PreenchimentoBarraCombo_114: 8605938729386803089
+      PreenchimentoBarraCombo_115: 5724942338813912360
+      PreenchimentoBarraCombo_116: 6946253188306231701
+      PreenchimentoBarraCombo_117: -1774678657312451798
+      PreenchimentoBarraCombo_118: -8778492943570034059
+      PreenchimentoBarraCombo_119: -7070884446714163628
+      PreenchimentoBarraCombo_12: 6629241548293378450
+      PreenchimentoBarraCombo_120: 1227193473059505832
+      PreenchimentoBarraCombo_121: 8148144984811225842
+      PreenchimentoBarraCombo_122: 8504805858316933893
+      PreenchimentoBarraCombo_123: -3761967745773415131
+      PreenchimentoBarraCombo_124: 356118945415569725
+      PreenchimentoBarraCombo_125: -8354060086096949509
+      PreenchimentoBarraCombo_126: -9101019478690272738
+      PreenchimentoBarraCombo_127: -1556571578994931522
+      PreenchimentoBarraCombo_128: -3839292054806038024
+      PreenchimentoBarraCombo_129: -8121707145990014191
+      PreenchimentoBarraCombo_13: -6842053966094818938
+      PreenchimentoBarraCombo_130: -5402538091588003655
+      PreenchimentoBarraCombo_131: -5072772834462496112
+      PreenchimentoBarraCombo_132: 1674889670607651679
+      PreenchimentoBarraCombo_133: 2056090817430605007
+      PreenchimentoBarraCombo_134: -4912391205109653983
+      PreenchimentoBarraCombo_135: 8358229570875601122
+      PreenchimentoBarraCombo_136: -1613174901913709110
+      PreenchimentoBarraCombo_137: -3557707594184033226
+      PreenchimentoBarraCombo_138: -10501692101236454
+      PreenchimentoBarraCombo_139: 8482858734734794918
+      PreenchimentoBarraCombo_14: 1050554209062355620
+      PreenchimentoBarraCombo_140: 7714529261536510242
+      PreenchimentoBarraCombo_141: -4644136082217840635
+      PreenchimentoBarraCombo_142: 5342380574439188687
+      PreenchimentoBarraCombo_143: 5243493250595514753
+      PreenchimentoBarraCombo_144: -6847499032428901838
+      PreenchimentoBarraCombo_145: -5480138361741778415
+      PreenchimentoBarraCombo_146: -7043906510658728510
+      PreenchimentoBarraCombo_147: -7652395878076524477
+      PreenchimentoBarraCombo_148: 4579168897496758030
+      PreenchimentoBarraCombo_15: 2994310598457839138
+      PreenchimentoBarraCombo_16: 8289990697870313265
+      PreenchimentoBarraCombo_17: -5064214463910048177
+      PreenchimentoBarraCombo_18: 590228092891113255
+      PreenchimentoBarraCombo_19: 6448676540422290812
+      PreenchimentoBarraCombo_2: -9010978298388306425
+      PreenchimentoBarraCombo_20: 2879385976488376597
+      PreenchimentoBarraCombo_21: -4192134064449276444
+      PreenchimentoBarraCombo_22: -4417960213594243910
+      PreenchimentoBarraCombo_23: 4462215664046591114
+      PreenchimentoBarraCombo_24: 6714509069996648330
+      PreenchimentoBarraCombo_25: 682230741628899263
+      PreenchimentoBarraCombo_26: 4020498605402276568
+      PreenchimentoBarraCombo_27: 3536516910973221856
+      PreenchimentoBarraCombo_28: 2358748461627246129
+      PreenchimentoBarraCombo_29: -8222317174085572836
+      PreenchimentoBarraCombo_3: -364818580672171582
+      PreenchimentoBarraCombo_30: -3888164031655318855
+      PreenchimentoBarraCombo_31: -2627747955121541256
+      PreenchimentoBarraCombo_32: -3168226734934595898
+      PreenchimentoBarraCombo_33: 1251463842360385782
+      PreenchimentoBarraCombo_34: 6763218706765645865
+      PreenchimentoBarraCombo_35: 2888873031245285402
+      PreenchimentoBarraCombo_36: 4144456676449576740
+      PreenchimentoBarraCombo_37: -5772149932570118446
+      PreenchimentoBarraCombo_38: 4959350442751251833
+      PreenchimentoBarraCombo_39: 1802834139908583626
+      PreenchimentoBarraCombo_4: -8485202214904515314
+      PreenchimentoBarraCombo_40: -5757895478692346041
+      PreenchimentoBarraCombo_41: 4848676834428524206
+      PreenchimentoBarraCombo_42: 6366738194361292224
+      PreenchimentoBarraCombo_43: -2391608392065657170
+      PreenchimentoBarraCombo_44: 7328171120484706770
+      PreenchimentoBarraCombo_45: 2310997842282873244
+      PreenchimentoBarraCombo_46: -1631262440605226200
+      PreenchimentoBarraCombo_47: 6240063805335115967
+      PreenchimentoBarraCombo_48: -6336762847574288291
+      PreenchimentoBarraCombo_49: 7256510368957385756
+      PreenchimentoBarraCombo_5: 6046357574950538182
+      PreenchimentoBarraCombo_50: -3112749031063913487
+      PreenchimentoBarraCombo_51: 6950003001585694180
+      PreenchimentoBarraCombo_52: 2378120330915887597
+      PreenchimentoBarraCombo_53: 1244741521169337609
+      PreenchimentoBarraCombo_54: -5326042982486918624
+      PreenchimentoBarraCombo_55: -2716291221825018603
+      PreenchimentoBarraCombo_56: -7571365482763373158
+      PreenchimentoBarraCombo_57: -4343836526821540420
+      PreenchimentoBarraCombo_58: -4482010434581408349
+      PreenchimentoBarraCombo_59: -8797294985638463862
+      PreenchimentoBarraCombo_6: 2735012154586353282
+      PreenchimentoBarraCombo_60: -7258367320326359701
+      PreenchimentoBarraCombo_61: -974825066767280466
+      PreenchimentoBarraCombo_62: -5229052416145981194
+      PreenchimentoBarraCombo_63: -5155590254560036549
+      PreenchimentoBarraCombo_64: 2091795158280898336
+      PreenchimentoBarraCombo_65: 8597182586062447434
+      PreenchimentoBarraCombo_66: 8140614899418526946
+      PreenchimentoBarraCombo_67: 505900433808338372
+      PreenchimentoBarraCombo_68: 8897932374841541491
+      PreenchimentoBarraCombo_69: 2557369837903009305
+      PreenchimentoBarraCombo_7: -8030737132700642275
+      PreenchimentoBarraCombo_70: 8856914190180296212
+      PreenchimentoBarraCombo_71: 7523880473665595895
+      PreenchimentoBarraCombo_72: -266386442275709195
+      PreenchimentoBarraCombo_73: -1946607244531238041
+      PreenchimentoBarraCombo_74: -8498441942096799514
+      PreenchimentoBarraCombo_75: 6709515437717212170
+      PreenchimentoBarraCombo_76: -8170193107051486015
+      PreenchimentoBarraCombo_77: 4401881142360499090
+      PreenchimentoBarraCombo_78: 6438853772618186856
+      PreenchimentoBarraCombo_79: -1482234705797652391
+      PreenchimentoBarraCombo_8: -6528760528448061245
+      PreenchimentoBarraCombo_80: -52224460997969723
+      PreenchimentoBarraCombo_81: 6173724264707763767
+      PreenchimentoBarraCombo_82: 6506388191244156255
+      PreenchimentoBarraCombo_83: 3532655368112846188
+      PreenchimentoBarraCombo_84: -985134962287368633
+      PreenchimentoBarraCombo_85: 1347908527910189199
+      PreenchimentoBarraCombo_86: 7218423365322071856
+      PreenchimentoBarraCombo_87: -2252266348876486571
+      PreenchimentoBarraCombo_88: 8284569448774390954
+      PreenchimentoBarraCombo_89: 5269352614352714117
+      PreenchimentoBarraCombo_9: 5335749416178567332
+      PreenchimentoBarraCombo_90: -1598502955096553587
+      PreenchimentoBarraCombo_91: -7239610312504358598
+      PreenchimentoBarraCombo_92: 7135314801815513214
+      PreenchimentoBarraCombo_93: 2915787621470914588
+      PreenchimentoBarraCombo_94: 9172937235918972933
+      PreenchimentoBarraCombo_95: 250001660888196064
+      PreenchimentoBarraCombo_96: -6273392316808211714
+      PreenchimentoBarraCombo_97: -6863887378377844669
+      PreenchimentoBarraCombo_98: -5696466410945904258
+      PreenchimentoBarraCombo_99: 4151857309911287751
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
