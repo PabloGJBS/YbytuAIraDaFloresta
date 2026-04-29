@@ -1,0 +1,229 @@
+{
+    "_meta": {
+        "language": "English (US)",
+        "code": "en-US",
+        "author": "",
+        "version": "1.0"
+    },
+
+    "ui": {
+        "main_menu": {
+            "title": "Ybytu - Wrath of the Forest",
+            "play": "Play",
+            "options": "Options",
+            "quit": "Quit",
+            "language": "Language"
+        },
+        "save_select": {
+            "title": "Select Save",
+            "empty_slot": "Empty",
+            "delete": "Delete",
+            "back": "Back",
+            "new_game": "New Game",
+            "continue": "Continue"
+        },
+        "stage_select": {
+            "title": "Select Stage",
+            "locked": "Locked",
+            "best_score": "Best: {0}",
+            "play": "Start",
+            "back": "Back"
+        },
+        "pause": {
+            "title": "Paused",
+            "resume": "Resume",
+            "retry": "Restart",
+            "quit": "Quit to Menu"
+        },
+        "score": {
+            "title": "Results",
+            "score": "Score",
+            "time": "Time",
+            "rank": "Rank",
+            "best": "Record: {0}",
+            "new_record": "New Record!",
+            "continue": "Continue",
+            "retry": "Try Again"
+        },
+        "game_over": {
+            "title": "Game Over",
+            "retry": "Try Again",
+            "quit": "Quit to Menu",
+            "continue_cost": "Continue? ({0} lives remaining)"
+        },
+        "hud": {
+            "lives": "Lives",
+            "score": "Score",
+            "wave": "Wave {0}/{1}",
+            "combo": "Combo",
+            "rank_up": "Rank Up!",
+            "combo_break": "Combo Break!"
+        },
+        "options": {
+            "title": "Options",
+            "music_volume": "Music",
+            "sfx_volume": "Effects",
+            "fullscreen": "Fullscreen",
+            "language": "Language",
+            "back": "Back"
+        },
+        "credits": {
+            "title": "Credits",
+            "development": "Development",
+            "art": "Art",
+            "music": "Music",
+            "special_thanks": "Special Thanks",
+            "thanks": "Thank you for playing!"
+        },
+        "tutorial": {
+            "move": "Use {0} to move",
+            "punch": "Press {0} to punch",
+            "kick": "Press {0} to kick",
+            "jab": "Press {0} to jab",
+            "jump": "Press {0} to jump",
+            "combo_hint": "Chain hits to raise your combo rank!",
+            "skip": "Press any key to skip"
+        }
+    },
+
+    "cutscene": {
+        "intro": {
+            "scene_01": "Deep within the Amazon rainforest, an ancient force awakens...",
+            "scene_02": "Ybytu, guardian of the winds, senses a disturbance in nature's balance.",
+            "scene_03": "Corrupted creatures begin to emerge, threatening the forest's harmony.",
+            "scene_04": "It is time to act. The Wrath of the Forest shall be unleashed."
+        },
+        "final": {
+            "scene_01": "With the last enemy defeated, the forest begins to recover.",
+            "scene_02": "Ybytu feels nature's energy flowing in balance once more.",
+            "scene_03": "Peace returns, but the guardian knows he must remain vigilant.",
+            "scene_04": "For as long as the forest is threatened, Ybytu's Wrath stands ready."
+        },
+        "stage_01_intro": {
+            "scene_01": "Ybytu arrives at the forest entrance and finds traces of destruction.",
+            "scene_02": "The invaders are not far. It's time to defend this place."
+        },
+        "stage_01_outro": {
+            "scene_01": "The entrance is secure, but danger continues deeper into the forest.",
+            "scene_02": "Ybytu presses further into the woods."
+        },
+        "stage_02_intro": {
+            "scene_01": "In the heart of the forest, the darkness grows thicker.",
+            "scene_02": "The creatures here are stronger. Ybytu must proceed with caution."
+        },
+        "stage_02_outro": {
+            "scene_01": "The center is purified, but the source of corruption still exists.",
+            "scene_02": "It comes from somewhere deeper..."
+        },
+        "stage_03_intro": {
+            "scene_01": "The sacred spring... is completely corrupted.",
+            "scene_02": "A malevolent presence guards this place. The final confrontation approaches."
+        },
+        "stage_03_outro": {
+            "scene_01": "The creature falls, and the spring begins to glow once more.",
+            "scene_02": "The forest is saved... for now."
+        }
+    },
+
+    "stages": {
+        "stage_01": {
+            "name": "Forest Entrance",
+            "description": "The first invaders appear at the forest's edge."
+        },
+        "stage_02": {
+            "name": "Heart of the Woods",
+            "description": "Corruption spreads through the center of the forest."
+        },
+        "stage_03": {
+            "name": "Corrupted Spring",
+            "description": "The source of corruption is revealed at the sacred spring."
+        }
+    },
+
+    "character": {
+        "ybytu": {
+            "name": "Ybytu",
+            "battle_cry_01": "For the forest!",
+            "battle_cry_02": "You shall not pass!",
+            "hurt_01": "Argh!",
+            "hurt_02": "That... was nothing.",
+            "combo_rank_up": "I feel the forest's power!",
+            "combo_max": "The Wrath of the Forest!",
+            "death": "The forest... needs... me...",
+            "revive": "It's not over yet!",
+            "victory": "The forest is safe."
+        }
+    },
+
+    "dialogue": {
+        "npc_elder": {
+            "name": "Forest Elder",
+            "greeting": "Ybytu, I'm glad you came. The forest needs you.",
+            "hint_01": "Watch out for enemies that attack in groups. Use your combos!",
+            "hint_02": "The higher your combo, the stronger your hits become.",
+            "hint_03": "But be careful, with great power comes great vulnerability.",
+            "farewell": "Go with the forest's blessing, guardian."
+        },
+        "npc_spirit": {
+            "name": "Forest Spirit",
+            "greeting": "Guardian... I sense your presence.",
+            "hint_01": "The corrupted creatures fear the light of the spring.",
+            "farewell": "May the winds guide your path."
+        }
+    },
+
+    "enemy": {
+        "invader": {
+            "name": "Invader",
+            "taunt_01": "This forest will fall!",
+            "taunt_02": "You can't stop us!"
+        },
+        "invader_strong": {
+            "name": "Strong Invader",
+            "taunt_01": "I'm different from the others."
+        },
+        "boss_01": {
+            "name": "Forest Corruptor",
+            "intro": "So you're the famous guardian? Pathetic.",
+            "phase_02": "Time to get serious!",
+            "death": "Impossible... defeated by a forest creature..."
+        },
+        "boss_02": {
+            "name": "Shadow of the Spring",
+            "intro": "This spring is mine now. You're too late.",
+            "phase_02": "Feel the power of corruption!",
+            "death": "The light... it burns... no..."
+        }
+    },
+
+    "item": {
+        "health_small": {
+            "name": "Healing Fruit",
+            "description": "Restores a small amount of health."
+        },
+        "health_large": {
+            "name": "Life Fruit",
+            "description": "Restores a large amount of health."
+        },
+        "extra_life": {
+            "name": "Forest Blessing",
+            "description": "Grants an extra life."
+        },
+        "score_bonus": {
+            "name": "Golden Essence",
+            "description": "Increases score."
+        }
+    },
+
+    "system": {
+        "loading": "Loading...",
+        "saving": "Saving...",
+        "press_any_key": "Press any key",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "yes": "Yes",
+        "no": "No",
+        "delete_confirm": "Are you sure you want to delete this save?",
+        "quit_confirm": "Are you sure you want to quit?"
+    }
+}
