@@ -82,7 +82,12 @@
             "jab": "Press {0} to jab",
             "jump": "Press {0} to jump",
             "combo_hint": "Chain hits to raise your combo rank!",
-            "skip": "Press any key to skip"
+            "skip": "Press any key to skip",
+            "title": "Controls",
+            "controls_move": "WASD to move",
+            "controls_attack": "JKL to attack",
+            "controls_interact": "Space to interact with objects",
+            "back": "Back"
         }
     },
 
@@ -120,6 +125,15 @@
                 "01": "Ybytu: The Wrath of the Forest is fiction, but the struggle it portrays is not.",
                 "02": "This is the first version of the game, made with care and purpose.",
                 "03": "Thank you for playing and for testing."
+            },
+            "message": {
+                "01": "I hope this little story brought you a moment of reflection, player. There won't always be a hero to fight for the greater good; most of the time, there's only us: ordinary people, like you and me, capable of small actions.",
+                "02": "In such a vast world, a single gesture may seem insignificant. But every small act of good, added to so many others, becomes something enormous.",
+                "03": "Plant a tree and water it through the dry seasons. Years later, it may bear fruit for the children on the street or shelter that little bird that brightens the mornings. Walk without rushing and truly listen to the birds: feel the wind, soak up the sun, let the rain run down your face.",
+                "04": "Life is beautiful, and nature offers all of this for free. It costs nothing to pause for a moment and live it."
+            },
+            "ending": {
+                "01": "I hope this little story brought you a moment of reflection. There won't always be a hero to fight for the greater good. Most of the time, there's only us, ordinary people like you and me, capable of small actions.\n\nA single gesture may seem insignificant, but added to so many others it becomes something enormous. Plant a tree, truly listen to the birds, feel the wind and the sun. Life is beautiful, and nature offers all of this for free. It costs nothing to pause for a moment and live it.\n\nThank you for playing and for testing."
             }
         },
         "final": {

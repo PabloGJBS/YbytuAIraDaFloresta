@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyPunkDark_EnemyData
   m_EditorClassIdentifier: 
   enemyName: Enemy Punk Dark
-  maxHealth: 50
+  maxHealth: 40
   moveSpeed: 2.6
   patrolRadius: 3
   patrolWaitTime: 1

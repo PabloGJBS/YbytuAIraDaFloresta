@@ -62,6 +62,10 @@ public class GameHUD : MonoBehaviour
     [SerializeField] private float digitHeight = 40f;
     [SerializeField] private TMP_Text hitCountLabel;
 
+    [Header("Combo - Fade ao passar atras (como os props de frente)")]
+    [SerializeField, Range(0f, 1f)] private float comboFadedAlpha = 0.4f;
+    [SerializeField] private float comboFadeSpeed = 8f;
+
     [Header("Item - Inferior Direito")]
     [SerializeField] private Image itemIcon;
     [SerializeField] private TMP_Text itemCountText;
@@ -82,6 +86,11 @@ public class GameHUD : MonoBehaviour
     private int localScore;
     private bool useLocalScore;
 
+    private Transform playerTransform;
+    private CanvasGroup comboGroup;
+    private RectTransform comboFadeRect;
+    private Canvas hudCanvas;
+
     private void Start()
     {
         // Esconder wave info por padrao
@@ -93,6 +102,7 @@ public class GameHUD : MonoBehaviour
         UpdateComboBar(0f);
 
         SetupTextLabels();
+        SetupComboFade();
         EnemyController.OnAnyEnemyDied += HandleAnyEnemyDied;
 
         FindPlayer();
@@ -110,6 +120,42 @@ public class GameHUD : MonoBehaviour
         UnsubscribeStage();
     }
 
+    private void Update()
+    {
+        UpdateComboFade();
+    }
+
+    private void SetupComboFade()
+    {
+        if (comboContainer == null) return;
+        comboGroup = comboContainer.GetComponent<CanvasGroup>();
+        if (comboGroup == null) comboGroup = comboContainer.AddComponent<CanvasGroup>();
+        comboFadeRect = comboRankImage != null ? comboRankImage.rectTransform
+                                               : comboContainer.GetComponent<RectTransform>();
+        hudCanvas = comboContainer.GetComponentInParent<Canvas>();
+    }
+
+    /// <summary>
+    /// Deixa o combo (rank/barra/hits) semitransparente quando o player passa por tras
+    /// dele na tela, igual aos props frontais.
+    /// </summary>
+    private void UpdateComboFade()
+    {
+        if (comboGroup == null || comboFadeRect == null || playerTransform == null) return;
+        if (comboContainer != null && !comboContainer.activeSelf) return;
+
+        var cam = Camera.main;
+        if (cam == null) return;
+
+        Vector2 screenPoint = cam.WorldToScreenPoint(playerTransform.position + Vector3.up * 1f);
+        Camera uiCam = (hudCanvas != null && hudCanvas.renderMode != RenderMode.ScreenSpaceOverlay)
+            ? hudCanvas.worldCamera : null;
+        bool behind = RectTransformUtility.RectangleContainsScreenPoint(comboFadeRect, screenPoint, uiCam);
+
+        float target = behind ? comboFadedAlpha : 1f;
+        comboGroup.alpha = Mathf.MoveTowards(comboGroup.alpha, target, comboFadeSpeed * Time.deltaTime);
+    }
+
     private void HandleAnyEnemyDied(int score)
     {
         if (!useLocalScore) return;
@@ -122,6 +168,36 @@ public class GameHUD : MonoBehaviour
         livesLabel = EnsureLabel(livesLabel, livesContainer, "x3", livesDigitHeight, TextAlignmentOptions.MidlineRight);
         scoreLabel = EnsureLabel(scoreLabel, scoreContainer, "0", scoreDigitHeight, TextAlignmentOptions.MidlineRight);
         hitCountLabel = EnsureLabel(hitCountLabel, hitCountContainer, "0", digitHeight, TextAlignmentOptions.Center);
+        BuildLifeIcon();
+    }
+
+    // Recria o icone (rosto do Ybytu) a esquerda do contador de vidas. O EnsureLabel limpa
+    // os filhos do container, entao o icone precisa ser criado depois dele.
+    private void BuildLifeIcon()
+    {
+        if (livesContainer == null || lifeIconSprite == null) return;
+        if (livesContainer.Find("LifeIcon") != null) return;
+
+        var go = new GameObject("LifeIcon", typeof(RectTransform), typeof(Image));
+        var rt = go.GetComponent<RectTransform>();
+        rt.SetParent(livesContainer, false);
+        rt.anchorMin = new Vector2(0f, 0.5f);
+        rt.anchorMax = new Vector2(0f, 0.5f);
+        rt.pivot = new Vector2(0f, 0.5f);
+        rt.sizeDelta = new Vector2(lifeIconHeight, lifeIconHeight);
+        rt.anchoredPosition = Vector2.zero;
+
+        var img = go.GetComponent<Image>();
+        img.sprite = lifeIconSprite;
+        img.preserveAspect = true;
+        img.raycastTarget = false;
+
+        // Empurra o "xN" pra direita do icone pra nao sobrepor.
+        if (livesLabel != null)
+        {
+            var lrt = livesLabel.rectTransform;
+            lrt.offsetMin = new Vector2(lifeIconHeight + 8f, lrt.offsetMin.y);
+        }
     }
 
     private static TMP_Text EnsureLabel(TMP_Text existing, RectTransform parent, string initial, float height, TextAlignmentOptions align)
@@ -163,6 +239,7 @@ public class GameHUD : MonoBehaviour
         var player = GameObject.FindGameObjectWithTag("Player");
         if (player == null) return;
 
+        playerTransform = player.transform;
         playerCombat = player.GetComponent<PlayerCombatManager>();
         combo = player.GetComponent<ComboSystem>();
         health = player.GetComponent<HealthSystem>();

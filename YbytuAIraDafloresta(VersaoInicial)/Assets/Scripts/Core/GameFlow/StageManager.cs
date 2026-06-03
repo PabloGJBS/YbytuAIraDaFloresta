@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 /// <summary>
 /// Gerenciador de uma fase (stage) em execucao.
@@ -17,6 +18,8 @@ public class StageManager : MonoBehaviour
     [Header("Recompensa ao limpar zona")]
     [Tooltip("Fracao da vida maxima curada ao concluir cada zona de combate.")]
     [SerializeField, Range(0f, 1f)] private float healPercentPerZone = 0.15f;
+    [Tooltip("Fracao da vida maxima curada ao derrotar cada inimigo.")]
+    [SerializeField, Range(0f, 1f)] private float healPercentPerKill = 0.01f;
     [Tooltip("Pontos por ponto de vida excedente quando a vida ja esta cheia.")]
     [SerializeField] private int overflowPointsPerHp = 10;
 
@@ -73,6 +76,49 @@ public class StageManager : MonoBehaviour
         }
 
         OnStageStarted?.Invoke();
+
+        ResumeFromCheckpointIfAny();
+    }
+
+    /// <summary>
+    /// Continuar apos morrer: marca as zonas anteriores ao checkpoint como limpas e
+    /// reposiciona o player na entrada da zona onde ele morreu (em vez do inicio da fase).
+    /// </summary>
+    private void ResumeFromCheckpointIfAny()
+    {
+        if (GameFlowManager.Instance == null || !GameFlowManager.Instance.HasStageCheckpoint) return;
+        if (combatZones == null || combatZones.Length == 0) return;
+
+        int checkpoint = Mathf.Clamp(GameFlowManager.Instance.StageCheckpointZone, 0, combatZones.Length - 1);
+        if (checkpoint <= 0) return;
+
+        for (int i = 0; i < checkpoint; i++)
+            if (combatZones[i] != null) combatZones[i].SkipAsCleared();
+
+        currentZoneIndex = checkpoint;
+        StartCoroutine(RepositionToCheckpoint(checkpoint));
+    }
+
+    private IEnumerator RepositionToCheckpoint(int checkpoint)
+    {
+        yield return null; // deixa o PlayerController.Start aplicar o spawn antes de reposicionar
+
+        var zone = combatZones[checkpoint];
+        if (zone == null) yield break;
+
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) yield break;
+
+        float entranceX = zone.transform.position.x;
+        var col = zone.GetComponent<BoxCollider2D>();
+        if (col != null) entranceX += col.offset.x - col.size.x * 0.5f;
+
+        var p = player.transform.position;
+        player.transform.position = new Vector3(entranceX - 2f, p.y, p.z);
+
+        // Snapa a camera no player pra nao fazer o pan/viagem desde o inicio da fase.
+        var camCtrl = Camera.main != null ? Camera.main.GetComponent<CameraController>() : null;
+        if (camCtrl != null) camCtrl.SnapToTarget();
     }
 
     private void HandleEnemyKilled(int scoreValue)
@@ -80,6 +126,19 @@ public class StageManager : MonoBehaviour
         totalScore += scoreValue;
         enemiesKilled++;
         OnScoreChanged?.Invoke(totalScore);
+        HealPlayerOnKill();
+    }
+
+    /// <summary>Cura uma fracao pequena da vida do player a cada inimigo derrotado.</summary>
+    private void HealPlayerOnKill()
+    {
+        if (healPercentPerKill <= 0f) return;
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) return;
+        var hp = player.GetComponentInChildren<HealthSystem>();
+        if (hp == null) return;
+        int amount = Mathf.Max(1, Mathf.RoundToInt(hp.MaxHealth * healPercentPerKill));
+        hp.Heal(amount);
     }
 
     private void HandleZoneCompleted(CombatZone zone)

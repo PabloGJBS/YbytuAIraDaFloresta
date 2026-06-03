@@ -259,7 +259,7 @@ Transform:
   m_GameObject: {fileID: 767404709}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: -115, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -363,7 +363,7 @@ Transform:
   m_GameObject: {fileID: 848053152}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: -1, z: 0}
+  m_LocalPosition: {x: -20, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -416,7 +416,7 @@ Transform:
   m_GameObject: {fileID: 990079186}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25, y: -1, z: 0}
+  m_LocalPosition: {x: -60, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -454,7 +454,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2656888869084268315, guid: 6560316e5ed66ca468ce33458b0bf4f2, type: 3}
   spawnOffset: {x: 0, y: 0}
   respawnDelay: 1.5
-  spawnOnStart: 1
+  spawnOnStart: 0
   halfSize: {x: 22, y: 3.5}
   gizmoColor: {r: 1, g: 0.9, b: 0.2, a: 0.25}
   sizeOverride: {x: 0, y: 0}
@@ -507,7 +507,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2656888869084268315, guid: 5d1eddbaacc30c5428b5bff883c70936, type: 3}
   spawnOffset: {x: 0, y: 0}
   respawnDelay: 1.5
-  spawnOnStart: 1
+  spawnOnStart: 0
   halfSize: {x: 10, y: 3.5}
   gizmoColor: {r: 1, g: 0.9, b: 0.2, a: 0.25}
   sizeOverride: {x: 0, y: 0}
@@ -672,6 +672,63 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1001 &1599439662
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6626017632138359080, guid: ace3fb7a1860061409aa8ed27b26f31e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626017632138359080, guid: ace3fb7a1860061409aa8ed27b26f31e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626017632138359080, guid: ace3fb7a1860061409aa8ed27b26f31e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626017632138359080, guid: ace3fb7a1860061409aa8ed27b26f31e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626017632138359080, guid: ace3fb7a1860061409aa8ed27b26f31e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626017632138359080, guid: ace3fb7a1860061409aa8ed27b26f31e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626017632138359080, guid: ace3fb7a1860061409aa8ed27b26f31e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626017632138359080, guid: ace3fb7a1860061409aa8ed27b26f31e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626017632138359080, guid: ace3fb7a1860061409aa8ed27b26f31e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626017632138359080, guid: ace3fb7a1860061409aa8ed27b26f31e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006808514906246103, guid: ace3fb7a1860061409aa8ed27b26f31e, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ace3fb7a1860061409aa8ed27b26f31e, type: 3}
 --- !u!1 &1728667921
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,7 +792,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2656888869084268315, guid: 1e16fb446b58c134e83120536b4b524f, type: 3}
   spawnOffset: {x: 0, y: 0}
   respawnDelay: 1.5
-  spawnOnStart: 1
+  spawnOnStart: 0
   halfSize: {x: 22, y: 3.5}
   gizmoColor: {r: 1, g: 0.9, b: 0.2, a: 0.25}
   sizeOverride: {x: 0, y: 0}
@@ -788,7 +845,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 3206555071603205038, guid: 7fa9aaaf64ceea14cb1795627b827a38, type: 3}
   spawnOffset: {x: 0, y: 0}
   respawnDelay: 1.5
-  spawnOnStart: 1
+  spawnOnStart: 0
   halfSize: {x: 22, y: 3.5}
   gizmoColor: {r: 1, g: 0.9, b: 0.2, a: 0.25}
   sizeOverride: {x: 0, y: 0}
@@ -841,7 +898,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 3206555071603205038, guid: 0efe91443a5e0284e88aaeb4752f9548, type: 3}
   spawnOffset: {x: 0, y: 0}
   respawnDelay: 1.5
-  spawnOnStart: 1
+  spawnOnStart: 0
   halfSize: {x: 10, y: 3.5}
   gizmoColor: {r: 1, g: 0.9, b: 0.2, a: 0.25}
   sizeOverride: {x: 0, y: 0}
@@ -935,3 +992,4 @@ SceneRoots:
   - {fileID: 990079188}
   - {fileID: 1161109549}
   - {fileID: 2061239329}
+  - {fileID: 1599439662}

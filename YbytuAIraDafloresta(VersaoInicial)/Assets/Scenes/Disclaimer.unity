@@ -384,7 +384,8 @@ MonoBehaviour:
   creditsScene: Credits
   finalCutsceneScene: OutroCutscene
   stages:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 750a128df4240204a9f3806906ed81ca, type: 2}
+  startingLives: 3
 --- !u!4 &1664239190
 Transform:
   m_ObjectHideFlags: 0

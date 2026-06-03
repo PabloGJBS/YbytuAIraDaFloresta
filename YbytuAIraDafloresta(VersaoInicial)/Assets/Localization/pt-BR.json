@@ -84,7 +84,12 @@
             "jab": "Pressione {0} para jab",
             "jump": "Pressione {0} para pular",
             "combo_hint": "Acerte golpes em sequência para subir o combo!",
-            "skip": "Pressione qualquer tecla para pular"
+            "skip": "Pressione qualquer tecla para pular",
+            "title": "Controles",
+            "controls_move": "WASD para movimentar",
+            "controls_attack": "JKL para golpes",
+            "controls_interact": "Espaço para interagir com objetos",
+            "back": "Voltar"
         }
     },
 
@@ -142,6 +147,15 @@
                 "01": "Ybytu: A Ira da Floresta é ficção, mas a luta que ela retrata não é.",
                 "02": "Esta é a primeira versão do jogo, feita com cuidado e propósito.",
                 "03": "Obrigado por jogar e por testar."
+            },
+            "message": {
+                "01": "Espero que essa pequena história tenha trazido uma reflexão a você, jogador. Nem sempre vai existir um herói para lutar pelo bem maior, na maioria das vezes, existimos só nós pessoas comuns, como eu e você, capazes de pequenas ações.",
+                "02": "Num mundo tão grande, um único gesto pode parecer insignificante. Mas cada pequena ação pelo bem, somada a tantas outras, se transforma em algo enorme.",
+                "03": "Plante uma árvore e regue ela nas secas. Anos depois, ela pode dar frutos para as crianças da rua ou abrigar aquele bem-te-vi que alegra as manhãs. Caminhe sem pressa e escute os pássaros de verdade, sinta o vento, tome sol, deixe a chuva escorrer no rosto.",
+                "04": "A vida é linda, e a natureza oferece tudo isso de graça. Não custa nada parar um instante para viver esses momentos."
+            },
+            "ending": {
+                "01": "Espero que essa pequena história tenha trazido uma reflexão a você. Nem sempre vai existir um herói para lutar pelo bem maior. Na maioria das vezes, existimos só nós, pessoas comuns como eu e você, capazes de pequenas ações.\n\nUm gesto sozinho pode parecer insignificante, mas somado a tantos outros se transforma em algo enorme. Plante uma árvore, escute os pássaros de verdade, sinta o vento e o sol. A vida é linda, e a natureza oferece tudo isso de graça. Não custa nada parar um instante para viver esses momentos.\n\nObrigado por jogar e por testar."
             }
         },
         "final": {

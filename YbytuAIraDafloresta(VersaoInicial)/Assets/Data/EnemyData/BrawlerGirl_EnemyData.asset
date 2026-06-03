@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BrawlerGirl_EnemyData
   m_EditorClassIdentifier: 
   enemyName: Brawler
-  maxHealth: 140
+  maxHealth: 112
   moveSpeed: 2
   patrolRadius: 2.5
   patrolWaitTime: 1.5

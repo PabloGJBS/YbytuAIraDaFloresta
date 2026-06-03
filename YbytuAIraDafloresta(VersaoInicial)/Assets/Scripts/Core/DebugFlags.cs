@@ -8,4 +8,7 @@ public static class DebugFlags
 {
     public static bool ShowColliders = true;
     public static bool ShowAttackHitbox = true;
+
+    /// <summary>Player nao recebe dano (debug). Padrao false. Toggle em runtime: F4.</summary>
+    public static bool Godmode = false;
 }

@@ -91,7 +91,8 @@ public class EducationalMarker : MonoBehaviour
     {
         used = true;
         SetHighlight(false); // ja interagiu: apaga o brilho
-        EducationalBanner.Show(phrase, holdSeconds);
+        // Interativo (tronco) abre modal: rodape, freeze do player e so sai no "continuar".
+        EducationalBanner.Show(phrase, holdSeconds, requireInteraction);
     }
 
     private void ShowPrompt(bool on)
@@ -100,14 +101,18 @@ public class EducationalMarker : MonoBehaviour
         {
             if (promptGo != null) return;
             promptGo = new GameObject("ReadPrompt", typeof(TextMeshPro));
-            promptGo.transform.position = transform.position + Vector3.up * 1.6f;
+            promptGo.transform.position = transform.position + Vector3.up * 2.2f;
             var tmp = promptGo.GetComponent<TextMeshPro>();
             tmp.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
             tmp.text = "Espaço para ler";
-            tmp.fontSize = 2.2f;
+            tmp.fontSize = 2.8f;
+            tmp.fontStyle = FontStyles.Bold;
             tmp.alignment = TextAlignmentOptions.Center;
-            tmp.color = new Color(0.7f, 1f, 0.6f);
-            tmp.sortingOrder = 60;
+            tmp.color = new Color(0.85f, 1f, 0.65f);
+            tmp.outlineWidth = 0.22f;
+            tmp.outlineColor = new Color32(0, 0, 0, 255);
+            // Bem acima de tudo (o tronco passa a ~213 no YSort). Sempre legivel na frente.
+            tmp.sortingOrder = 1000;
         }
         else if (promptGo != null)
         {

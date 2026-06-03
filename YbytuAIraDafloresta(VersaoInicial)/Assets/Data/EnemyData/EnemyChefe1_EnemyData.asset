@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyChefe1_EnemyData
   m_EditorClassIdentifier: 
   enemyName: Chefe 1
-  maxHealth: 350
+  maxHealth: 280
   moveSpeed: 2.3
   patrolRadius: 3.5
   patrolWaitTime: 1.4
@@ -26,7 +26,6 @@ MonoBehaviour:
   hurtRecoveryTime: 0.8
   attackTriggers:
   - Attack
-  - Jab
   isBoss: 1
   usesGunshotSfx: 1
   spawnBarks:
@@ -34,5 +33,10 @@ MonoBehaviour:
   - Olha quem voltou pra apanhar de novo.
   - Achou que tinha acabado? Mal começou.
   - De novo você? Dessa vez não escapa.
+  shotBarks:
+  - Morre logo de uma vez!
+  - Chega de brincadeira!
+  - Toma essa, moleque!
+  - Fim da linha pra você!
   scoreValue: 6000
   behaviorType: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyChefe1Black_EnemyData
   m_EditorClassIdentifier: 
   enemyName: Chefe 1 Black
-  maxHealth: 350
+  maxHealth: 280
   moveSpeed: 2.3
   patrolRadius: 3.5
   patrolWaitTime: 1.4
@@ -26,7 +26,6 @@ MonoBehaviour:
   hurtRecoveryTime: 0.8
   attackTriggers:
   - Attack
-  - Jab
   isBoss: 1
   usesGunshotSfx: 1
   spawnBarks:
@@ -34,5 +33,10 @@ MonoBehaviour:
   - Devia ter ficado no chão, moleque.
   - Vou terminar o que o outro não conseguiu.
   - Esse é o fim da sua trilha.
+  shotBarks:
+  - Some da minha frente!
+  - Acabou a farra!
+  - Engole chumbo!
+  - Você pediu por isso!
   scoreValue: 6000
   behaviorType: 0

@@ -27,7 +27,7 @@ MonoBehaviour:
   enemyHurt: {fileID: 8300000, guid: bced8a43aa1571842aac5bab6a917197, type: 3}
   enemyDeath: {fileID: 0}
   enemyAlert: {fileID: 0}
-  enemyGunshot: {fileID: 8300000, guid: 525da7e15f4bc1341b330eb909effa3b, type: 3}
+  enemyGunshot: {fileID: 8300000, guid: d38c00fe0473ec9498620f84465aff4a, type: 3}
   hitConnect: {fileID: 0}
   comboRankUp:
   - {fileID: 8300000, guid: 11210e7d5d3e16c4bb8e2473237b2397, type: 3}

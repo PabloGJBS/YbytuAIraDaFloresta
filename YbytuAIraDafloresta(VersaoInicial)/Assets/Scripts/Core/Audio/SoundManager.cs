@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Singleton de audio. Carrega o SoundLibrary, mantem 1 AudioSource para BGM
@@ -27,9 +28,14 @@ public class SoundManager : MonoBehaviour
 
     [Header("BGM")]
     [SerializeField] private float bgmFadeDuration = 1f;
+    [Tooltip("Volume geral da musica (0..1). 0.8 = 80%.")]
+    [SerializeField, Range(0f, 1f)] private float bgmVolume = 0.8f;
 
     private AudioSource bgmSource;
     private AudioSource[] sfxPool;
+
+    // Posicao (em segundos) de cada faixa de BGM, pra retomar de onde parou ao voltar.
+    private readonly Dictionary<AudioClip, float> bgmPositions = new Dictionary<AudioClip, float>();
 
     public SoundLibrary Library => library;
     public AudioMixerGroup SfxGroup => sfxGroup;
@@ -131,12 +137,22 @@ public class SoundManager : MonoBehaviour
 
     public void StopBGM()
     {
+        SaveCurrentBgmPosition();
         StopAllCoroutines();
         StartCoroutine(FadeOutBGM());
     }
 
+    private void SaveCurrentBgmPosition()
+    {
+        if (bgmSource != null && bgmSource.clip != null && bgmSource.isPlaying)
+            bgmPositions[bgmSource.clip] = bgmSource.time;
+    }
+
     private IEnumerator SwapBGM(AudioClip newClip, bool loop)
     {
+        // Salva onde a faixa atual parou antes de troca-la.
+        SaveCurrentBgmPosition();
+
         if (bgmSource.isPlaying)
             yield return FadeOutBGM();
 
@@ -144,16 +160,22 @@ public class SoundManager : MonoBehaviour
         bgmSource.loop = loop;
         if (newClip == null) yield break;
 
+        // Retoma de onde parou (se essa faixa ja tocou antes); senao do inicio.
+        float resumeAt = 0f;
+        if (bgmPositions.TryGetValue(newClip, out float saved))
+            resumeAt = Mathf.Clamp(saved, 0f, Mathf.Max(0f, newClip.length - 0.1f));
+
         bgmSource.volume = 0f;
+        bgmSource.time = resumeAt;
         bgmSource.Play();
         float t = 0f;
         while (t < bgmFadeDuration)
         {
             t += Time.unscaledDeltaTime;
-            bgmSource.volume = Mathf.Clamp01(t / bgmFadeDuration);
+            bgmSource.volume = Mathf.Clamp01(t / bgmFadeDuration) * bgmVolume;
             yield return null;
         }
-        bgmSource.volume = 1f;
+        bgmSource.volume = bgmVolume;
     }
 
     private IEnumerator FadeOutBGM()

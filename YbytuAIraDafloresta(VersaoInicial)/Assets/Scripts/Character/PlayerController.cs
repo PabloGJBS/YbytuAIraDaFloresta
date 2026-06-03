@@ -56,6 +56,17 @@ public class PlayerController : MonoBehaviour
 
     public bool IsPushingUpAtBoundary { get; private set; }
 
+    /// <summary>Trava global de input/movimento do player (ex.: banner educativo modal).</summary>
+    public static bool InputFrozen;
+
+    [Header("Esquiva (Pulo)")]
+    [Tooltip("Fracao inicial do pulo em que o player fica invulneravel (esquiva). 0.7 = 70% do pulo.")]
+    [SerializeField] private float dodgeInvulnFraction = 0.7f;
+
+    /// <summary>True durante a janela de i-frames do pulo: o pulo serve como esquiva.</summary>
+    public bool IsInvulnerable =>
+        isJumping && jumpDuration > 0f && (jumpTimer / jumpDuration) <= dodgeInvulnFraction;
+
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -97,6 +108,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        InputFrozen = false;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -184,6 +196,14 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (InputFrozen)
+        {
+            moveInput = Vector2.zero;
+            if (animator != null) animator.SetFloat(SpeedHash, 0f);
+            HandleFootsteps();
+            return;
+        }
+
         if (hurtStunTimer > 0f) hurtStunTimer -= Time.deltaTime;
         if (hurtNoAttackTimer > 0f) hurtNoAttackTimer -= Time.deltaTime;
 
@@ -204,11 +224,20 @@ public class PlayerController : MonoBehaviour
 
         // Se estava atacando, verificar se a animacao de ataque terminou
         if (isAttacking && !stateInfo.IsTag(AttackTag))
+        {
             isAttacking = false;
+            animator.speed = 1f; // restaura velocidade apos o golpe (ex.: chute acelerado)
+        }
     }
 
     private void FixedUpdate()
     {
+        if (InputFrozen)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         if (hurtStunTimer > 0f)
         {
             rb.linearVelocity = Vector2.zero;
@@ -342,6 +371,8 @@ public class PlayerController : MonoBehaviour
         currentAttackDamage = damage;
         rb.linearVelocity = Vector2.zero;
         animator.SetTrigger(triggerHash);
+        // Chute 15% mais rapido que os demais golpes (so afeta o animator do player).
+        animator.speed = (triggerHash == KickHash) ? 1.15f : 1f;
 
         var sm = SoundManager.Instance;
         if (sm != null && sm.Library != null)
@@ -410,6 +441,7 @@ public class PlayerController : MonoBehaviour
     public void OnAttackEnd()
     {
         isAttacking = false;
+        animator.speed = 1f;
     }
 
     /// <summary>
@@ -429,6 +461,7 @@ public class PlayerController : MonoBehaviour
     public void TakeHit()
     {
         isAttacking = false;
+        animator.speed = 1f;
         animator.SetTrigger(HurtHash);
         hurtStunTimer = hurtStunDuration;
         hurtNoAttackTimer = hurtNoAttackDuration;

@@ -34,6 +34,7 @@ public class CutsceneTextPlayer : MonoBehaviour
     private bool isTyping;
     private bool isPlaying;
     private Coroutine typingCoroutine;
+    private AudioSource typingSource;
 
     public bool IsPlaying => isPlaying;
     public int CurrentIndex => currentIndex;
@@ -41,6 +42,13 @@ public class CutsceneTextPlayer : MonoBehaviour
 
     public event Action OnAllTextsFinished;
     public event Action<int> OnTextStarted;
+
+    private void Awake()
+    {
+        typingSource = gameObject.AddComponent<AudioSource>();
+        typingSource.playOnAwake = false;
+        typingSource.loop = false;
+    }
 
     private void Start()
     {
@@ -121,6 +129,7 @@ public class CutsceneTextPlayer : MonoBehaviour
             StopCoroutine(typingCoroutine);
             typingCoroutine = null;
         }
+        if (typingSource != null) typingSource.Stop();
         isTyping = false;
         if (displayText != null)
             displayText.text = "";
@@ -158,11 +167,7 @@ public class CutsceneTextPlayer : MonoBehaviour
             displayText.text += c;
             // Blip de digitacao a cada 2 caracteres visiveis (evita metralhar o SFX).
             if (!char.IsWhiteSpace(c) && (typed++ % 2 == 0))
-            {
-                var sm = SoundManager.Instance;
-                if (sm != null && sm.Library != null && sm.Library.dialogueType != null)
-                    sm.PlaySFX(sm.Library.dialogueType, 0.5f);
-            }
+                PlayTypeBlip();
             yield return new WaitForSeconds(charDelay);
         }
 
@@ -178,10 +183,23 @@ public class CutsceneTextPlayer : MonoBehaviour
         }
     }
 
+    // SFX de digitacao tocado num AudioSource dedicado, pra poder ser cortado ao pular o texto.
+    private void PlayTypeBlip()
+    {
+        var sm = SoundManager.Instance;
+        if (sm == null || sm.Library == null || sm.Library.dialogueType == null) return;
+        if (typingSource.outputAudioMixerGroup == null)
+            typingSource.outputAudioMixerGroup = sm.SfxGroup;
+        typingSource.pitch = 1f + UnityEngine.Random.Range(-0.04f, 0.04f);
+        typingSource.PlayOneShot(sm.Library.dialogueType, 0.5f);
+    }
+
     private void SkipTyping()
     {
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
+
+        if (typingSource != null) typingSource.Stop(); // corta o SFX de digitacao ao pular
 
         if (currentIndex < texts.Length)
             displayText.text = texts[currentIndex];

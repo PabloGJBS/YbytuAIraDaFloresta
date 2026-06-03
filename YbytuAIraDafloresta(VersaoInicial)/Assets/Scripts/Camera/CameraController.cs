@@ -91,8 +91,28 @@ public class CameraController : MonoBehaviour
         if (target != null) playerRef = target.GetComponent<PlayerController>();
         baseCameraY = transform.position.y;
 
-        if (playIntroOnStart && target != null)
+        // Em "Continuar" (retomando de checkpoint) nao toca o pan de intro: a camera e
+        // snapada direto no player reposicionado (StageManager.RepositionToCheckpoint).
+        bool resuming = GameFlowManager.Instance != null && GameFlowManager.Instance.HasStageCheckpoint;
+        if (playIntroOnStart && target != null && !resuming)
             BeginIntroPan();
+    }
+
+    /// <summary>
+    /// Snapa a camera imediatamente no target (sem pan/lerp). Usado ao retomar de checkpoint.
+    /// </summary>
+    public void SnapToTarget()
+    {
+        if (target == null) return;
+        isIntroPanning = false;
+        if (frozenPlayer != null) { frozenPlayer.enabled = true; frozenPlayer = null; }
+
+        float x = target.position.x + followOffset.x;
+        if (useStageBounds)
+            x = Mathf.Clamp(x, stageMinX + cameraHalfWidth, stageMaxX - cameraHalfWidth);
+        float verticalFollow = Mathf.Max(0f, (target.position.y - verticalAnchorY) * verticalFollowStrength);
+        float y = baseCameraY + verticalFollow;
+        transform.position = new Vector3(x, y, transform.position.z);
     }
 
     private void BeginIntroPan()

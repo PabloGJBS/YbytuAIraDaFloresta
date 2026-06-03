@@ -437,6 +437,23 @@ public class CombatZone : MonoBehaviour
     }
 
     /// <summary>
+    /// Marca a zona como ja limpa SEM tocar waves/eventos. Usado ao retomar de um
+    /// checkpoint: as zonas anteriores ao checkpoint ja contam como concluidas e
+    /// nao reativam quando o player passa por elas.
+    /// </summary>
+    public void SkipAsCleared()
+    {
+        isActive = false;
+        isCompleted = true;
+        SetBarriersActive(false);
+
+        // Esconde os inimigos idle ja posicionados (a zona nao vai mais ativa-los).
+        if (startingEnemies != null)
+            foreach (var e in startingEnemies)
+                if (e != null) e.gameObject.SetActive(false);
+    }
+
+    /// <summary>
     /// Forcar o fim da zona (debug, cutscene, etc).
     /// </summary>
     public void ForceComplete()

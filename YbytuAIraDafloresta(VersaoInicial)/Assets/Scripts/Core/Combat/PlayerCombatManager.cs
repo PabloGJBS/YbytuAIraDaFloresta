@@ -61,6 +61,12 @@ public class PlayerCombatManager : MonoBehaviour
     /// </summary>
     public void ReceiveDamage(int baseDamage)
     {
+        if (DebugFlags.Godmode) return; // teste: player nao morre (toggle F4)
+
+        // Esquiva: durante a janela de i-frames do pulo, o golpe nao acerta.
+        if (playerController != null && playerController.IsInvulnerable)
+            return;
+
         float multiplier = combo.DamageTakenMultiplier;
         health.TakeDamage(baseDamage, multiplier);
         combo.OnPlayerHurt();
@@ -77,9 +83,9 @@ public class PlayerCombatManager : MonoBehaviour
     private void HandleDeath()
     {
         OnPlayerDied?.Invoke();
-        // Sem auto-revive: apos a animacao de morte, dispara o Game Over.
+        // Sem auto-revive: apos um breve beat da animacao de morte, dispara o Game Over.
         // O overlay (GameOverController) decide entre Continuar (custa uma vida) ou Desistir.
-        Invoke(nameof(HandleGameOver), 1.2f);
+        Invoke(nameof(HandleGameOver), 0.6f);
     }
 
     private void HandleGameOver()

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyGangster2_EnemyData
   m_EditorClassIdentifier: 
   enemyName: Gangster 2
-  maxHealth: 80
+  maxHealth: 64
   moveSpeed: 3
   patrolRadius: 3
   patrolWaitTime: 1

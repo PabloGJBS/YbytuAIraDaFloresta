@@ -47,6 +47,17 @@ public class EnemyController : MonoBehaviour, IDamageable
     private bool hasAttackSlot;
     private int currentSlotIndex = -1;
 
+    // Combo-break: ao tomar N golpes seguidos, o inimigo sai do stun, telegrafa
+    // (brilho vermelho + "!") e revida. Chefe = tiro em linha; normal = contra-ataque melee.
+    private int consecutiveHits;
+    private float lastHitTime;
+    private bool retaliating;
+    private const int HitsToBreakBoss = 8;
+    private const int HitsToBreakNormal = 5;
+    private const float ConsecutiveResetTime = 1.5f; // hits muito espacados nao contam como "seguidos"
+
+    private int HitsToBreak => (data != null && data.isBoss) ? HitsToBreakBoss : HitsToBreakNormal;
+
     // Posicoes relativas ao player onde cada slot de atacante se posiciona.
     // Index 0..3 cobre os 4 lados, com leve variacao vertical pra evitar empilhamento exato.
     // X menor que o attackRange minimo dos enemies (1.2) pra que o chase pare dentro do range
@@ -61,6 +72,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     // Animator hashes
     private static readonly int SpeedHash = Animator.StringToHash("Speed");
     private static readonly int AttackHash = Animator.StringToHash("Attack");
+    private static readonly int JabHash = Animator.StringToHash("Jab");
     private static readonly int HurtHash = Animator.StringToHash("Hurt");
 
     public EnemyData Data => data;
@@ -128,6 +140,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     protected virtual void FixedUpdate()
     {
         if (currentState == EnemyState.Dead) return;
+        if (retaliating) { rb.linearVelocity = Vector2.zero; return; }
 
         switch (currentState)
         {
@@ -180,6 +193,8 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     protected virtual void UpdateState()
     {
+        if (retaliating) return; // o tiro do chefe controla o estado durante a retaliacao
+
         stateTimer += Time.deltaTime;
         attackCooldownTimer -= Time.deltaTime;
 
@@ -346,14 +361,11 @@ public class EnemyController : MonoBehaviour, IDamageable
         animator.SetTrigger(trigger);
         attackCooldownTimer = data.attackCooldown;
 
+        // Ataque normal sempre toca soco. O som de tiro fica exclusivo do tiro em linha
+        // (FireLineShot), pra nao parecer que todo golpe do chefe e um disparo.
         var sm = SoundManager.Instance;
-        if (sm != null && sm.Library != null)
-        {
-            var atkClip = data.usesGunshotSfx && sm.Library.enemyGunshot != null
-                ? sm.Library.enemyGunshot
-                : sm.Library.enemyPunch;
-            sm.PlaySFX(atkClip);
-        }
+        if (sm != null && sm.Library != null && sm.Library.enemyPunch != null)
+            sm.PlaySFX(sm.Library.enemyPunch);
     }
 
     /// <summary>
@@ -374,12 +386,30 @@ public class EnemyController : MonoBehaviour, IDamageable
     private void HandleDamageTaken(int damage)
     {
         if (currentState == EnemyState.Dead) return;
-        ChangeState(EnemyState.Hurt);
-        animator.SetTrigger(HurtHash);
 
-        // Janela de recuperacao: nao ataca imediatamente apos ser atingido,
-        // permitindo que o player encadeie golpes para subir o combo.
-        attackCooldownTimer = Mathf.Max(attackCooldownTimer, data.hurtRecoveryTime);
+        // Chefe: conta golpes seguidos. Ao atingir o limite, revida em vez de levar stun.
+        bool willRetaliate = false;
+        if (data != null && !retaliating)
+        {
+            if (Time.time - lastHitTime > ConsecutiveResetTime) consecutiveHits = 0;
+            lastHitTime = Time.time;
+            consecutiveHits++;
+            if (consecutiveHits >= HitsToBreak)
+            {
+                consecutiveHits = 0;
+                willRetaliate = true;
+            }
+        }
+
+        // Stun normal, exceto quando ja esta revidando ou vai revidar neste golpe.
+        if (!retaliating && !willRetaliate)
+        {
+            ChangeState(EnemyState.Hurt);
+            animator.SetTrigger(HurtHash);
+            // Janela de recuperacao: nao ataca imediatamente apos ser atingido,
+            // permitindo que o player encadeie golpes para subir o combo.
+            attackCooldownTimer = Mathf.Max(attackCooldownTimer, data.hurtRecoveryTime);
+        }
 
         var sm = SoundManager.Instance;
         if (sm != null && sm.Library != null)
@@ -399,6 +429,131 @@ public class EnemyController : MonoBehaviour, IDamageable
             }
         }
         FloatingDamageText.Spawn(transform.position + Vector3.up * 1.4f, damage, rank, mult);
+
+        if (willRetaliate)
+            StartCoroutine(RetaliateRoutine());
+    }
+
+    // --- Combo-break: retaliacao apos N golpes seguidos ---
+
+    private IEnumerator RetaliateRoutine()
+    {
+        retaliating = true;
+        rb.linearVelocity = Vector2.zero;
+        FacePlayer();
+
+        // Telegrafo: brilho vermelho nas bordas + "!" grande. Janela pro player recuar.
+        float telegraph = (data != null && data.isBoss) ? 0.5f : 0.4f;
+        var fx = RetaliateTelegraph.Spawn(transform, spriteRenderer, telegraph);
+        yield return new WaitForSeconds(telegraph);
+
+        if (currentState == EnemyState.Dead)
+        {
+            if (fx != null) fx.Stop();
+            retaliating = false;
+            yield break;
+        }
+
+        FacePlayer();
+        if (data != null && data.isBoss)
+        {
+            // Especial do chefe: animacao de tiro (trigger Jab -> clip Shot no override) + tiro em linha.
+            if (animator != null) animator.SetTrigger(JabHash);
+            TryShotBark();
+            yield return new WaitForSeconds(0.15f); // deixa a arma subir antes do disparo
+            if (currentState == EnemyState.Dead) { retaliating = false; yield break; }
+            FireLineShot();
+        }
+        else
+        {
+            if (animator != null) animator.SetTrigger(AttackHash);
+            MeleeCounter();
+        }
+
+        yield return new WaitForSeconds(0.3f); // recuperacao
+        retaliating = false;
+        if (currentState == EnemyState.Dead) yield break;
+        attackCooldownTimer = data.attackCooldown;
+        ChangeState(EnemyState.Chase);
+    }
+
+    /// <summary>Grito do chefe ao disparar o tiro em linha (sorteia de shotBarks).</summary>
+    private void TryShotBark()
+    {
+        if (data == null || data.shotBarks == null || data.shotBarks.Length == 0) return;
+        string line = data.shotBarks[UnityEngine.Random.Range(0, data.shotBarks.Length)];
+        EnemyBark.Spawn(transform.position + Vector3.up * 2.4f, line);
+    }
+
+    /// <summary>Contra-ataque corpo-a-corpo do inimigo normal ao revidar.</summary>
+    private void MeleeCounter()
+    {
+        var sm = SoundManager.Instance;
+        if (sm != null && sm.Library != null && sm.Library.enemyPunch != null)
+            sm.PlaySFX(sm.Library.enemyPunch);
+
+        // So acerta se o player nao recuou durante o telegrafo.
+        if (playerTarget != null && IsPlayerInAttackRange(1.3f))
+        {
+            var pc = playerTarget.GetComponent<PlayerCombatManager>();
+            if (pc != null) pc.ReceiveDamage(data.attackDamage);
+        }
+    }
+
+    /// <summary>
+    /// Tiro hitscan horizontal (linha de 2px) na direcao do player, indo ate a borda
+    /// da camera. Acerta o player se a lane dele cruzar a linha.
+    /// </summary>
+    private void FireLineShot()
+    {
+        float dir = 1f;
+        if (playerTarget != null)
+        {
+            float dx = playerTarget.position.x - transform.position.x;
+            if (Mathf.Abs(dx) > 0.01f) dir = Mathf.Sign(dx);
+        }
+
+        // Altura do disparo: centro do sprite abaixado ~20% da altura, pra sair na altura
+        // do corpo/arma (o centro puro cai na cabeca do chefe).
+        float shotY = spriteRenderer != null
+            ? spriteRenderer.bounds.center.y - spriteRenderer.bounds.size.y * 0.15f
+            : transform.position.y;
+        // Sai um pouco a frente do chefe (na direcao do tiro), nao de dentro do corpo.
+        Vector2 origin = new Vector2(transform.position.x + dir * 1.0f, shotY);
+
+        // Ponta na borda horizontal da camera.
+        float edgeX = origin.x + dir * 20f;
+        var cam = Camera.main;
+        if (cam != null && cam.orthographic)
+        {
+            float halfW = cam.orthographicSize * cam.aspect;
+            edgeX = cam.transform.position.x + dir * (halfW + 1f);
+        }
+        Vector2 endPos = new Vector2(edgeX, shotY);
+
+        const float thickness = 2f / 32f; // 2 px a PPU 32
+
+        // Hitscan: faixa fina horizontal entre o chefe e a borda. A hurtbox alta do
+        // player e atingida quando a lane dele cruza a linha.
+        Vector2 center = new Vector2((origin.x + edgeX) * 0.5f, shotY);
+        float length = Mathf.Abs(edgeX - origin.x);
+        var hits = Physics2D.OverlapBoxAll(center, new Vector2(length, thickness), 0f);
+        foreach (var h in hits)
+        {
+            if (h == null) continue;
+            var pc = h.GetComponentInParent<PlayerCombatManager>();
+            if (pc != null)
+            {
+                pc.ReceiveDamage(data.attackDamage);
+                break;
+            }
+        }
+
+        var sm = SoundManager.Instance;
+        if (sm != null && sm.Library != null && sm.Library.enemyGunshot != null)
+            sm.PlaySFX(sm.Library.enemyGunshot);
+
+        BossBeam.Spawn(origin, endPos, thickness);
     }
 
     private void HandleDeath()

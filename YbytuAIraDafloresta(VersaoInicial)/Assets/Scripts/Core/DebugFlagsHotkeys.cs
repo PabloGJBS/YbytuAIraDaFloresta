@@ -17,5 +17,6 @@ public class DebugFlagsHotkeys : MonoBehaviour
             DebugFlags.ShowColliders = on;
             DebugFlags.ShowAttackHitbox = on;
         }
+        if (Input.GetKeyDown(KeyCode.F4)) DebugFlags.Godmode = !DebugFlags.Godmode;
     }
 }

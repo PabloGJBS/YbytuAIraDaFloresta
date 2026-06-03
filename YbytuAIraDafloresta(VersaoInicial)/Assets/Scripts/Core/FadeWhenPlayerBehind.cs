@@ -32,10 +32,12 @@ public class FadeWhenPlayerBehind : MonoBehaviour
     private Transform playerTf;
     private Collider2D playerCol;
     private SpriteRenderer playerSr;
+    private int enemyMask;
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+        enemyMask = LayerMask.GetMask("Enemy");
     }
 
     private void OnEnable()
@@ -64,6 +66,10 @@ public class FadeWhenPlayerBehind : MonoBehaviour
         if (behind && requireInFront && playerSr != null)
             behind = RendersInFrontOf(playerSr);
 
+        // Tambem desbota quando um inimigo esta atras da folhagem, senao ele fica
+        // escondido (FadeWhenPlayerBehind originalmente so olhava o player).
+        if (!behind) behind = IsEnemyInside();
+
         float target = behind ? fadedAlpha : 1f;
         float current = sr.color.a;
         if (!Mathf.Approximately(current, target))
@@ -86,6 +92,14 @@ public class FadeWhenPlayerBehind : MonoBehaviour
         Vector3 p = playerTf.position;
         p.z = b.center.z;
         return b.Contains(p);
+    }
+
+    private bool IsEnemyInside()
+    {
+        if (enemyMask == 0) return false;
+        Bounds b = sr.bounds;
+        b.Expand(new Vector3(padding * 2f, padding * 2f, 0f));
+        return Physics2D.OverlapBox(b.center, b.size, 0f, enemyMask) != null;
     }
 
     private bool RendersInFrontOf(SpriteRenderer other)

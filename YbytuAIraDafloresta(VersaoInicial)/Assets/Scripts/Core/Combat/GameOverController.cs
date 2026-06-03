@@ -49,6 +49,11 @@ public class GameOverController : MonoBehaviour
         if (shown) return;
         shown = true;
 
+        // Checkpoint: grava a zona de combate atual pra o "Continuar" retomar dela.
+        var stage = FindAnyObjectByType<StageManager>();
+        if (stage != null && GameFlowManager.Instance != null)
+            GameFlowManager.Instance.SetStageCheckpoint(stage.CurrentZoneIndex);
+
         if (root != null) root.SetActive(true);
         Time.timeScale = 0f; // congela a gameplay; o jogo fica escurecido atras
 
@@ -95,10 +100,7 @@ public class GameOverController : MonoBehaviour
     {
         Time.timeScale = 1f;
         if (GameFlowManager.Instance != null && GameFlowManager.Instance.CurrentStage != null)
-        {
-            GameFlowManager.Instance.DecrementLife();                                   // Continuar custa uma vida
-            GameFlowManager.Instance.GoToStage(GameFlowManager.Instance.CurrentStage);  // reinicia a fase
-        }
+            GameFlowManager.Instance.ContinueCurrentStage(); // retoma na zona do checkpoint (custa uma vida)
         else
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); // fallback: recarrega a cena
     }

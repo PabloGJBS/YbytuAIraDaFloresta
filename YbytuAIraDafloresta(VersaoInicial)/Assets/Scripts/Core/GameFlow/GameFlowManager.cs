@@ -32,6 +32,23 @@ public class GameFlowManager : MonoBehaviour
     public enum SaveSelectMode { NewGame, Continue }
     public SaveSelectMode PendingSaveSelectMode { get; private set; } = SaveSelectMode.NewGame;
 
+    // Checkpoint de fase: indice da zona de combate onde o player morreu, pra "Continuar"
+    // retomar dela em vez do inicio da fase. Persiste pelo reload (singleton).
+    public int StageCheckpointZone { get; private set; }
+    public bool HasStageCheckpoint { get; private set; }
+
+    public void SetStageCheckpoint(int zoneIndex)
+    {
+        StageCheckpointZone = Mathf.Max(0, zoneIndex);
+        HasStageCheckpoint = true;
+    }
+
+    public void ClearStageCheckpoint()
+    {
+        StageCheckpointZone = 0;
+        HasStageCheckpoint = false;
+    }
+
     [Header("Fases")]
     [SerializeField] private StageData[] stages;
     [SerializeField] private int startingLives = 3;
@@ -182,6 +199,7 @@ public class GameFlowManager : MonoBehaviour
 
     public void GoToStage(StageData stage)
     {
+        ClearStageCheckpoint(); // entrada nova na fase: comeca do inicio
         currentStage = stage;
         currentStageScore = 0;
         currentStageTime = 0f;
@@ -206,6 +224,21 @@ public class GameFlowManager : MonoBehaviour
         LoadScene(currentStage.gameplaySceneName);
     }
 
+    /// <summary>
+    /// Continuar apos Game Over: gasta uma vida e recarrega o gameplay da fase atual
+    /// MANTENDO o checkpoint, pra o StageManager retomar na zona onde o player morreu.
+    /// </summary>
+    public void ContinueCurrentStage()
+    {
+        if (currentStage == null) return;
+        DecrementLife();
+        currentStageScore = 0;
+        currentStageTime = 0f;
+        Time.timeScale = 1f;
+        ChangeState(GameState.StagePlaying);
+        LoadScene(currentStage.gameplaySceneName);
+    }
+
     public void PauseStage()
     {
         ChangeState(GameState.StagePaused);
@@ -220,6 +253,7 @@ public class GameFlowManager : MonoBehaviour
 
     public void CompleteStage(int score, float time, int hits = 0, int enemies = 0)
     {
+        ClearStageCheckpoint(); // fase concluida: proxima entrada comeca do inicio
         currentStageScore = score;
         currentStageTime = time;
         currentStageHits = hits;

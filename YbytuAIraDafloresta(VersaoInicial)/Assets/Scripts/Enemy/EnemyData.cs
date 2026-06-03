@@ -40,6 +40,8 @@ public class EnemyData : ScriptableObject
     public bool usesGunshotSfx;
     [Tooltip("Frases gritadas quando o inimigo surge na arena (sorteadas). Vazio = sem grito. Usar so em chefes.")]
     public string[] spawnBarks;
+    [Tooltip("Frases gritadas ao disparar o tiro em linha do combo-break (sorteadas). Boss.")]
+    public string[] shotBarks;
 
     [Header("Pontuacao")]
     public int scoreValue = 100;

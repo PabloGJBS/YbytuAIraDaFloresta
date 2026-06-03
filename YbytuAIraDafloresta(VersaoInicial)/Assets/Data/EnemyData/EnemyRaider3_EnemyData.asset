@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyRaider3_EnemyData
   m_EditorClassIdentifier: 
   enemyName: Raider 3
-  maxHealth: 110
+  maxHealth: 88
   moveSpeed: 2.5
   patrolRadius: 3
   patrolWaitTime: 1
