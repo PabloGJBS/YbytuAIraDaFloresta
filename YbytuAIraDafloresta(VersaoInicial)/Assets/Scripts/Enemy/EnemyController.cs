@@ -415,20 +415,12 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (sm != null && sm.Library != null)
             sm.PlaySFX(sm.Library.enemyHurt);
 
-        // Texto flutuante de dano + cor do rank do combo.
-        int rank = 0;
-        float mult = 1f;
+        // Registra o hit no combo do player (sem texto flutuante de dano, que era debug).
         if (playerTarget != null)
         {
             var combo = playerTarget.GetComponent<ComboSystem>();
-            if (combo != null)
-            {
-                rank = (int)combo.CurrentRank;
-                mult = combo.DamageMultiplier;
-                combo.RegisterHit();
-            }
+            if (combo != null) combo.RegisterHit();
         }
-        FloatingDamageText.Spawn(transform.position + Vector3.up * 1.4f, damage, rank, mult);
 
         if (willRetaliate)
             StartCoroutine(RetaliateRoutine());

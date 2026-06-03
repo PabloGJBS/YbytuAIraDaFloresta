@@ -28,8 +28,8 @@ public class SoundManager : MonoBehaviour
 
     [Header("BGM")]
     [SerializeField] private float bgmFadeDuration = 1f;
-    [Tooltip("Volume geral da musica (0..1). 0.8 = 80%.")]
-    [SerializeField, Range(0f, 1f)] private float bgmVolume = 0.8f;
+    [Tooltip("Volume geral da musica (0..1). 0.7 = 70%.")]
+    [SerializeField, Range(0f, 1f)] private float bgmVolume = 0.7f;
 
     private AudioSource bgmSource;
     private AudioSource[] sfxPool;

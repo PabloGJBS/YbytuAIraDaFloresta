@@ -87,10 +87,9 @@ public class GameFlowManager : MonoBehaviour
 
     private void Start()
     {
-        if (HasAcceptedDisclaimer())
-            GoToMainMenu();
-        else
-            GoToDisclaimer();
+        // Mostra a tela de atencao (Disclaimer) no inicio de toda sessao.
+        // Ja estamos na cena Disclaimer (buildIndex 0), entao so ajusta o estado.
+        ChangeState(GameState.Disclaimer);
     }
 
     public bool HasAcceptedDisclaimer()
