@@ -19,22 +19,33 @@ MonoBehaviour:
   playerDiveKick: {fileID: 8300000, guid: f761d4f8dbe07ef4d89e7548f93b76c3, type: 3}
   playerJump: {fileID: 8300000, guid: 4874b790ceec548439d1677cd791edf2, type: 3}
   playerLand: {fileID: 0}
-  playerStep: {fileID: 0}
-  playerHurt: {fileID: 8300000, guid: 2f5dec69f1f52014c88bd8fa44ce9205, type: 3}
-  playerDeath: {fileID: 0}
+  playerStep: {fileID: 8300000, guid: 02fbd0c060b3e374c8ed59cf050fd16c, type: 3}
+  playerHurt: {fileID: 8300000, guid: 720d745180f889d45863c300fa72dc4d, type: 3}
+  playerDeath: {fileID: 8300000, guid: 2ba486f8bac0b264d83fa0c5496ef2f1, type: 3}
   playerRevive: {fileID: 0}
   enemyPunch: {fileID: 8300000, guid: 7684aeb991ea79e4e8017b2bb1c4fd0f, type: 3}
-  enemyHurt: {fileID: 8300000, guid: 2f5dec69f1f52014c88bd8fa44ce9205, type: 3}
+  enemyHurt: {fileID: 8300000, guid: bced8a43aa1571842aac5bab6a917197, type: 3}
   enemyDeath: {fileID: 0}
   enemyAlert: {fileID: 0}
+  enemyGunshot: {fileID: 8300000, guid: 525da7e15f4bc1341b330eb909effa3b, type: 3}
   hitConnect: {fileID: 0}
-  comboRankUp: {fileID: 0}
+  comboRankUp:
+  - {fileID: 8300000, guid: 11210e7d5d3e16c4bb8e2473237b2397, type: 3}
+  - {fileID: 8300000, guid: 32d574331342bbe4c814ee70c2f3df3b, type: 3}
+  - {fileID: 8300000, guid: 490d60630e2e8fb48bdb72e4f9e2568c, type: 3}
+  - {fileID: 8300000, guid: 6f7d54d70655f4c4cbb5d21e9b940a24, type: 3}
+  - {fileID: 8300000, guid: eea8a04e285ac7a41854569e67447745, type: 3}
+  - {fileID: 8300000, guid: 85155895c08553b4aae52b27495fb517, type: 3}
   comboBreak: {fileID: 0}
   uiSelect: {fileID: 8300000, guid: fd77c542ba3bc3646a1602e6732abf9f, type: 3}
   uiConfirm: {fileID: 8300000, guid: fd77c542ba3bc3646a1602e6732abf9f, type: 3}
   uiCancel: {fileID: 0}
   uiPause: {fileID: 0}
   uiUnpause: {fileID: 0}
+  dialogueType: {fileID: 8300000, guid: 1fee65cf53fc6c54dae96d8adaeee668, type: 3}
   itemPickup: {fileID: 0}
   stageClear: {fileID: 0}
-  gameOver: {fileID: 0}
+  gameOver: {fileID: 8300000, guid: 402d1d31323a0b1479cf8418c8cdf8e8, type: 3}
+  bgmExploration: {fileID: 8300000, guid: 597f2217ca0ed9c418c4dbec30adbdd8, type: 3}
+  bgmCombat: {fileID: 8300000, guid: 2ec19c79329895e4fb2c920b5bd3b9d1, type: 3}
+  bgmBoss: {fileID: 8300000, guid: 578f6d57593d9df44a9844536430f1c0, type: 3}

@@ -115,6 +115,35 @@
                 "06": "Disse só o que sobrou pra dizer: Pela floresta. Pelos meus."
             }
         },
+        "outro": {
+            "opening": {
+                "01": "A vitória de Ybytu é só uma história. Mas a floresta que ele protege é real, e ela sangra todos os dias."
+            },
+            "news_01": {
+                "01": "Em Minas Gerais, três mil mudas plantadas pela própria comunidade viraram cinzas num incêndio criminoso."
+            },
+            "news_02": {
+                "01": "No Pará, o povo Munduruku denuncia há mais de trinta anos o garimpo que queima suas casas e envenena seus rios."
+            },
+            "news_03": {
+                "01": "No Mato Grosso do Sul, 539 indígenas Guarani Kaiowá foram assassinados em apenas dezesseis anos."
+            },
+            "news_04": {
+                "01": "No Amapá, a invasão de uma aldeia e a morte de um líder espalharam o terror entre os Wajãpi."
+            },
+            "news_05": {
+                "01": "E na Terra Indígena Urubu Branco, as queimadas devastaram o território do povo Apÿawa."
+            },
+            "reflection": {
+                "01": "Sustentabilidade não é abrir mão de tudo. É usar sem destruir, colher sem esgotar e viver deixando viver.",
+                "02": "É garantir que quem vier depois de nós ainda encontre floresta, rio e ar limpo para chamar de seu."
+            },
+            "thanks": {
+                "01": "Ybytu: A Ira da Floresta é ficção, mas a luta que ela retrata não é.",
+                "02": "Esta é a primeira versão do jogo, feita com cuidado e propósito.",
+                "03": "Obrigado por jogar e por testar."
+            }
+        },
         "final": {
             "scene_01": "Com o último inimigo derrotado, a floresta começa a se recuperar.",
             "scene_02": "Ybytu sente a energia da natureza fluindo novamente em equilíbrio.",

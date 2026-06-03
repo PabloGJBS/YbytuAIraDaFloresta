@@ -93,6 +93,35 @@
             "scene_03": "Corrupted creatures begin to emerge, threatening the forest's harmony.",
             "scene_04": "It is time to act. The Wrath of the Forest shall be unleashed."
         },
+        "outro": {
+            "opening": {
+                "01": "Ybytu's victory is only a story. But the forest he protects is real, and it bleeds every day."
+            },
+            "news_01": {
+                "01": "In Minas Gerais, three thousand seedlings planted by the community itself were turned to ashes in an arson fire."
+            },
+            "news_02": {
+                "01": "In Pará, the Munduruku people have denounced illegal mining for over thirty years, mining that burns their homes and poisons their rivers."
+            },
+            "news_03": {
+                "01": "In Mato Grosso do Sul, 539 Guarani Kaiowá people were murdered in just sixteen years."
+            },
+            "news_04": {
+                "01": "In Amapá, the invasion of a village and the killing of a leader spread terror among the Wajãpi."
+            },
+            "news_05": {
+                "01": "And in the Urubu Branco Indigenous Land, wildfires devastated the territory of the Apÿawa people."
+            },
+            "reflection": {
+                "01": "Sustainability is not about giving everything up. It is using without destroying, harvesting without depleting, and living while letting others live.",
+                "02": "It means making sure those who come after us still find forest, rivers, and clean air to call their own."
+            },
+            "thanks": {
+                "01": "Ybytu: The Wrath of the Forest is fiction, but the struggle it portrays is not.",
+                "02": "This is the first version of the game, made with care and purpose.",
+                "03": "Thank you for playing and for testing."
+            }
+        },
         "final": {
             "scene_01": "With the last enemy defeated, the forest begins to recover.",
             "scene_02": "Ybytu feels nature's energy flowing in balance once more.",

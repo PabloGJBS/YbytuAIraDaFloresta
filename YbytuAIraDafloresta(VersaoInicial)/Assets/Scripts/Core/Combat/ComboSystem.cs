@@ -35,6 +35,7 @@ public class ComboSystem : MonoBehaviour
     private float currentGauge;
     private ComboRank currentRank = ComboRank.C;
     private int currentHitCount;
+    private int totalHitsLanded; // acumulado na fase (nao reseta no break/hurt; zera ao recriar na fase)
     private float timeSinceLastHit;
     private bool isPaused;
 
@@ -44,6 +45,7 @@ public class ComboSystem : MonoBehaviour
     public float GaugePercent => currentGauge / MaxGauge;
     public ComboRank CurrentRank => currentRank;
     public int CurrentHitCount => currentHitCount;
+    public int TotalHitsLanded => totalHitsLanded;
     public float DamageMultiplier => damageMultipliers[(int)currentRank];
     public float DamageTakenMultiplier => damageTakenMultipliers[(int)currentRank];
     public float ScoreMultiplier => scoreMultipliers[(int)currentRank];
@@ -81,6 +83,7 @@ public class ComboSystem : MonoBehaviour
     public void RegisterHit()
     {
         currentHitCount++;
+        totalHitsLanded++;
         timeSinceLastHit = 0f;
 
         // Ganho ajustado pela dificuldade do rank atual
@@ -180,7 +183,20 @@ public class ComboSystem : MonoBehaviour
             currentGauge = 0f;
             SetRank(currentRank + 1);
             OnGaugeChanged?.Invoke(0f);
+            PlayRankUpSfx();
         }
+    }
+
+    // Toca a nota correspondente ao novo rank ([0]=C ... [5]=SSS).
+    private void PlayRankUpSfx()
+    {
+        var sm = SoundManager.Instance;
+        if (sm == null || sm.Library == null) return;
+        var notes = sm.Library.comboRankUp;
+        if (notes == null) return;
+        int i = (int)currentRank;
+        if (i >= 0 && i < notes.Length && notes[i] != null)
+            sm.PlaySFX(notes[i]);
     }
 
     private void SetRank(ComboRank newRank)

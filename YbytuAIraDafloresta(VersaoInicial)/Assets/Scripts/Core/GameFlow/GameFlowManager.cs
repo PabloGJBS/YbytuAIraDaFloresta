@@ -27,24 +27,32 @@ public class GameFlowManager : MonoBehaviour
     [SerializeField] private string stageSelectScene = "StageSelect";
     [SerializeField] private string scoreScene = "StageScore";
     [SerializeField] private string creditsScene = "Credits";
+    [SerializeField] private string finalCutsceneScene = "OutroCutscene";
 
     public enum SaveSelectMode { NewGame, Continue }
     public SaveSelectMode PendingSaveSelectMode { get; private set; } = SaveSelectMode.NewGame;
 
     [Header("Fases")]
     [SerializeField] private StageData[] stages;
+    [SerializeField] private int startingLives = 3;
 
     private GameState currentState;
     private StageData currentStage;
     private int currentStageScore;
     private float currentStageTime;
+    private int currentStageHits;
+    private int currentStageEnemies;
     private bool pendingOutroCutscene;
+    private int playerLives;
 
     public GameState CurrentState => currentState;
     public StageData CurrentStage => currentStage;
     public StageData[] Stages => stages;
     public int CurrentStageScore => currentStageScore;
     public float CurrentStageTime => currentStageTime;
+    public int PlayerLives => playerLives;
+    public int CurrentStageHits => currentStageHits;
+    public int CurrentStageEnemies => currentStageEnemies;
 
     public event Action<GameState> OnStateChanged;
 
@@ -57,6 +65,7 @@ public class GameFlowManager : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(gameObject);
+        playerLives = startingLives;
     }
 
     private void Start()
@@ -122,7 +131,18 @@ public class GameFlowManager : MonoBehaviour
     public void StartNewGame()
     {
         PendingSaveSelectMode = SaveSelectMode.NewGame;
+        ResetPlayerLives();
         GoToIntroCutscene();
+    }
+
+    public void DecrementLife()
+    {
+        if (playerLives > 0) playerLives--;
+    }
+
+    public void ResetPlayerLives()
+    {
+        playerLives = startingLives;
     }
 
     /// <summary>
@@ -198,10 +218,12 @@ public class GameFlowManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void CompleteStage(int score, float time)
+    public void CompleteStage(int score, float time, int hits = 0, int enemies = 0)
     {
         currentStageScore = score;
         currentStageTime = time;
+        currentStageHits = hits;
+        currentStageEnemies = enemies;
         Time.timeScale = 1f;
 
         // Salvar resultado
@@ -230,7 +252,17 @@ public class GameFlowManager : MonoBehaviour
     public void GoToFinalCutscene()
     {
         ChangeState(GameState.FinalCutscene);
-        // A cena de cutscene final pode ser definida na ultima fase
+        LoadScene(finalCutsceneScene);
+    }
+
+    // Chamado pela tela de pontuacao ao continuar.
+    // Ultima fase -> cutscene final; senao -> selecao de fases.
+    public void OnStageScoreContinue()
+    {
+        if (currentStage != null && IsLastStage(currentStage))
+            GoToFinalCutscene();
+        else
+            GoToStageSelect();
     }
 
     public void GoToCredits()

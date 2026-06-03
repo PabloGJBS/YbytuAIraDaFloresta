@@ -80,6 +80,16 @@ public class HealthSystem : MonoBehaviour
     }
 
     /// <summary>
+    /// Define a vida maxima (ex.: vinda do EnemyData). refill=true enche a vida.
+    /// </summary>
+    public void SetMaxHealth(int newMax, bool refill = true)
+    {
+        maxHealth = Mathf.Max(1, newMax);
+        currentHealth = refill ? maxHealth : Mathf.Min(currentHealth, maxHealth);
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+    }
+
+    /// <summary>
     /// Restaurar vida completa (revive, novo round, etc).
     /// </summary>
     public void FullRestore()

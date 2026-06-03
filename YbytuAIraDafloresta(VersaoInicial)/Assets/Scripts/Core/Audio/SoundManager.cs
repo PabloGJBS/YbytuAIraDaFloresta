@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 /// <summary>
@@ -31,6 +32,7 @@ public class SoundManager : MonoBehaviour
     private AudioSource[] sfxPool;
 
     public SoundLibrary Library => library;
+    public AudioMixerGroup SfxGroup => sfxGroup;
 
     private void Awake()
     {
@@ -43,6 +45,35 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         SetupSources();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void Start()
+    {
+        // A cena onde o SoundManager nasce ja carregou antes do sceneLoaded; liga os botoes dela aqui.
+        HookButtonSounds();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => HookButtonSounds();
+
+    // Liga o som de clique (uiConfirm) em todos os Button da cena. Cobre botoes estaticos;
+    // botoes instanciados em runtime (ex.: slots de save) precisam chamar PlayUiClick manualmente.
+    private void HookButtonSounds()
+    {
+        if (library == null || library.uiConfirm == null) return;
+        var buttons = FindObjectsByType<UnityEngine.UI.Button>(FindObjectsSortMode.None);
+        foreach (var b in buttons)
+        {
+            if (b == null) continue;
+            b.onClick.RemoveListener(PlayUiClick); // evita duplicar em botoes persistentes
+            b.onClick.AddListener(PlayUiClick);
+        }
+    }
+
+    public void PlayUiClick()
+    {
+        if (library != null && library.uiConfirm != null)
+            PlaySFX(library.uiConfirm, 1f, 0f);
     }
 
     private void SetupSources()

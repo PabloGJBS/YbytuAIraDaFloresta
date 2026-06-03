@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: EnemyPunk_EnemyData
   m_EditorClassIdentifier: 
   enemyName: Punk
-  maxHealth: 25
+  maxHealth: 50
   moveSpeed: 2.6
   patrolRadius: 3
   patrolWaitTime: 1
-  detectionRange: 6
-  loseTargetRange: 9
+  detectionRange: 30
+  loseTargetRange: 40
   attackDamage: 8
   attackRange: 1.2
   attackYTolerance: 0.4

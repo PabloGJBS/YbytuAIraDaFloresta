@@ -103,7 +103,8 @@ public class CameraController : MonoBehaviour
 
         // Y final = mesma formula do follow estatico (sem peek). Garante continuidade
         // ao trocar do estado de intro para o follow, evitando o "flick" no fim do pan.
-        float endVerticalFollow = (target.position.y - verticalAnchorY) * verticalFollowStrength;
+        // Clampado a >= 0 pelo mesmo motivo: nunca enquadrar abaixo do Y base.
+        float endVerticalFollow = Mathf.Max(0f, (target.position.y - verticalAnchorY) * verticalFollowStrength);
         float endY = baseCameraY + endVerticalFollow;
 
         introStartPos = new Vector3(stageMaxX - cameraHalfWidth, transform.position.y, transform.position.z);
@@ -139,9 +140,11 @@ public class CameraController : MonoBehaviour
         currentPeekY = Mathf.Lerp(currentPeekY, targetPeek, peekSmoothSpeed * Time.deltaTime);
 
         // Follow vertical leve (acompanha Y do player com peso configuravel).
-        // Dentro de combat zone: so acompanha pra cima, nunca pra baixo.
+        // So acompanha pra cima, nunca pra baixo: o limite inferior da camera
+        // e o Y base, mantendo o rodape do chao no fundo da tela sem revelar
+        // o vazio abaixo dele.
         float verticalFollow = (target.position.y - verticalAnchorY) * verticalFollowStrength;
-        if (inCombatZone) verticalFollow = Mathf.Max(0f, verticalFollow);
+        verticalFollow = Mathf.Max(0f, verticalFollow);
         desiredPos.y = baseCameraY + verticalFollow + currentPeekY;
 
         // Manter Z da camera

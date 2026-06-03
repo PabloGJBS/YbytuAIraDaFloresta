@@ -14,8 +14,15 @@ public class StageManager : MonoBehaviour
     [Header("Eventos da Fase")]
     [SerializeField] private bool autoCompleteOnAllZones = true;
 
+    [Header("Recompensa ao limpar zona")]
+    [Tooltip("Fracao da vida maxima curada ao concluir cada zona de combate.")]
+    [SerializeField, Range(0f, 1f)] private float healPercentPerZone = 0.15f;
+    [Tooltip("Pontos por ponto de vida excedente quando a vida ja esta cheia.")]
+    [SerializeField] private int overflowPointsPerHp = 10;
+
     private int currentZoneIndex;
     private int totalScore;
+    private int enemiesKilled;
     private float stageTime;
     private bool stageActive;
     private bool stageCompleted;
@@ -50,6 +57,7 @@ public class StageManager : MonoBehaviour
         stageActive = true;
         stageCompleted = false;
         totalScore = 0;
+        enemiesKilled = 0;
         stageTime = 0f;
         currentZoneIndex = 0;
 
@@ -70,6 +78,7 @@ public class StageManager : MonoBehaviour
     private void HandleEnemyKilled(int scoreValue)
     {
         totalScore += scoreValue;
+        enemiesKilled++;
         OnScoreChanged?.Invoke(totalScore);
     }
 
@@ -77,17 +86,40 @@ public class StageManager : MonoBehaviour
     {
         currentZoneIndex++;
 
-        // Pausar combo na transicao entre zonas
         var player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            var combo = player.GetComponent<ComboSystem>();
-            combo?.Pause();
+            // Pausar combo na transicao entre zonas
+            player.GetComponent<ComboSystem>()?.Pause();
+
+            // Recompensa: cura 15% da vida; excedente (vida cheia) vira pontos
+            RewardZoneClear(player);
         }
 
         // Verificar se todas as zonas foram completadas
         if (autoCompleteOnAllZones && AllZonesCompleted())
             CompleteStage();
+    }
+
+    /// <summary>
+    /// Ao limpar uma zona: cura uma fracao da vida do player. Se a vida ja estiver
+    /// cheia, o que sobraria da cura vira pontos de bonus.
+    /// </summary>
+    private void RewardZoneClear(GameObject player)
+    {
+        if (healPercentPerZone <= 0f) return;
+        var hp = player.GetComponentInChildren<HealthSystem>();
+        if (hp == null) return;
+
+        int healAmount = Mathf.RoundToInt(hp.MaxHealth * healPercentPerZone);
+        if (healAmount <= 0) return;
+
+        int before = hp.CurrentHealth;
+        hp.Heal(healAmount);
+        int overflow = healAmount - (hp.CurrentHealth - before);
+
+        if (overflow > 0 && overflowPointsPerHp > 0)
+            AddScore(overflow * overflowPointsPerHp);
     }
 
     private bool AllZonesCompleted()
@@ -112,8 +144,16 @@ public class StageManager : MonoBehaviour
 
         OnStageCompleted?.Invoke(totalScore, stageTime);
 
+        int hits = 0;
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            var combo = player.GetComponent<ComboSystem>();
+            if (combo != null) hits = combo.TotalHitsLanded;
+        }
+
         if (GameFlowManager.Instance != null)
-            GameFlowManager.Instance.CompleteStage(totalScore, stageTime);
+            GameFlowManager.Instance.CompleteStage(totalScore, stageTime, hits, enemiesKilled);
     }
 
     /// <summary>

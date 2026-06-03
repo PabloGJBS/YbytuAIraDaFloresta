@@ -36,14 +36,12 @@ public class PlayerCombatManager : MonoBehaviour
     {
         health.OnDeath += HandleDeath;
         health.OnDamageTaken += HandleDamageTaken;
-        lives.OnGameOver += HandleGameOver;
     }
 
     private void OnDisable()
     {
         health.OnDeath -= HandleDeath;
         health.OnDamageTaken -= HandleDamageTaken;
-        lives.OnGameOver -= HandleGameOver;
     }
 
     /// <summary>
@@ -79,28 +77,22 @@ public class PlayerCombatManager : MonoBehaviour
     private void HandleDeath()
     {
         OnPlayerDied?.Invoke();
-
-        // Tentar reviver
-        if (lives.HasLivesRemaining)
-        {
-            // Pequeno delay antes de reviver (para animacao de morte)
-            Invoke(nameof(TryRevive), 1.5f);
-        }
-    }
-
-    private void TryRevive()
-    {
-        if (lives.TryRevive(health))
-        {
-            combo.ResetCombo();
-            OnPlayerRevived?.Invoke();
-            // Futuro: reposicionar player, animacao de revive
-        }
+        // Sem auto-revive: apos a animacao de morte, dispara o Game Over.
+        // O overlay (GameOverController) decide entre Continuar (custa uma vida) ou Desistir.
+        Invoke(nameof(HandleGameOver), 1.2f);
     }
 
     private void HandleGameOver()
     {
         combo.ResetCombo();
+
+        var sm = SoundManager.Instance;
+        if (sm != null && sm.Library != null && sm.Library.gameOver != null)
+        {
+            sm.StopBGM();
+            sm.PlaySFX(sm.Library.gameOver, 1f, 0f);
+        }
+
         OnGameOver?.Invoke();
         // Futuro: tela de game over, opcao de continuar ou voltar ao menu
     }

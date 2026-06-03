@@ -152,9 +152,17 @@ public class CutsceneTextPlayer : MonoBehaviour
         isTyping = true;
         displayText.text = "";
 
+        int typed = 0;
         foreach (char c in text)
         {
             displayText.text += c;
+            // Blip de digitacao a cada 2 caracteres visiveis (evita metralhar o SFX).
+            if (!char.IsWhiteSpace(c) && (typed++ % 2 == 0))
+            {
+                var sm = SoundManager.Instance;
+                if (sm != null && sm.Library != null && sm.Library.dialogueType != null)
+                    sm.PlaySFX(sm.Library.dialogueType, 0.5f);
+            }
             yield return new WaitForSeconds(charDelay);
         }
 

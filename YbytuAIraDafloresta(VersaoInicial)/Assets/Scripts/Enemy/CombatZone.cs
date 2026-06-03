@@ -41,6 +41,28 @@ public class CombatZone : MonoBehaviour
     [Tooltip("Se > 0 e a zona nao tem waves, trava a camera por esse tempo (debug/feel). 0 = completa imediatamente.")]
     [SerializeField] private float testEmptyZoneDuration = 0f;
 
+    [Header("Inimigos iniciais (ja na cena)")]
+    [Tooltip("Inimigos posicionados na arena com EnemyController DESABILITADO. Ativados junto da 1a wave; o resto das waves sao reforcos.")]
+    [SerializeField] private EnemyController[] startingEnemies;
+
+    [Header("Grito ao avistar o player")]
+    [Tooltip("Frases gritadas aleatoriamente por um dos inimigos iniciais quando a zona ativa (avistou o player). Vazio = sem grito.")]
+    [SerializeField] private string[] spottedBarks = {
+        "Ei, cara! Você não devia estar aqui!",
+        "Olha só o que apareceu...",
+        "Pegou o caminho errado, moleque!",
+        "Vai se arrepender de ter vindo!",
+        "Quem deixou esse aí entrar?",
+    };
+
+    [Header("Reforco dos chefes (meia-vida)")]
+    [Tooltip("Quando a vida somada dos chefes da wave cair ate esta fracao, chama capangas (uma vez).")]
+    [SerializeField] private float bossReinforcementFraction = 0.5f;
+    [Tooltip("Capangas spawnados quando os chefes atingem meia-vida somada. Vazio = sem reforco.")]
+    [SerializeField] private GameObject[] bossReinforcements;
+    [Tooltip("Frase gritada por um chefe ao chamar os reforcos.")]
+    [SerializeField] private string bossReinforcementBark = "Capangas! Acabem com ele!";
+
     private int currentWaveIndex;
     private int enemiesAliveInWave;
     private int totalEnemiesKilled;
@@ -48,6 +70,13 @@ public class CombatZone : MonoBehaviour
     private bool isActive;
     private bool isCompleted;
     private List<EnemyController> activeEnemies = new List<EnemyController>();
+
+    // Reforco dos chefes (meia-vida somada)
+    private readonly List<HealthSystem> trackedBosses = new List<HealthSystem>();
+    private int bossCountExpected;
+    private int trackedBossesMaxTotal;
+    private bool bossReinforced;
+    private bool monitoringBosses;
 
     // Propriedades publicas
     public bool IsActive => isActive;
@@ -72,6 +101,21 @@ public class CombatZone : MonoBehaviour
 
         // Desativar barreiras no inicio
         SetBarriersActive(false);
+    }
+
+    private void Update()
+    {
+        if (!monitoringBosses || bossReinforced || trackedBossesMaxTotal <= 0) return;
+
+        int current = 0;
+        foreach (var b in trackedBosses)
+            if (b != null && !b.IsDead) current += b.CurrentHealth;
+
+        if (current <= Mathf.RoundToInt(trackedBossesMaxTotal * bossReinforcementFraction))
+        {
+            bossReinforced = true;
+            CallBossReinforcements();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -104,6 +148,7 @@ public class CombatZone : MonoBehaviour
         SetBarriersActive(true);
         NotifyCameraEnter();
         OnZoneActivated?.Invoke(this);
+        ShoutSpottedBark();
 
         if (hasWaves)
             StartCoroutine(StartWaveSequence());
@@ -164,9 +209,10 @@ public class CombatZone : MonoBehaviour
                     ResumePlayerCombo();
             }
 
-            // Spawnar wave
-            SpawnWaveEnemies(wave);
+            // Spawnar wave (na 1a wave, inclui os inimigos ja presentes na arena)
+            SpawnWaveEnemies(wave, currentWaveIndex == 0);
             OnWaveStarted?.Invoke(currentWaveIndex);
+            UpdateCombatBgm(wave);
 
             // Esperar todos os inimigos da wave morrerem
             yield return new WaitUntil(() => enemiesAliveInWave <= 0);
@@ -179,9 +225,31 @@ public class CombatZone : MonoBehaviour
         CompleteZone();
     }
 
-    private void SpawnWaveEnemies(SpawnWave wave)
+    private void SpawnWaveEnemies(SpawnWave wave, bool includeStarting)
     {
         enemiesAliveInWave = 0;
+
+        // Rastreamento de chefes desta wave (pro reforco de meia-vida)
+        trackedBosses.Clear();
+        trackedBossesMaxTotal = 0;
+        bossReinforced = false;
+        monitoringBosses = false;
+        bossCountExpected = CountBosses(wave);
+
+        // Inimigos ja presentes na arena (idle) entram na contagem da 1a wave
+        if (includeStarting && startingEnemies != null)
+        {
+            int enemyLayer = LayerMask.NameToLayer("Enemy");
+            foreach (var e in startingEnemies)
+            {
+                if (e == null) continue;
+                e.enabled = true;                     // liga a IA (estava desabilitada)
+                e.gameObject.layer = enemyLayer;
+                e.OnEnemyDied += HandleEnemyDied;
+                activeEnemies.Add(e);
+                enemiesAliveInWave++;
+            }
+        }
 
         foreach (var entry in wave.enemies)
         {
@@ -215,7 +283,77 @@ public class CombatZone : MonoBehaviour
         {
             controller.OnEnemyDied += HandleEnemyDied;
             activeEnemies.Add(controller);
+            RegisterIfBoss(enemy, controller);
         }
+    }
+
+    private int CountBosses(SpawnWave wave)
+    {
+        if (wave.enemies == null) return 0;
+        int n = 0;
+        foreach (var e in wave.enemies)
+        {
+            if (e.enemyPrefab == null) continue;
+            var ctrl = e.enemyPrefab.GetComponent<EnemyController>();
+            if (ctrl != null && ctrl.Data != null && ctrl.Data.isBoss) n += e.count;
+        }
+        return n;
+    }
+
+    private void RegisterIfBoss(GameObject enemy, EnemyController controller)
+    {
+        if (controller.Data == null || !controller.Data.isBoss) return;
+        var hs = enemy.GetComponent<HealthSystem>();
+        if (hs == null) return;
+
+        trackedBosses.Add(hs);
+        if (bossCountExpected > 0 && trackedBosses.Count >= bossCountExpected)
+        {
+            trackedBossesMaxTotal = 0;
+            foreach (var b in trackedBosses) trackedBossesMaxTotal += b.MaxHealth;
+            monitoringBosses = true;
+        }
+    }
+
+    private void CallBossReinforcements()
+    {
+        if (bossReinforcements == null || bossReinforcements.Length == 0) return;
+
+        // Um chefe vivo grita ao chamar os capangas
+        if (!string.IsNullOrEmpty(bossReinforcementBark))
+        {
+            foreach (var b in trackedBosses)
+                if (b != null && !b.IsDead)
+                {
+                    EnemyBark.Spawn(b.transform.position + Vector3.up * 2.6f, bossReinforcementBark);
+                    break;
+                }
+        }
+
+        float delay = 0f;
+        foreach (var prefab in bossReinforcements)
+        {
+            if (prefab == null) continue;
+            enemiesAliveInWave++;              // a wave so completa quando os reforcos morrerem
+            StartCoroutine(SpawnEnemyDelayed(prefab, delay));
+            delay += 0.25f;
+        }
+    }
+
+    /// <summary>
+    /// Um dos inimigos iniciais grita uma frase aleatoria ao avistar o player.
+    /// </summary>
+    private void ShoutSpottedBark()
+    {
+        if (spottedBarks == null || spottedBarks.Length == 0 || startingEnemies == null) return;
+        var present = new List<EnemyController>();
+        foreach (var e in startingEnemies)
+            if (e != null) present.Add(e);
+        if (present.Count == 0) return;
+
+        var shouter = present[UnityEngine.Random.Range(0, present.Count)];
+        string line = spottedBarks[UnityEngine.Random.Range(0, spottedBarks.Length)];
+        EnemyBark.Spawn(shouter.transform.position + Vector3.up * 2.2f, line);
     }
 
     private void HandleEnemyDied(int scoreValue)
@@ -226,6 +364,33 @@ public class CombatZone : MonoBehaviour
         OnEnemyKilled?.Invoke(scoreValue);
     }
 
+    // --- BGM por contexto: combate normal vs chefe ---
+    private void UpdateCombatBgm(SpawnWave wave)
+    {
+        var lib = SoundManager.Instance != null ? SoundManager.Instance.Library : null;
+        if (lib == null) return;
+        // PlayBGM ignora se ja for o mesmo clip, entao chamar por wave nao reinicia a faixa.
+        PlayBgm(WaveHasBoss(wave) ? lib.bgmBoss : lib.bgmCombat);
+    }
+
+    private bool WaveHasBoss(SpawnWave wave)
+    {
+        if (wave.enemies == null) return false;
+        foreach (var entry in wave.enemies)
+        {
+            if (entry.enemyPrefab == null) continue;
+            var ctrl = entry.enemyPrefab.GetComponent<EnemyController>();
+            if (ctrl != null && ctrl.Data != null && ctrl.Data.isBoss) return true;
+        }
+        return false;
+    }
+
+    private void PlayBgm(AudioClip clip)
+    {
+        var sm = SoundManager.Instance;
+        if (sm != null && clip != null) sm.PlayBGM(clip);
+    }
+
     private void CompleteZone()
     {
         isActive = false;
@@ -234,6 +399,10 @@ public class CombatZone : MonoBehaviour
         // Abrir barreiras
         SetBarriersActive(false);
         NotifyCameraExit();
+
+        // Volta pra trilha de exploracao ao limpar a zona
+        var lib = SoundManager.Instance != null ? SoundManager.Instance.Library : null;
+        if (lib != null) PlayBgm(lib.bgmExploration);
 
         // Limpar referencias
         activeEnemies.Clear();

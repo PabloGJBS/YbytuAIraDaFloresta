@@ -32,6 +32,16 @@ public class LivesSystem : MonoBehaviour
         currentLives = startingLives;
     }
 
+    private void Start()
+    {
+        // Reflete as vidas persistentes do GameFlowManager (continuam entre restarts da fase)
+        if (GameFlowManager.Instance != null)
+        {
+            currentLives = GameFlowManager.Instance.PlayerLives;
+            OnLivesChanged?.Invoke(currentLives);
+        }
+    }
+
     /// <summary>
     /// Tenta usar uma tentativa para reviver. Retorna true se conseguiu.
     /// </summary>

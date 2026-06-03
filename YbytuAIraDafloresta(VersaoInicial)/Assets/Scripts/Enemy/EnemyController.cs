@@ -38,6 +38,9 @@ public class EnemyController : MonoBehaviour, IDamageable
     // EnemyTestZone pra calibragem ao vivo.
     [System.NonSerialized] public float runtimeYOffset = 0f;
 
+    // Garante que a correcao de pe (lift do transform) so seja aplicada uma vez.
+    private bool feetAligned;
+
     // Quando nao tem slot de ataque, fica circulando o player nesta posicao.
     private Vector2 waitPosition;
     private float waitRefreshTimer;
@@ -77,6 +80,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         health = GetComponent<HealthSystem>();
+        if (data != null) health.SetMaxHealth(data.maxHealth);
 
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
@@ -91,6 +95,18 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         health.OnDeath += HandleDeath;
         health.OnDamageTaken += HandleDamageTaken;
+        TryBarkOnSpawn();
+    }
+
+    private bool spawnBarked;
+
+    /// <summary>Grito ao surgir na arena (chefes). Sorteia uma frase de spawnBarks. Uma vez.</summary>
+    private void TryBarkOnSpawn()
+    {
+        if (spawnBarked || data == null || data.spawnBarks == null || data.spawnBarks.Length == 0) return;
+        spawnBarked = true;
+        string line = data.spawnBarks[UnityEngine.Random.Range(0, data.spawnBarks.Length)];
+        EnemyBark.Spawn(transform.position + Vector3.up * 2.4f, line);
     }
 
     protected virtual void OnDisable()
@@ -332,7 +348,12 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         var sm = SoundManager.Instance;
         if (sm != null && sm.Library != null)
-            sm.PlaySFX(sm.Library.enemyPunch);
+        {
+            var atkClip = data.usesGunshotSfx && sm.Library.enemyGunshot != null
+                ? sm.Library.enemyGunshot
+                : sm.Library.enemyPunch;
+            sm.PlaySFX(atkClip);
+        }
     }
 
     /// <summary>
@@ -498,6 +519,20 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         float skinOffset = skin != null ? skin.feetYOffset : 0f;
         runtimeYOffset = skinOffset + (playerFeet - enemyFeet);
+
+        // Reposiciona o transform pelos pes (uma vez so). Sprites "fundos" (pivo no topo,
+        // com capsule/hurtbox em offset grande) afundam no chao quando ficam parados: a
+        // hurtbox desce pra altura dos pes, abaixo do alcance do golpe do player, deixando
+        // o inimigo quase impossivel de acertar. O chase ja soma runtimeYOffset ao alvo;
+        // aqui aplicamos a mesma correcao ao transform e ao patrolOrigin pra que inimigos
+        // iniciais (idle na arena) fiquem com os pes no chao e a hurtbox no corpo desde o
+        // primeiro frame de combate.
+        if (!feetAligned)
+        {
+            transform.position += Vector3.up * runtimeYOffset;
+            patrolOrigin.y += runtimeYOffset;
+            feetAligned = true;
+        }
     }
 
     private bool IsPlayerInRange(float range)

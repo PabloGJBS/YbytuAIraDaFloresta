@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: EnemyChefe1_EnemyData
   m_EditorClassIdentifier: 
   enemyName: Chefe 1
-  maxHealth: 300
+  maxHealth: 350
   moveSpeed: 2.3
   patrolRadius: 3.5
   patrolWaitTime: 1.4
-  detectionRange: 7.5
-  loseTargetRange: 11
+  detectionRange: 30
+  loseTargetRange: 40
   attackDamage: 28
   attackRange: 1.5
   attackYTolerance: 0.7
@@ -27,5 +27,12 @@ MonoBehaviour:
   attackTriggers:
   - Attack
   - Jab
+  isBoss: 1
+  usesGunshotSfx: 1
+  spawnBarks:
+  - Você devia ter ficado morto, colega.
+  - Olha quem voltou pra apanhar de novo.
+  - Achou que tinha acabado? Mal começou.
+  - De novo você? Dessa vez não escapa.
   scoreValue: 6000
   behaviorType: 0

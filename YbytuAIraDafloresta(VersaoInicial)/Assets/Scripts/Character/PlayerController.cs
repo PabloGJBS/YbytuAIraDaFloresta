@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
     private float hurtStunTimer;
     private float hurtNoAttackTimer;
     private Coroutine hurtFlashRoutine;
+    private AudioSource footstepSource;
 
     // Tags usadas nos states do Animator para identificar tipo
     private const string AttackTag = "Attack";
@@ -126,6 +127,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        SetupFootsteps();
+
         var zone = FindAnyObjectByType<StageZone>();
         if (zone == null) return;
 
@@ -134,6 +137,38 @@ public class PlayerController : MonoBehaviour
         {
             walkAreaMin = zone.WalkMin;
             walkAreaMax = zone.WalkMax;
+        }
+    }
+
+    private void SetupFootsteps()
+    {
+        var sm = SoundManager.Instance;
+        if (sm == null || sm.Library == null || sm.Library.playerStep == null) return;
+
+        var go = new GameObject("FootstepSource");
+        go.transform.SetParent(transform);
+        go.transform.localPosition = Vector3.zero;
+        footstepSource = go.AddComponent<AudioSource>();
+        footstepSource.clip = sm.Library.playerStep;
+        footstepSource.loop = true;
+        footstepSource.playOnAwake = false;
+        footstepSource.volume = 0.55f;
+        footstepSource.outputAudioMixerGroup = sm.SfxGroup;
+    }
+
+    // Loop de passos enquanto o player anda no chao; pausa parado/no ar/atacando/atordoado.
+    private void HandleFootsteps()
+    {
+        if (footstepSource == null) return;
+        bool walking = !isJumping && !isAttacking && hurtStunTimer <= 0f
+            && moveInput.sqrMagnitude > 0.01f;
+        if (walking)
+        {
+            if (!footstepSource.isPlaying) footstepSource.Play();
+        }
+        else if (footstepSource.isPlaying)
+        {
+            footstepSource.Pause();
         }
     }
 
@@ -153,6 +188,7 @@ public class PlayerController : MonoBehaviour
         if (hurtNoAttackTimer > 0f) hurtNoAttackTimer -= Time.deltaTime;
 
         CheckActionStates();
+        HandleFootsteps();
 
         if (isAttacking) return;
         if (hurtStunTimer > 0f) return;
