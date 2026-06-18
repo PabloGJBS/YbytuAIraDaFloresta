@@ -28,6 +28,13 @@ MonoBehaviour:
   enemyDeath: {fileID: 0}
   enemyAlert: {fileID: 0}
   enemyGunshot: {fileID: 8300000, guid: d38c00fe0473ec9498620f84465aff4a, type: 3}
+  tractorEngine: {fileID: 8300000, guid: 076653a739b5b1041b527c4983898e5a, type: 3}
+  tractorHitMetal: {fileID: 8300000, guid: 8fb6d75b4f66258439d7d015dffa88d3, type: 3}
+  tractorOverheat: {fileID: 8300000, guid: 19c7c2c015b1fe64cbaa4e84e9d5c778, type: 3}
+  explosions:
+  - {fileID: 8300000, guid: 8066c5d46e77c8a46b14fbf08b7a9ffa, type: 3}
+  - {fileID: 8300000, guid: c4a917ac12b6f8a4486f6ddbb2aaef7b, type: 3}
+  araraTalk: {fileID: 8300000, guid: 0e1e2cc96a0c78c498c9a19b8e7d861f, type: 3}
   hitConnect: {fileID: 0}
   comboRankUp:
   - {fileID: 8300000, guid: 11210e7d5d3e16c4bb8e2473237b2397, type: 3}
