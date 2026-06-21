@@ -5,12 +5,6 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 
-/// <summary>
-/// Encerramento em tela cheia (fundo preto) apos a cutscene de noticias. Quando o
-/// PrologueCutsceneController termina, escreve a mensagem final na tela com efeito de
-/// digitacao (como a caixa de dialogo, porem em tela cheia), uma tela por vez, e ao
-/// final volta ao Menu Principal. Substitui o OutroCutsceneBridge. UI construida em codigo.
-/// </summary>
 [RequireComponent(typeof(PrologueCutsceneController))]
 public class OutroEndingMessage : MonoBehaviour
 {
@@ -55,10 +49,8 @@ public class OutroEndingMessage : MonoBehaviour
     {
         running = true;
         root.SetActive(true);
-        // Descarta o aperto que veio da ultima noticia; senao ele "pula" a digitacao no 1o frame.
         yield return null;
 
-        // Tudo numa unica tela, digitado de uma vez.
         string full = string.Join("\n\n", pages);
         continuePrompt.gameObject.SetActive(false);
         yield return TypeText(full);
@@ -76,7 +68,6 @@ public class OutroEndingMessage : MonoBehaviour
         int typed = 0;
         foreach (char c in text)
         {
-            // Pular a digitacao mostra o texto completo.
             if (AdvancePressed())
             {
                 label.text = text;
@@ -89,7 +80,7 @@ public class OutroEndingMessage : MonoBehaviour
         }
         isTyping = false;
         if (typingSource != null) typingSource.Stop();
-        yield return null; // evita que o mesmo aperto que pulou ja avance a pagina
+        yield return null;
     }
 
     private IEnumerator WaitForPress()
@@ -122,8 +113,6 @@ public class OutroEndingMessage : MonoBehaviour
 
     private void GoToMenu()
     {
-        // O FinalizacaoFase1Cutscene_Manager pode ser DontDestroyOnLoad (via LocalizationManager),
-        // entao a tela preta persistiria por cima do menu. Destruir o overlay antes de trocar.
         if (root != null) Destroy(root);
         if (GameFlowManager.Instance != null) GameFlowManager.Instance.GoToMainMenu();
         else SceneManager.LoadScene("MainMenu");
@@ -149,7 +138,6 @@ public class OutroEndingMessage : MonoBehaviour
         scaler.referenceResolution = new Vector2(1920, 1080);
         scaler.matchWidthOrHeight = 0.5f;
 
-        // Fundo PRETO opaco (corte seco, sem bleed da cena anterior)
         var bg = new GameObject("BG", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
         bg.transform.SetParent(canvasGo.transform, false);
         var brt = bg.GetComponent<RectTransform>();

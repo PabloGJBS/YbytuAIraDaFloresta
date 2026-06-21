@@ -4,16 +4,6 @@ using System;
 using System.Collections;
 using TMPro;
 
-/// <summary>
-/// Exibe textos de uma secao de localizacao em sequencia (cutscenes, dialogos).
-/// Busca todos os textos de uma secao e exibe um por um com efeito de digitacao.
-///
-/// Uso:
-///   1. Adicionar ao GameObject da cutscene
-///   2. Setar o textSection (ex: "story.intro", "stages.stage_01.intro")
-///   3. Referenciar o TMP_Text onde o texto aparece
-///   4. Chamar StartPlaying() ou deixar playOnStart = true
-/// </summary>
 public class CutsceneTextPlayer : MonoBehaviour
 {
     [Header("Configuracao")]
@@ -67,7 +57,6 @@ public class CutsceneTextPlayer : MonoBehaviour
 
         if (isTyping && inputPressed)
         {
-            // Skipar efeito de digitacao - mostrar texto completo
             SkipTyping();
         }
         else if (!isTyping && waitForInput && inputPressed)
@@ -91,9 +80,6 @@ public class CutsceneTextPlayer : MonoBehaviour
         return false;
     }
 
-    /// <summary>
-    /// Iniciar a exibicao dos textos da secao configurada.
-    /// </summary>
     public void StartPlaying()
     {
         if (LocalizationManager.Instance == null) return;
@@ -110,18 +96,12 @@ public class CutsceneTextPlayer : MonoBehaviour
         ShowCurrentText();
     }
 
-    /// <summary>
-    /// Iniciar com uma secao diferente (para reutilizar o componente).
-    /// </summary>
     public void StartPlayingSection(string section)
     {
         textSection = section;
         StartPlaying();
     }
 
-    /// <summary>
-    /// Limpa o texto na tela e esconde o prompt. Util durante transicoes de cena.
-    /// </summary>
     public void ClearDisplay()
     {
         if (typingCoroutine != null)
@@ -165,7 +145,6 @@ public class CutsceneTextPlayer : MonoBehaviour
         foreach (char c in text)
         {
             displayText.text += c;
-            // Blip de digitacao a cada 2 caracteres visiveis (evita metralhar o SFX).
             if (!char.IsWhiteSpace(c) && (typed++ % 2 == 0))
                 PlayTypeBlip();
             yield return new WaitForSeconds(charDelay);
@@ -183,7 +162,6 @@ public class CutsceneTextPlayer : MonoBehaviour
         }
     }
 
-    // SFX de digitacao tocado num AudioSource dedicado, pra poder ser cortado ao pular o texto.
     private void PlayTypeBlip()
     {
         var sm = SoundManager.Instance;
@@ -199,7 +177,7 @@ public class CutsceneTextPlayer : MonoBehaviour
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
 
-        if (typingSource != null) typingSource.Stop(); // corta o SFX de digitacao ao pular
+        if (typingSource != null) typingSource.Stop();
 
         if (currentIndex < texts.Length)
             displayText.text = texts[currentIndex];

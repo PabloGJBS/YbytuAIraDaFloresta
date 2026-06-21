@@ -3,11 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Orquestra a cutscene do prologo: para cada cena (imagem + secao de localizacao),
-/// troca o fundo e dispara o CutsceneTextPlayer. Quando todos os textos da secao
-/// terminam, avanca para a proxima cena. Ao terminar a ultima, chama OnFinished.
-/// </summary>
 public class PrologueCutsceneController : MonoBehaviour
 {
     [Serializable]

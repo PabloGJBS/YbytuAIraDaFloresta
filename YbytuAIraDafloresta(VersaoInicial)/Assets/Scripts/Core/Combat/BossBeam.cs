@@ -1,11 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-/// <summary>
-/// Feixe horizontal fino (tiro em linha do chefe). Apenas visual: pisca e some.
-/// O dano e hitscan, resolvido por quem dispara (EnemyController.FireLineShot).
-/// Espessura em unidades de mundo (2px a PPU 32 = 0.0625).
-/// </summary>
 [RequireComponent(typeof(LineRenderer))]
 public class BossBeam : MonoBehaviour
 {

@@ -2,20 +2,6 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-/// <summary>
-/// Gerenciador de localizacao (multi-idioma).
-/// Carrega um arquivo JSON por idioma e fornece textos por chave.
-///
-/// Uso:
-///   LocalizationManager.Instance.GetText("ui.main_menu.play") → "Jogar" ou "Play"
-///   LocalizationManager.Instance.GetText("story.intro.scene_01") → texto da intro
-///   LocalizationManager.Instance.GetText("stages.stage_01.name") → nome da fase
-///
-/// Para adicionar um novo idioma:
-///   1. Copiar pt-BR.json e renomear (ex: es-ES.json)
-///   2. Traduzir os valores (manter as mesmas chaves)
-///   3. Adicionar o TextAsset no array availableLanguages no Inspector
-/// </summary>
 public class LocalizationManager : MonoBehaviour
 {
     private static LocalizationManager instance;
@@ -36,9 +22,6 @@ public class LocalizationManager : MonoBehaviour
     {
         if (instance != null && instance != this)
         {
-            // Destroi apenas ESTE componente, nao o GameObject: o LocalizationManager
-            // compartilha o GameObject com o controller da cutscene (IntroCutscene/FinalizacaoFase1Cutscene).
-            // Destruir o GO inteiro mataria a cutscene -> tela preta no 2o play.
             Destroy(this);
             return;
         }
@@ -57,14 +40,10 @@ public class LocalizationManager : MonoBehaviour
         foreach (var asset in availableLanguages)
         {
             if (asset == null) continue;
-            // O nome do arquivo eh o codigo do idioma (pt-BR, en-US, etc)
             languageAssets[asset.name] = asset;
         }
     }
 
-    /// <summary>
-    /// Trocar o idioma ativo.
-    /// </summary>
     public void SetLanguage(string languageCode)
     {
         LoadLanguage(languageCode);
@@ -73,10 +52,6 @@ public class LocalizationManager : MonoBehaviour
         OnLanguageChanged?.Invoke(languageCode);
     }
 
-    /// <summary>
-    /// Buscar texto por chave com notacao de ponto.
-    /// Ex: "ui.main_menu.play", "story.intro.scene_01", "stages.stage_01.name"
-    /// </summary>
     public string GetText(string key)
     {
         if (currentTexts.TryGetValue(key, out string value))
@@ -86,10 +61,6 @@ public class LocalizationManager : MonoBehaviour
         return $"[{key}]";
     }
 
-    /// <summary>
-    /// Buscar texto com formatacao (substitui {0}, {1}, etc).
-    /// Ex: GetTextFormatted("ui.hud.wave", 2, 5) → "Wave 2/5"
-    /// </summary>
     public string GetTextFormatted(string key, params object[] args)
     {
         string text = GetText(key);
@@ -103,11 +74,6 @@ public class LocalizationManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Retorna todos os textos de uma secao como array ordenado.
-    /// Ex: GetSection("story.intro") → ["scene_01 text", "scene_02 text", ...]
-    /// Util para cutscenes que mostram textos em sequencia.
-    /// </summary>
     public string[] GetSection(string prefix)
     {
         var results = new List<string>();
@@ -118,7 +84,6 @@ public class LocalizationManager : MonoBehaviour
             if (kvp.Key.StartsWith(prefix + "."))
             {
                 string subKey = kvp.Key.Substring(prefix.Length + 1);
-                // Ignorar sub-secoes (apenas pegar chaves diretas)
                 if (!subKey.Contains("."))
                     sorted[subKey] = kvp.Value;
             }
@@ -130,9 +95,6 @@ public class LocalizationManager : MonoBehaviour
         return results.ToArray();
     }
 
-    /// <summary>
-    /// Lista os codigos de idiomas disponiveis.
-    /// </summary>
     public string[] GetAvailableLanguages()
     {
         var codes = new string[languageAssets.Count];
@@ -140,9 +102,6 @@ public class LocalizationManager : MonoBehaviour
         return codes;
     }
 
-    /// <summary>
-    /// Retorna o nome legivel do idioma (do campo _meta.language).
-    /// </summary>
     public string GetLanguageName(string code)
     {
         return GetText("_meta.language");
@@ -169,8 +128,6 @@ public class LocalizationManager : MonoBehaviour
 
     private void ParseJsonToFlatDictionary(string json, string prefix)
     {
-        // Parser simples de JSON para dicionario flat com chaves de ponto
-        // Usa JsonUtility indiretamente via parsing manual para suportar nested objects
         var parsed = ParseJsonObject(json);
         FlattenDictionary(parsed, prefix);
     }
@@ -191,8 +148,6 @@ public class LocalizationManager : MonoBehaviour
             }
         }
     }
-
-    // --- JSON Parser simples (sem dependencias externas) ---
 
     private Dictionary<string, object> ParseJsonObject(string json)
     {
@@ -216,7 +171,6 @@ public class LocalizationManager : MonoBehaviour
 
             if (index < json.Length && json[index] == '{')
             {
-                // Encontrar o objeto interno completo
                 int start = index;
                 int depth = 0;
                 do
@@ -235,7 +189,6 @@ public class LocalizationManager : MonoBehaviour
             }
             else
             {
-                // Skip outros tipos (numeros, booleans, etc)
                 while (index < json.Length && json[index] != ',' && json[index] != '}')
                     index++;
             }

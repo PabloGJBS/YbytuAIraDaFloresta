@@ -2,10 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-/// <summary>
-/// Ajusta a dica de input num TMP: a parte do controle ("/ A") so aparece quando ha
-/// um gamepad conectado. Sem controle, mostra so o teclado. Atualiza em runtime.
-/// </summary>
 [RequireComponent(typeof(TMP_Text))]
 public class GamepadHint : MonoBehaviour
 {

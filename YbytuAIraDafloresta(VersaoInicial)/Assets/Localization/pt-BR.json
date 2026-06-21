@@ -178,6 +178,30 @@
                 "01": "Espero que essa pequena história tenha trazido uma reflexão a você. Nem sempre vai existir um herói para lutar pelo bem maior. Na maioria das vezes, existimos só nós, pessoas comuns como eu e você, capazes de pequenas ações.\n\nUm gesto sozinho pode parecer insignificante, mas somado a tantos outros se transforma em algo enorme. Plante uma árvore, escute os pássaros de verdade, sinta o vento e o sol. A vida é linda, e a natureza oferece tudo isso de graça. Não custa nada parar um instante para viver esses momentos.\n\nObrigado por jogar e por testar."
             }
         },
+        "fase2_final": {
+            "scene_01": {
+                "01": "A noite passou, e com ela a ameaça.",
+                "02": "Com a última centelha que a floresta lhe emprestou, o guardião se deita sobre a terra que o viu nascer.",
+                "03": "Agora pode enfim descansar, e voltar de vez ao lugar ao qual sempre pertenceu.",
+                "04": "Ao seu redor, os que ele salvou velam seu sono. E a floresta o acolhe de volta, como sempre acolhe os seus.",
+                "05": "Aqui, a história termina. Lá fora, ela ainda está sendo escrita."
+            },
+            "scene_02": {
+                "01": "O fogo da floresta não só destrói a vegetação, mas também causa um sofrimento enorme aos animais que a habitam. A onça Miranda andou quase 100 km com as patas queimadas, fugindo das chamas do Pantanal."
+            },
+            "scene_03": {
+                "01": "E quem é pequeno demais não consegue fugir. Cada queimada deixa filhotes feridos e órfãos, como este resgatado em São Paulo."
+            },
+            "scene_04": {
+                "01": "As jaulas que você quebrou existem de verdade. Numa só operação no sertão de Sergipe, 517 animais silvestres foram resgatados de cativeiro ilegal, muitos ameaçados de extinção."
+            },
+            "scene_05": {
+                "01": "A caça ilegal não mata só o animal caçado: rouba o alimento de quem depende dele. Hoje as onças-pintadas sofrem com a escassez de alimento na Mata Atlântica."
+            },
+            "scene_06": {
+                "01": "A floresta não precisa de super-heróis. Precisa de cuidados e proteção de todos."
+            }
+        },
         "final": {
             "scene_01": "Com o último inimigo derrotado, a floresta começa a se recuperar.",
             "scene_02": "Ybytu sente a energia da natureza fluindo novamente em equilíbrio.",

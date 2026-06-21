@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Quando o PrologueCutsceneController termina, dispara GameFlowManager.OnIntroCutsceneEnd().
-/// Mantido separado pra deixar PrologueCutsceneController desacoplado do flow do jogo.
-/// </summary>
 [RequireComponent(typeof(PrologueCutsceneController))]
 public class PrologueCutsceneBridge : MonoBehaviour
 {

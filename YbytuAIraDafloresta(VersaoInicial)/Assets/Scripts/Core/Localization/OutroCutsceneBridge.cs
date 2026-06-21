@@ -1,10 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Quando o PrologueCutsceneController (reusado na cutscene de encerramento) termina,
-/// volta ao Menu Principal. Diferente do PrologueCutsceneBridge, que inicia a fase.
-/// </summary>
 [RequireComponent(typeof(PrologueCutsceneController))]
 public class OutroCutsceneBridge : MonoBehaviour
 {
@@ -30,8 +26,8 @@ public class OutroCutsceneBridge : MonoBehaviour
     private void HandleFinished()
     {
         if (GameFlowManager.Instance != null)
-            GameFlowManager.Instance.GoToMainMenu();
+            GameFlowManager.Instance.OnStageFinalizerEnd();
         else
-            SceneManager.LoadScene("MainMenu"); // fallback (ex.: testando a cena isolada)
+            SceneManager.LoadScene("MainMenu");
     }
 }

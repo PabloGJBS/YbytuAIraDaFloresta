@@ -156,6 +156,30 @@
                 "01": "I hope this little story brought you a moment of reflection. There won't always be a hero to fight for the greater good. Most of the time, there's only us, ordinary people like you and me, capable of small actions.\n\nA single gesture may seem insignificant, but added to so many others it becomes something enormous. Plant a tree, truly listen to the birds, feel the wind and the sun. Life is beautiful, and nature offers all of this for free. It costs nothing to pause for a moment and live it.\n\nThank you for playing and for testing."
             }
         },
+        "fase2_final": {
+            "scene_01": {
+                "01": "The night has passed, and with it the threat.",
+                "02": "With the last spark the forest lent him, the guardian lies down upon the earth that saw him born.",
+                "03": "Now he can finally rest, and return for good to the place he always belonged.",
+                "04": "Around him, those he saved keep watch over his sleep. And the forest welcomes him back, as it always welcomes its own.",
+                "05": "Here, the story ends. Out there, it is still being written."
+            },
+            "scene_02": {
+                "01": "Forest fires don't just destroy the vegetation, they cause enormous suffering to the animals that live in it. The jaguar Miranda walked nearly 100 km with burned paws, fleeing the flames of the Pantanal."
+            },
+            "scene_03": {
+                "01": "And those too small simply cannot run. Every wildfire leaves cubs injured and orphaned, like this one rescued in São Paulo."
+            },
+            "scene_04": {
+                "01": "The cages you broke are real. In a single operation in the backlands of Sergipe, 517 wild animals were rescued from illegal captivity, many of them threatened with extinction."
+            },
+            "scene_05": {
+                "01": "Illegal hunting doesn't only kill the hunted animal: it steals the food of those who depend on it. Today jaguars suffer from the scarcity of prey in the Atlantic Forest."
+            },
+            "scene_06": {
+                "01": "The forest doesn't need superheroes. It needs care and protection from everyone."
+            }
+        },
         "final": {
             "scene_01": "With the last enemy defeated, the forest begins to recover.",
             "scene_02": "Ybytu feels nature's energy flowing in balance once more.",
