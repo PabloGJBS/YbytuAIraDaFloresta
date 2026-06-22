@@ -2,16 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// Base reutilizavel de CRIATURA ALIADA que luta ao lado do player (javali, cobra, onça...).
-/// Regras de combate centralizadas aqui pra reuso entre fases; cada bicho vira uma subclasse
-/// (ex.: BoarAlly) e so configura stats/anim/sprite no Inspector.
-///
-/// Fluxo: SPAR (encena luta sem dano, antes do player chegar) -> Activate() (combate real:
-/// persegue e ataca o inimigo mais proximo com dano baixo, alinhando PE-COM-PE) -> ao fim da
-/// briga FleeLeft() (foge se sobreviveu) ou, se morrer, vira CORPO que fica na cena.
-/// Movida por transform; dano direto na vida (sem colliders) via EnemyController.DamageFromAlly.
-/// </summary>
 [RequireComponent(typeof(HealthSystem))]
 public class AllyCreature : MonoBehaviour
 {
@@ -76,7 +66,9 @@ public class AllyCreature : MonoBehaviour
     protected HealthSystem health;
     private bool hasWalkArea;
     private Vector2 walkMin, walkMax;
-    private bool fighting;       // false = SPAR (sem dano), true = combate real
+    private bool hasLeash;
+    private float leashMinX, leashMaxX;
+    private bool fighting;
     private bool dead;
     private bool frozen;         // pausado (durante o grito)
     private bool attacking;      // durante a corrotina de ataque
@@ -84,19 +76,16 @@ public class AllyCreature : MonoBehaviour
     private float fleeTimer;
     private float attackTimer;
     private float searchTimer;
-    private float hurtLockTimer;     // travado tomando Hurt (pra a anim de dano aparecer)
+    private float hurtLockTimer;
     private const float HurtLockSeconds = 0.35f;
     private EnemyController currentEnemy;
     private string currentAnim;
 
-    // Dano crescente (cobra): rastreia o ultimo inimigo acertado e os golpes seguidos nele.
     private EnemyController lastHitEnemy;
     private int escalateStacks;
 
-    // Registro de todas as criaturas aliadas vivas (pra separacao).
     private static readonly List<AllyCreature> All = new List<AllyCreature>();
 
-    // Aliados ATIVOS (libertos e lutando) - os inimigos consultam pra decidir mira.
     private static readonly List<AllyCreature> ActiveList = new List<AllyCreature>();
     public static System.Collections.Generic.IReadOnlyList<AllyCreature> Active => ActiveList;
 
@@ -111,7 +100,6 @@ public class AllyCreature : MonoBehaviour
         health = GetComponent<HealthSystem>();
         health.SetMaxHealth(maxHealth);
 
-        // Hurtbox (trigger), mesma ideia do hurtbox do player; calibravel por bicho no Inspector.
         var box = GetComponent<BoxCollider2D>();
         if (box == null) box = gameObject.AddComponent<BoxCollider2D>();
         box.isTrigger = true;
@@ -142,18 +130,22 @@ public class AllyCreature : MonoBehaviour
         ActiveList.Remove(this);
     }
 
-    /// <summary>Vira aliado de verdade: passa a dar/receber dano. (O grito e a pausa sao do coordenador.)</summary>
+    public void SetLeash(float minX, float maxX) { hasLeash = true; leashMinX = minX; leashMaxX = maxX; }
+
     public void Activate()
     {
         fighting = true;
-        if (!ActiveList.Contains(this)) ActiveList.Add(this); // inimigos passam a poder mira-lo
+        if (!ActiveList.Contains(this)) ActiveList.Add(this);
     }
 
-    /// <summary>Pausa/retoma (durante o grito, pra dar tempo de ler).</summary>
     public void SetFrozen(bool value)
     {
         frozen = value;
-        if (frozen) Play(idleState);
+        if (frozen)
+        {
+            Play(idleState);
+            if (sr != null) sr.flipX = spriteFacesRight;
+        }
     }
 
     private void Update()
@@ -161,8 +153,6 @@ public class AllyCreature : MonoBehaviour
         if (dead) return;
         if (fleeing) { UpdateFlee(); return; }
         if (frozen) { Play(idleState); return; }
-        // Stun de dano: fica no Hurt sem mover/atacar (senao o Update sobrescreve a anim de Hurt
-        // com Run/Idle no frame seguinte e o Hurt nunca aparece).
         if (hurtLockTimer > 0f)
         {
             hurtLockTimer -= Time.deltaTime;
@@ -174,13 +164,12 @@ public class AllyCreature : MonoBehaviour
         transform.position = ClampToWalk(transform.position);
     }
 
-    /// <summary>Ao fim da briga: corre pra esquerda e some (se sobreviveu). withFarewell = grita a despedida.</summary>
     public void FleeLeft(bool withFarewell)
     {
         if (dead || fleeing) return;
         fleeing = true;
         fleeTimer = fleeSeconds;
-        ActiveList.Remove(this); // fugindo: inimigos param de mira-lo
+        ActiveList.Remove(this);
         if (withFarewell) ShoutFarewell();
     }
 
@@ -211,7 +200,6 @@ public class AllyCreature : MonoBehaviour
         }
     }
 
-    // --- Encenacao (engaja de verdade, mas SEM dano) ---
     private void UpdateSpar()
     {
         if (attacking) return;
@@ -241,13 +229,12 @@ public class AllyCreature : MonoBehaviour
         attackTimer -= Time.deltaTime;
         searchTimer -= Time.deltaTime;
 
-        if (currentEnemy == null || currentEnemy.CurrentState == EnemyState.Dead)
+        if (ShouldDropTarget(currentEnemy)) currentEnemy = null;
+
+        if (currentEnemy == null && searchTimer <= 0f)
         {
-            if (searchTimer <= 0f)
-            {
-                searchTimer = 0.3f;
-                currentEnemy = FindNearestEnemy();
-            }
+            searchTimer = 0.3f;
+            currentEnemy = FindNearestEnemy();
         }
         if (currentEnemy == null) { Play(idleState); return; }
 
@@ -258,10 +245,18 @@ public class AllyCreature : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Anda pra ficar coladinho no alvo, alinhando PE-COM-PE (usa os limites reais dos sprites,
-    /// resolvendo a diferenca de pivo). Retorna true quando esta alinhado o bastante pra atacar.
-    /// </summary>
+    private bool ShouldDropTarget(EnemyController e)
+    {
+        if (e == null || e.CurrentState == EnemyState.Dead) return true;
+        if (hasLeash)
+        {
+            float ex = e.transform.position.x;
+            if (ex < leashMinX - 1.5f || ex > leashMaxX + 1.5f) return true;
+        }
+        if (Vector2.Distance(transform.position, e.transform.position) > detectionRange + 2f) return true;
+        return false;
+    }
+
     private bool ApproachTarget(Transform target)
     {
         Vector3 tp = target.position;
@@ -283,8 +278,6 @@ public class AllyCreature : MonoBehaviour
         transform.position = ClampToWalk(p);
         FaceX(enemyCenterX);
 
-        // Gatilho de ataque generoso (so X): se esta colado do lado do inimigo, bate.
-        // Evita ficar "travadao" correndo no lugar quando o Y nao bate exatinho.
         bool canAttack = Mathf.Abs(transform.position.x - enemyCenterX) <= horizontalStandoff + 0.6f;
         Play(canAttack ? idleState : runState);
         return canAttack;
@@ -292,6 +285,7 @@ public class AllyCreature : MonoBehaviour
 
     private Vector3 ClampToWalk(Vector3 p)
     {
+        if (hasLeash) p.x = Mathf.Clamp(p.x, leashMinX, leashMaxX); // nao sai da zona de combate
         if (!hasWalkArea) return p;
         p.x = Mathf.Clamp(p.x, walkMin.x, walkMax.x);
         p.y = Mathf.Clamp(p.y, walkMin.y, walkMax.y);
@@ -310,7 +304,7 @@ public class AllyCreature : MonoBehaviour
             float ex = (esr != null && esr.sprite != null) ? esr.bounds.center.x : enemy.transform.position.x;
             if (Mathf.Abs(ex - transform.position.x) <= 2.0f)
             {
-                enemy.DamageFromAlly(ComputeDamage(enemy), health); // passa a si mesma (alvo da retaliacao)
+                enemy.DamageFromAlly(ComputeDamage(enemy), health);
                 var sm = SoundManager.Instance;
                 if (sm != null && sm.Library != null && sm.Library.enemyPunch != null)
                     sm.PlaySFX(sm.Library.enemyPunch);
@@ -321,7 +315,6 @@ public class AllyCreature : MonoBehaviour
         attacking = false;
     }
 
-    /// <summary>Dano do golpe. Se 'escalatingDamage' (cobra), acertar o MESMO inimigo seguidas vezes aumenta o dano.</summary>
     private int ComputeDamage(EnemyController enemy)
     {
         if (!escalatingDamage) return attackDamage;
@@ -339,6 +332,11 @@ public class AllyCreature : MonoBehaviour
         foreach (var e in list)
         {
             if (e == null || e.CurrentState == EnemyState.Dead) continue;
+            if (hasLeash)
+            {
+                float ex = e.transform.position.x;
+                if (ex < leashMinX - 1.5f || ex > leashMaxX + 1.5f) continue;
+            }
             float d = Vector2.Distance(transform.position, e.transform.position);
             if (d <= bestD) { bestD = d; best = e; }
         }
@@ -349,7 +347,7 @@ public class AllyCreature : MonoBehaviour
     {
         if (dead) return;
         PlayOnce(hurtState);
-        hurtLockTimer = HurtLockSeconds;     // trava no Hurt um tiquinho (anim aparece)
+        hurtLockTimer = HurtLockSeconds;
     }
 
     private void HandleDeath()
@@ -359,7 +357,6 @@ public class AllyCreature : MonoBehaviour
         ActiveList.Remove(this);
         StopAllCoroutines();
         PlayOnce(deathState);
-        // NAO destroi: o corpo fica na cena.
     }
 
     public void Shout()
@@ -368,7 +365,6 @@ public class AllyCreature : MonoBehaviour
         if (!string.IsNullOrEmpty(text)) StartCoroutine(ShoutRoutine(text));
     }
 
-    /// <summary>Mostra uma fala arbitraria no balao (ex.: pedido de socorro preso na jaula).</summary>
     public void Say(string line)
     {
         if (!string.IsNullOrEmpty(line) && isActiveAndEnabled) StartCoroutine(ShoutRoutine(line));

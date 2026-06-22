@@ -1,14 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Deixa o SpriteRenderer semitransparente quando o player encosta/passa
-/// por dentro da area do prop, dando a sensacao de que o personagem esta
-/// passando por tras dele. Pensado para os props de frente (PropsFront).
-///
-/// Deteccao por AABB: cruza o bounds do sprite (ajustavel por padding) com
-/// o bounds do collider do player (ou um ponto, se ele nao tiver collider).
-/// O alpha faz lerp suave entre 1 e <see cref="fadedAlpha"/>.
-/// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
 public class FadeWhenPlayerBehind : MonoBehaviour
 {
@@ -66,8 +57,6 @@ public class FadeWhenPlayerBehind : MonoBehaviour
         if (behind && requireInFront && playerSr != null)
             behind = RendersInFrontOf(playerSr);
 
-        // Tambem desbota quando um inimigo esta atras da folhagem, senao ele fica
-        // escondido (FadeWhenPlayerBehind originalmente so olhava o player).
         if (!behind) behind = IsEnemyInside();
 
         float target = behind ? fadedAlpha : 1f;

@@ -2,16 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-/// <summary>
-/// Jaula que prende animais aliados. Recebe os GOLPES do player (conta golpes, nao dano):
-/// alguns socos a deixam DANIFICADA e mais alguns a QUEBRAM. Ao quebrar, os animais sao
-/// libertados: agradecem e entram no combate ao lado do player (AllyCreature.Activate()).
-///
-/// A jaula tem 3 estagios como GameObjects separados (intacto/danificado/quebrado) que
-/// ligam/desligam - cada um pode ter sua propria escala/posicao (sprites Jaula1/2/3).
-/// Enquanto presa, o animal fica parado e PROTEGIDO (sem hurtbox, nao toma dano).
-/// Implementa IDamageable pra ser atingida pela hitbox de ataque do player.
-/// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class AnimalCage : MonoBehaviour, IDamageable
 {
@@ -42,6 +32,8 @@ public class AnimalCage : MonoBehaviour, IDamageable
     public CombatZone zone;
     [Tooltip("Pontos de bonus por animal liberto que SOBREVIVE ate o fim da zona.")]
     public int survivorBonus = 3000;
+    [Tooltip("Meia-largura (em X) do trecho onde os aliados libertos podem se mover (em volta da jaula), pra nao sairem da area atras de inimigo que foge.")]
+    public float allyLeashHalfWidth = 7f;
 
     [Header("Pedido de socorro (preso)")]
     [Tooltip("Intervalo medio entre as falas de socorro dos animais presos.")]
@@ -60,15 +52,12 @@ public class AnimalCage : MonoBehaviour, IDamageable
 
     public bool IsBroken => broken;
 
-    /// <summary>Total de animais (de qualquer jaula) que sobreviveram - lido pelo reencontro no boss final.</summary>
     public static int TotalSurvivors;
 
     private void Start()
     {
         ShowStage(0); // intacta
 
-        // Se a lista nao foi preenchida no Inspector, pega automaticamente os animais
-        // que forem FILHOS da jaula (jaula + bichos viram uma unidade so na cena).
         bool listEmpty = trappedAnimals == null || trappedAnimals.Count == 0 || trappedAnimals.TrueForAll(a => a == null);
         if (listEmpty)
             trappedAnimals = new List<AllyCreature>(GetComponentsInChildren<AllyCreature>(true));
@@ -83,7 +72,6 @@ public class AnimalCage : MonoBehaviour, IDamageable
         if (zone != null) zone.OnZoneCompleted -= HandleZoneCompleted;
     }
 
-    /// <summary>Enquanto presa e com o player por perto, os animais pedem socorro (balao de fala).</summary>
     private void Update()
     {
         if (broken || trappedAnimals == null || trappedAnimals.Count == 0) return;
@@ -100,7 +88,6 @@ public class AnimalCage : MonoBehaviour, IDamageable
         if (pleaTimer > 0f) return;
         pleaTimer = pleaInterval + Random.Range(-1f, 1.5f);
 
-        // escolhe UM animal vivo aleatorio pra falar (reservoir sampling)
         AllyCreature speaker = null;
         int seen = 0;
         foreach (var a in trappedAnimals)
@@ -112,10 +99,9 @@ public class AnimalCage : MonoBehaviour, IDamageable
         if (speaker != null) speaker.Say(speaker.caughtLine);
     }
 
-    /// <summary>Fim da zona: os animais libertos que sobreviveram fogem pra esquerda + bonus.</summary>
     private void HandleZoneCompleted(CombatZone z)
     {
-        if (!broken) return; // animais ainda presos (jaula intacta) nao fogem
+        if (!broken) return;
         var stage = FindFirstObjectByType<StageManager>();
         bool farewellGiven = false;
         foreach (var a in trappedAnimals)
@@ -132,7 +118,6 @@ public class AnimalCage : MonoBehaviour, IDamageable
         }
     }
 
-    /// <summary>Cada chamada = UM golpe do player (a hitbox dedupa por alvo). Ignora o valor do dano.</summary>
     public void TakeDamage(int damage)
     {
         if (broken) return;
@@ -155,7 +140,6 @@ public class AnimalCage : MonoBehaviour, IDamageable
         broken = true;
         ShowStage(2); // quebrada
 
-        // detrito no chao: fica ATRAS dos animais libertos (ordem baixa, YSort desligado pra nao sobrescrever)
         if (brokenStage != null)
         {
             var ys = brokenStage.GetComponent<YSortRenderer>();
@@ -174,16 +158,21 @@ public class AnimalCage : MonoBehaviour, IDamageable
     private void FreeAnimal()
     {
         ProtectAnimal(false);
+
+        float cx = (zone != null) ? zone.transform.position.x : transform.position.x;
+        float leashMin = cx - allyLeashHalfWidth;
+        float leashMax = cx + allyLeashHalfWidth;
+
         bool thanked = false;
         foreach (var a in trappedAnimals)
         {
             if (a == null) continue;
+            a.SetLeash(leashMin, leashMax);
             if (animalThanksOnFree && !thanked) { a.Shout(); thanked = true; }
             a.Activate();
         }
     }
 
-    /// <summary>Liga so o estagio pedido (0=intacto, 1=danificado, 2=quebrado).</summary>
     private void ShowStage(int stage)
     {
         if (intactStage != null) intactStage.SetActive(stage == 0);
@@ -191,7 +180,6 @@ public class AnimalCage : MonoBehaviour, IDamageable
         if (brokenStage != null) brokenStage.SetActive(stage == 2);
     }
 
-    /// <summary>Liga/desliga a protecao dos animais presos: parados + hurtbox desligada.</summary>
     private void ProtectAnimal(bool protect)
     {
         foreach (var a in trappedAnimals)

@@ -17,8 +17,9 @@ MonoBehaviour:
   description: Fase 1
   stageIcon: {fileID: 0}
   gameplaySceneName: Stage1
-  introCutsceneId: 
-  outroCutsceneId: 
+  introCutsceneId:
+  outroCutsceneId:
+  finalizerCutsceneId: CutsceneFinalizadoraFase1
   unlockedByDefault: 1
   requiredStage: {fileID: 0}
   maxScore: 10000
