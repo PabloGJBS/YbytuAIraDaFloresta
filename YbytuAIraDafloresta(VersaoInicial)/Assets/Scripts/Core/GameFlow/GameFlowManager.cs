@@ -3,15 +3,6 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 
-/// <summary>
-/// Gerenciador central do fluxo de telas do jogo.
-/// Singleton que persiste entre cenas.
-///
-/// Fluxo:
-/// IntroCutscene -> MainMenu -> SaveSelect -> StageSelect -> Stage -> StageCutscene -> StageScore -> StageSelect
-///                                                                                                   (repete)
-/// Ultima fase: StageCutscene -> FinalCutscene -> Credits -> StageSelect
-/// </summary>
 public class GameFlowManager : MonoBehaviour
 {
     private const string DisclaimerAcceptedKey = "Ybytu_DisclaimerAccepted";
@@ -27,13 +18,11 @@ public class GameFlowManager : MonoBehaviour
     [SerializeField] private string stageSelectScene = "StageSelect";
     [SerializeField] private string scoreScene = "StageScore";
     [SerializeField] private string creditsScene = "Credits";
-    [SerializeField] private string finalCutsceneScene = "FinalizacaoFase1Cutscene";
+    [SerializeField] private string finalCutsceneScene = "CutsceneFinalizadoraFase1";
 
     public enum SaveSelectMode { NewGame, Continue }
     public SaveSelectMode PendingSaveSelectMode { get; private set; } = SaveSelectMode.NewGame;
 
-    // Checkpoint de fase: indice da zona de combate onde o player morreu, pra "Continuar"
-    // retomar dela em vez do inicio da fase. Persiste pelo reload (singleton).
     public int StageCheckpointZone { get; private set; }
     public bool HasStageCheckpoint { get; private set; }
 
@@ -56,6 +45,7 @@ public class GameFlowManager : MonoBehaviour
     private GameState currentState;
     private StageData currentStage;
     private int currentStageScore;
+    private int carryOverScore;
     private float currentStageTime;
     private int currentStageHits;
     private int currentStageEnemies;
@@ -66,6 +56,7 @@ public class GameFlowManager : MonoBehaviour
     public StageData CurrentStage => currentStage;
     public StageData[] Stages => stages;
     public int CurrentStageScore => currentStageScore;
+    public int CarryOverScore => carryOverScore;
     public float CurrentStageTime => currentStageTime;
     public int PlayerLives => playerLives;
     public int CurrentStageHits => currentStageHits;
@@ -87,8 +78,6 @@ public class GameFlowManager : MonoBehaviour
 
     private void Start()
     {
-        // Mostra a tela de atencao (Disclaimer) no inicio de toda sessao.
-        // Ja estamos na cena Disclaimer (buildIndex 0), entao so ajusta o estado.
         ChangeState(GameState.Disclaimer);
     }
 
@@ -141,13 +130,12 @@ public class GameFlowManager : MonoBehaviour
         LoadScene(saveSelectScene);
     }
 
-    /// <summary>
-    /// Jogar (Novo Jogo): mostra a cutscene do prologo e em seguida joga o player na primeira fase.
-    /// </summary>
     public void StartNewGame()
     {
         PendingSaveSelectMode = SaveSelectMode.NewGame;
         ResetPlayerLives();
+        carryOverScore = 0;
+        if (SaveManager.Instance != null) SaveManager.Instance.CreateNewSave(SaveManager.SingleSlot);
         GoToIntroCutscene();
     }
 
@@ -156,38 +144,49 @@ public class GameFlowManager : MonoBehaviour
         if (playerLives > 0) playerLives--;
     }
 
+    public void PrimeDirectPlay(StageData stage)
+    {
+        if (currentStage == null) currentStage = stage;
+    }
+
     public void ResetPlayerLives()
     {
         playerLives = startingLives;
     }
 
-    /// <summary>
-    /// Continuar: 0 saves = nada, 1 save = carrega direto, 2+ saves = SaveSelect em modo Continue.
-    /// </summary>
     public void ContinueGame()
     {
         if (SaveManager.Instance == null) return;
+        var save = SaveManager.Instance.LoadSave(SaveManager.SingleSlot);
+        if (save == null) return; // sem save: nada a continuar
 
-        int count = SaveManager.Instance.GetSaveCount();
-        if (count == 0) return;
+        carryOverScore = save.carryOverScore;
+        playerLives = Mathf.Max(1, save.livesRemaining);
 
-        if (count == 1)
-        {
-            int slot = SaveManager.Instance.GetMostRecentSlot();
-            if (slot < 0) return;
+        if (!save.introWatched) { GoToIntroCutscene(); return; }
 
-            SaveManager.Instance.SelectSave(slot);
-            if (SaveManager.Instance.CurrentSave != null && !SaveManager.Instance.CurrentSave.introWatched)
-            {
-                GoToIntroCutscene();
-                return;
-            }
-            GoToStageSelect();
-            return;
-        }
+        var stage = FindStageByIndex(save.lastStageIndex);
+        if (stage == null) { GoToMainMenu(); return; }
+        ResumeStageAtZone(stage, save.lastZoneIndex);
+    }
 
-        PendingSaveSelectMode = SaveSelectMode.Continue;
-        GoToSaveSelect();
+    private void ResumeStageAtZone(StageData stage, int zoneIndex)
+    {
+        currentStage = stage;
+        currentStageScore = 0;
+        currentStageTime = 0f;
+        if (zoneIndex > 0) SetStageCheckpoint(zoneIndex);
+        else ClearStageCheckpoint();
+        ChangeState(GameState.StagePlaying);
+        LoadScene(stage.gameplaySceneName);
+    }
+
+    private StageData FindStageByIndex(int index)
+    {
+        if (stages == null) return null;
+        for (int i = 0; i < stages.Length; i++)
+            if (stages[i] != null && stages[i].stageIndex == index) return stages[i];
+        return null;
     }
 
     public void GoToStageSelect()
@@ -198,12 +197,11 @@ public class GameFlowManager : MonoBehaviour
 
     public void GoToStage(StageData stage)
     {
-        ClearStageCheckpoint(); // entrada nova na fase: comeca do inicio
+        ClearStageCheckpoint();
         currentStage = stage;
         currentStageScore = 0;
         currentStageTime = 0f;
 
-        // Se a fase tem cutscene de intro, mostra primeiro
         if (!string.IsNullOrEmpty(stage.introCutsceneId))
         {
             pendingOutroCutscene = false;
@@ -223,10 +221,6 @@ public class GameFlowManager : MonoBehaviour
         LoadScene(currentStage.gameplaySceneName);
     }
 
-    /// <summary>
-    /// Continuar apos Game Over: gasta uma vida e recarrega o gameplay da fase atual
-    /// MANTENDO o checkpoint, pra o StageManager retomar na zona onde o player morreu.
-    /// </summary>
     public void ContinueCurrentStage()
     {
         if (currentStage == null) return;
@@ -252,8 +246,9 @@ public class GameFlowManager : MonoBehaviour
 
     public void CompleteStage(int score, float time, int hits = 0, int enemies = 0)
     {
-        ClearStageCheckpoint(); // fase concluida: proxima entrada comeca do inicio
+        ClearStageCheckpoint();
         currentStageScore = score;
+        carryOverScore = score;
         currentStageTime = time;
         currentStageHits = hits;
         currentStageEnemies = enemies;
@@ -263,7 +258,6 @@ public class GameFlowManager : MonoBehaviour
         if (SaveManager.Instance != null)
             SaveManager.Instance.SaveStageResult(currentStage.stageIndex, score, time);
 
-        // Se tem cutscene de final da fase, mostra
         if (!string.IsNullOrEmpty(currentStage.outroCutsceneId))
         {
             pendingOutroCutscene = true;
@@ -288,14 +282,57 @@ public class GameFlowManager : MonoBehaviour
         LoadScene(finalCutsceneScene);
     }
 
-    // Chamado pela tela de pontuacao ao continuar.
-    // Ultima fase -> cutscene final; senao -> selecao de fases.
     public void OnStageScoreContinue()
     {
-        if (currentStage != null && IsLastStage(currentStage))
-            GoToFinalCutscene();
+        if (currentStage != null && !string.IsNullOrEmpty(currentStage.finalizerCutsceneId))
+        {
+            ChangeState(GameState.FinalCutscene);
+            LoadScene(currentStage.finalizerCutsceneId);
+        }
         else
-            GoToStageSelect();
+        {
+            AdvanceAfterStage();
+        }
+    }
+
+    public void OnStageFinalizerEnd()
+    {
+        AdvanceAfterStage();
+    }
+
+    private void AdvanceAfterStage()
+    {
+        var next = GetNextStage(currentStage);
+        if (next != null)
+            GoToStage(next);
+        else
+            GoToMainMenu();
+    }
+
+    private StageData GetNextStage(StageData stage)
+    {
+        if (stages == null || stage == null) return null;
+        for (int i = 0; i < stages.Length; i++)
+        {
+            if (stages[i] != null && stages[i].stageIndex == stage.stageIndex)
+                return (i + 1 < stages.Length) ? stages[i + 1] : null;
+        }
+        return null;
+    }
+
+    private StageData GetResumeStage()
+    {
+        if (stages == null || stages.Length == 0) return null;
+        if (SaveManager.Instance != null && SaveManager.Instance.CurrentSave != null)
+        {
+            for (int i = 0; i < stages.Length; i++)
+            {
+                if (stages[i] == null) continue;
+                var prog = SaveManager.Instance.GetStageProgress(stages[i].stageIndex);
+                if (prog == null || !prog.completed) return stages[i];
+            }
+        }
+        return stages[stages.Length - 1];
     }
 
     public void GoToCredits()
@@ -304,19 +341,16 @@ public class GameFlowManager : MonoBehaviour
         LoadScene(creditsScene);
     }
 
-    // Chamado ao terminar a cutscene de intro ou de fim da fase
     public void OnStageCutsceneEnd()
     {
         if (currentState != GameState.StageCutscene) return;
 
-        // Flag explicita evita misroteamento de uma fase concluida com score 0
         if (pendingOutroCutscene)
             GoToStageScore();
         else
             StartStageGameplay();
     }
 
-    // Chamado ao terminar a intro do jogo: vai direto pra primeira fase
     public void OnIntroCutsceneEnd()
     {
         if (SaveManager.Instance != null && SaveManager.Instance.CurrentSave != null)
@@ -328,11 +362,9 @@ public class GameFlowManager : MonoBehaviour
             return;
         }
 
-        // Fallback enquanto nao ha StageData configurada
         LoadScene("SampleScene");
     }
 
-    // Verificar se deve pular a intro
     public bool ShouldSkipIntro()
     {
         if (SaveManager.Instance == null || SaveManager.Instance.CurrentSave == null)
@@ -340,7 +372,6 @@ public class GameFlowManager : MonoBehaviour
         return SaveManager.Instance.CurrentSave.introWatched;
     }
 
-    // Verificar se uma fase esta desbloqueada
     public bool IsStageUnlocked(StageData stage)
     {
         if (stage.unlockedByDefault) return true;

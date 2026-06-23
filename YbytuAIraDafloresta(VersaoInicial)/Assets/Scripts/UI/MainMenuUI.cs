@@ -1,10 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Controlador da tela de menu principal.
-/// Os handlers OnXxxButton() sao conectados aos botoes via Inspector (onClick).
-/// </summary>
 public class MainMenuUI : MonoBehaviour
 {
     [Header("Botoes")]
@@ -23,8 +19,6 @@ public class MainMenuUI : MonoBehaviour
     {
         UpdateContinueButtonState();
 
-        // Os handlers tambem podem ser conectados via Inspector (onClick).
-        // Fazemos bind em runtime como backup/conveniencia.
         if (playButton != null) playButton.onClick.AddListener(OnPlayButton);
         if (continueButton != null) continueButton.onClick.AddListener(OnContinueButton);
         if (settingsButton != null) settingsButton.onClick.AddListener(OnSettingsButton);
@@ -36,7 +30,7 @@ public class MainMenuUI : MonoBehaviour
     private void UpdateContinueButtonState()
     {
         if (continueButton == null) return;
-        bool hasAnySave = SaveManager.Instance != null && SaveManager.Instance.GetSaveCount() > 0;
+        bool hasAnySave = SaveManager.Instance != null && SaveManager.Instance.HasAnySave();
         continueButton.interactable = hasAnySave;
     }
 

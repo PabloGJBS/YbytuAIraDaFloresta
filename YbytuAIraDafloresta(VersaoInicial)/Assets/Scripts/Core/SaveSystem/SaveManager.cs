@@ -1,10 +1,6 @@
 using UnityEngine;
 using System.IO;
 
-/// <summary>
-/// Gerencia os 3 slots de save do jogo.
-/// Salva/carrega em JSON no persistentDataPath.
-/// </summary>
 public class SaveManager : MonoBehaviour
 {
     public const int MaxSlots = 3;
@@ -39,9 +35,6 @@ public class SaveManager : MonoBehaviour
         return count;
     }
 
-    /// <summary>
-    /// Retorna o slot do save mais recente (pelo lastPlayedAt), ou -1 se nenhum existe.
-    /// </summary>
     public int GetMostRecentSlot()
     {
         int bestSlot = -1;
@@ -141,6 +134,20 @@ public class SaveManager : MonoBehaviour
         if (progress.bestTime <= 0 || time < progress.bestTime)
             progress.bestTime = time;
 
+        WriteSave();
+    }
+
+    public const int SingleSlot = 0;
+
+    public bool HasAnySave() => HasSave(SingleSlot);
+
+    public void SaveProgress(int stageIndex, int zoneIndex, int carryOverScore, int lives)
+    {
+        if (currentSave == null) currentSave = new SaveData(SingleSlot);
+        currentSave.lastStageIndex = stageIndex;
+        currentSave.lastZoneIndex = zoneIndex;
+        currentSave.carryOverScore = carryOverScore;
+        currentSave.livesRemaining = lives;
         WriteSave();
     }
 

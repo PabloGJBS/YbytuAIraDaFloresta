@@ -2,15 +2,14 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-/// <summary>
-/// Gerenciador de uma fase (stage) em execucao.
-/// Controla a progressao entre CombatZones, score e tempo.
-/// Colocar na cena de cada fase.
-/// </summary>
 public class StageManager : MonoBehaviour
 {
     [Header("Zonas de Combate (em ordem)")]
     [SerializeField] private CombatZone[] combatZones;
+
+    [Header("Fase (pra TESTE DIRETO: Play nesta cena, sem o menu)")]
+    [Tooltip("StageData desta fase. Permite testar o fim de fase (score -> cutscene finalizadora correta) dando Play direto na cena, sem jogar desde o inicio. No fluxo normal nao interfere.")]
+    [SerializeField] private StageData stageData;
 
     [Header("Eventos da Fase")]
     [SerializeField] private bool autoCompleteOnAllZones = true;
@@ -44,6 +43,16 @@ public class StageManager : MonoBehaviour
     public event Action<int> OnScoreChanged;
     public event Action<int, float> OnStageCompleted; // score, time
 
+    private void Awake()
+    {
+        if (stageData != null)
+        {
+            if (GameFlowManager.Instance == null)
+                new GameObject("GameFlowManager (DirectPlay)").AddComponent<GameFlowManager>();
+            GameFlowManager.Instance?.PrimeDirectPlay(stageData);
+        }
+    }
+
     private void Start()
     {
         StartStage();
@@ -59,31 +68,30 @@ public class StageManager : MonoBehaviour
     {
         stageActive = true;
         stageCompleted = false;
-        totalScore = 0;
+        totalScore = GameFlowManager.Instance != null ? GameFlowManager.Instance.CarryOverScore : 0;
         enemiesKilled = 0;
         stageTime = 0f;
         currentZoneIndex = 0;
 
-        // Registrar eventos de todas as zonas
+        EnemyController.OnAnyEnemyDied -= HandleEnemyKilled;
+        EnemyController.OnAnyEnemyDied += HandleEnemyKilled;
+
         if (combatZones != null)
         {
             foreach (var zone in combatZones)
             {
                 if (zone == null) continue;
-                zone.OnEnemyKilled += HandleEnemyKilled;
                 zone.OnZoneCompleted += HandleZoneCompleted;
             }
         }
 
         OnStageStarted?.Invoke();
+        OnScoreChanged?.Invoke(totalScore);
 
         ResumeFromCheckpointIfAny();
+        PersistProgress();
     }
 
-    /// <summary>
-    /// Continuar apos morrer: marca as zonas anteriores ao checkpoint como limpas e
-    /// reposiciona o player na entrada da zona onde ele morreu (em vez do inicio da fase).
-    /// </summary>
     private void ResumeFromCheckpointIfAny()
     {
         if (GameFlowManager.Instance == null || !GameFlowManager.Instance.HasStageCheckpoint) return;
@@ -101,7 +109,7 @@ public class StageManager : MonoBehaviour
 
     private IEnumerator RepositionToCheckpoint(int checkpoint)
     {
-        yield return null; // deixa o PlayerController.Start aplicar o spawn antes de reposicionar
+        yield return null;
 
         var zone = combatZones[checkpoint];
         if (zone == null) yield break;
@@ -116,7 +124,6 @@ public class StageManager : MonoBehaviour
         var p = player.transform.position;
         player.transform.position = new Vector3(entranceX - 2f, p.y, p.z);
 
-        // Snapa a camera no player pra nao fazer o pan/viagem desde o inicio da fase.
         var camCtrl = Camera.main != null ? Camera.main.GetComponent<CameraController>() : null;
         if (camCtrl != null) camCtrl.SnapToTarget();
     }
@@ -129,13 +136,8 @@ public class StageManager : MonoBehaviour
         HealPlayerOnKill();
     }
 
-    /// <summary>
-    /// Registra a morte de um inimigo NAO gerenciado pela zona (ex.: capangas spawnados
-    /// pelo FinalBossEncounter): soma score, conta e cura o player igual a uma morte normal.
-    /// </summary>
     public void RegisterExternalKill(int scoreValue) => HandleEnemyKilled(scoreValue);
 
-    /// <summary>Cura uma fracao pequena da vida do player a cada inimigo derrotado.</summary>
     private void HealPlayerOnKill()
     {
         if (healPercentPerKill <= 0f) return;
@@ -154,22 +156,27 @@ public class StageManager : MonoBehaviour
         var player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            // Pausar combo na transicao entre zonas
             player.GetComponent<ComboSystem>()?.Pause();
 
-            // Recompensa: cura 15% da vida; excedente (vida cheia) vira pontos
             RewardZoneClear(player);
         }
 
-        // Verificar se todas as zonas foram completadas
+        PersistProgress();
+
         if (autoCompleteOnAllZones && AllZonesCompleted())
             CompleteStage();
     }
 
-    /// <summary>
-    /// Ao limpar uma zona: cura uma fracao da vida do player. Se a vida ja estiver
-    /// cheia, o que sobraria da cura vira pontos de bonus.
-    /// </summary>
+    private void PersistProgress()
+    {
+        if (SaveManager.Instance == null) return;
+        int idx = (GameFlowManager.Instance != null && GameFlowManager.Instance.CurrentStage != null)
+            ? GameFlowManager.Instance.CurrentStage.stageIndex
+            : (stageData != null ? stageData.stageIndex : 0);
+        int lives = GameFlowManager.Instance != null ? GameFlowManager.Instance.PlayerLives : 3;
+        SaveManager.Instance.SaveProgress(idx, currentZoneIndex, totalScore, lives);
+    }
+
     private void RewardZoneClear(GameObject player)
     {
         if (healPercentPerZone <= 0f) return;
@@ -198,9 +205,6 @@ public class StageManager : MonoBehaviour
         return true;
     }
 
-    /// <summary>
-    /// Completar a fase. Envia score e tempo para o GameFlowManager.
-    /// </summary>
     public void CompleteStage()
     {
         if (stageCompleted) return;
@@ -221,9 +225,6 @@ public class StageManager : MonoBehaviour
             GameFlowManager.Instance.CompleteStage(totalScore, stageTime, hits, enemiesKilled);
     }
 
-    /// <summary>
-    /// Adicionar score extra (bonus, itens, etc).
-    /// </summary>
     public void AddScore(int amount)
     {
         totalScore += amount;
@@ -232,11 +233,11 @@ public class StageManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        EnemyController.OnAnyEnemyDied -= HandleEnemyKilled;
         if (combatZones == null) return;
         foreach (var zone in combatZones)
         {
             if (zone == null) continue;
-            zone.OnEnemyKilled -= HandleEnemyKilled;
             zone.OnZoneCompleted -= HandleZoneCompleted;
         }
     }

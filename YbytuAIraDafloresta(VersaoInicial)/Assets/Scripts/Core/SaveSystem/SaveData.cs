@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-/// <summary>
-/// Dados de um save slot.
-/// Serializado em JSON para persistencia.
-/// </summary>
 [Serializable]
 public class SaveData
 {
@@ -14,7 +10,10 @@ public class SaveData
     public string lastPlayedAt;
     public float totalPlayTime;
     public bool introWatched;
-    public int lastStageIndex;
+    public int lastStageIndex;          // fase onde o player parou
+    public int lastZoneIndex;
+    public int carryOverScore;
+    public int livesRemaining = 3;      // vidas restantes
     public List<StageProgress> stageProgress = new List<StageProgress>();
 
     public SaveData(int slot)
@@ -26,13 +25,13 @@ public class SaveData
         totalPlayTime = 0f;
         introWatched = false;
         lastStageIndex = 0;
+        lastZoneIndex = 0;
+        carryOverScore = 0;
+        livesRemaining = 3;
         stageProgress = new List<StageProgress>();
     }
 }
 
-/// <summary>
-/// Progresso e pontuacao de uma fase especifica.
-/// </summary>
 [Serializable]
 public class StageProgress
 {
