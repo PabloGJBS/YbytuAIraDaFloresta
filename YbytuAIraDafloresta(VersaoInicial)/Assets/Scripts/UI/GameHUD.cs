@@ -47,6 +47,8 @@ public class GameHUD : MonoBehaviour
     [Tooltip("Labels TMP que substituem os digitos de sprite. Auto-criados se nulos.")]
     [SerializeField] private TMP_Text livesLabel;
     [SerializeField] private TMP_Text scoreLabel;
+    [Tooltip("Fonte pixel (Bold02) para os valores numericos: score, vidas e hits.")]
+    [SerializeField] private TMP_FontAsset valueFont;
 
     [Header("Combo - Direita (75% altura)")]
     [SerializeField] private Image comboRankImage;
@@ -165,10 +167,20 @@ public class GameHUD : MonoBehaviour
 
     private void SetupTextLabels()
     {
-        livesLabel = EnsureLabel(livesLabel, livesContainer, "x3", livesDigitHeight, TextAlignmentOptions.MidlineRight);
+        livesLabel = EnsureLabel(livesLabel, livesContainer, "3", livesDigitHeight, TextAlignmentOptions.MidlineRight);
         scoreLabel = EnsureLabel(scoreLabel, scoreContainer, "0", scoreDigitHeight, TextAlignmentOptions.MidlineRight);
         hitCountLabel = EnsureLabel(hitCountLabel, hitCountContainer, "0", digitHeight, TextAlignmentOptions.Center);
+        ApplyValueFont(livesLabel);
+        ApplyValueFont(scoreLabel);
+        ApplyValueFont(hitCountLabel);
         BuildLifeIcon();
+    }
+
+    // Aplica a fonte pixel (Bold02) nos valores numericos, se atribuida no Inspector.
+    private void ApplyValueFont(TMP_Text label)
+    {
+        if (label != null && valueFont != null)
+            label.font = valueFont;
     }
 
     // Recria o icone (rosto do Ybytu) a esquerda do contador de vidas. O EnsureLabel limpa
@@ -372,16 +384,24 @@ public class GameHUD : MonoBehaviour
 
     private void UpdateLives(int currentLives)
     {
-        if (livesLabel != null)
-            livesLabel.text = $"x{Mathf.Max(0, currentLives)}";
+        if (livesLabel == null) return;
+        int n = Mathf.Max(0, currentLives);
+        // "X" antes do numero. A Bold02 nao tem letras, entao o "X" vai na fonte normal.
+        livesLabel.text = valueFont != null
+            ? $"<font=\"LiberationSans SDF\">X</font> {n}"
+            : $"X {n}";
     }
 
     // --- Score ---
 
     public void UpdateScore(int score)
     {
-        if (scoreLabel != null)
-            scoreLabel.text = Mathf.Max(0, score).ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("pt-BR"));
+        if (scoreLabel == null) return;
+        string num = Mathf.Max(0, score).ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("pt-BR"));
+        // "PTS." a esquerda do valor. A Bold02 nao tem letras, entao o rotulo vai na fonte normal.
+        scoreLabel.text = valueFont != null
+            ? $"<font=\"LiberationSans SDF\"><size=55%>PTS.</size></font> {num}"
+            : $"PTS. {num}";
     }
 
     // --- Combo ---
@@ -419,14 +439,8 @@ public class GameHUD : MonoBehaviour
 
     public void ShowWaveInfo(int current, int total)
     {
-        if (waveContainer != null) waveContainer.SetActive(true);
-        if (waveText != null)
-        {
-            if (LocalizationManager.Instance != null)
-                waveText.text = LocalizationManager.Instance.GetTextFormatted("ui.hud.wave", current + 1, total);
-            else
-                waveText.text = $"Wave {current + 1}/{total}";
-        }
+        // Contador de wave (ex.: "Wave 1/2") removido a pedido: nunca exibir.
+        if (waveContainer != null) waveContainer.SetActive(false);
     }
 
     public void HideWaveInfo()

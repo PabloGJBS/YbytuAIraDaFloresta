@@ -1,68 +1,24 @@
 using UnityEngine;
-using TMPro;
-using System.Collections;
 
 /// <summary>
-/// "Grito" flutuante acima do inimigo (bark de combate). Texto criado em codigo,
-/// sobe levemente e some. Placeholder ate ter a caixa de dialogo estilizada.
+/// "Grito" flutuante acima do inimigo (bark de combate). Agora usa o balao estilizado
+/// compartilhado (SpeechBubble): caixa + borda + rabicho. Mantido como wrapper pra nao
+/// mudar as chamadas existentes.
 /// Uso: EnemyBark.Spawn(worldPos, "Ei, voce nao devia estar aqui!");
 /// </summary>
-public class EnemyBark : MonoBehaviour
+public static class EnemyBark
 {
-    [SerializeField] private float lifetime = 2.2f;
-    [SerializeField] private float riseSpeed = 0.4f;
+    private static readonly Color BarkColor = new Color(1f, 0.92f, 0.55f); // amarelo claro
 
-    private static TMP_FontAsset _font;
-    private static TMP_FontAsset Font()
+    // Gate global: evita falas sobrepostas (ex.: os 2 chefes gritando ao mesmo tempo).
+    private static float lastBarkTime = -999f;
+    private const float MinGapBetweenBarks = 2.2f;
+
+    public static void Spawn(Vector3 worldPos, string text)
     {
-        if (_font != null) return _font;
-        _font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
-        if (_font == null) _font = TMP_Settings.defaultFontAsset;
-        return _font;
-    }
-
-    public static EnemyBark Spawn(Vector3 worldPos, string text)
-    {
-        var go = new GameObject("EnemyBark", typeof(TextMeshPro));
-        go.transform.position = worldPos;
-
-        var tmp = go.GetComponent<TextMeshPro>();
-        tmp.font = Font();
-        tmp.text = text;
-        tmp.alignment = TextAlignmentOptions.Center;
-        tmp.fontSize = 2.4f;
-        tmp.fontStyle = FontStyles.Bold;
-        tmp.color = new Color(1f, 0.95f, 0.4f); // amarelo claro (destaque)
-        tmp.sortingOrder = 60;
-        tmp.enableWordWrapping = true;
-
-        var rt = go.GetComponent<RectTransform>();
-        if (rt != null) rt.sizeDelta = new Vector2(7f, 2.5f);
-
-        var bark = go.AddComponent<EnemyBark>();
-        bark.StartCoroutine(bark.Life(tmp));
-        return bark;
-    }
-
-    private IEnumerator Life(TextMeshPro tmp)
-    {
-        float t = 0f;
-        Color baseColor = tmp.color;
-        Vector3 start = transform.position;
-
-        while (t < lifetime)
-        {
-            t += Time.deltaTime;
-            float k = t / lifetime;
-            transform.position = start + Vector3.up * (riseSpeed * t);
-            if (k > 0.7f) // fade no final
-            {
-                float a = 1f - (k - 0.7f) / 0.3f;
-                var c = baseColor; c.a = Mathf.Clamp01(a);
-                tmp.color = c;
-            }
-            yield return null;
-        }
-        Destroy(gameObject);
+        if (Time.time - lastBarkTime < MinGapBetweenBarks) return; // ja tem uma fala recente na tela
+        lastBarkTime = Time.time;
+        // hold maior (3.4s) pra dar tempo de ler as falas (chefes, capangas, etc).
+        SpeechBubble.Pop(worldPos, text, 2.8f, BarkColor, 800, 3.4f, 0.45f, 8f);
     }
 }

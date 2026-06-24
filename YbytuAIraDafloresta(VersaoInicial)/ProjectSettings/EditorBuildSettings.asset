@@ -33,7 +33,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Stage1.unity
     guid: 5e52946acaf329049bb60bb5ce72046e
   - enabled: 1
-    path: Assets/Scenes/OutroCutscene.unity
+    path: Assets/Scenes/FinalizacaoFase1Cutscene.unity
     guid: 687d459b21375434197ce1f99e1dbd9d
   - enabled: 1
     path: Assets/Scenes/StageScore.unity

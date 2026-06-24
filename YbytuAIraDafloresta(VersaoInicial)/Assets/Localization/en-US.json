@@ -6,6 +6,26 @@
         "version": "1.0"
     },
 
+    "world": {
+        "fauna": {
+            "coelho_sufoco": "I can't breathe...",
+            "javali_socorro": "Help! They took my young!",
+            "javali_despedida": "If you can, please look for my young!",
+            "filhote_mae": "Mom!",
+            "filhote_procura": "Mom...? Dad...?",
+            "filhote_choro": "Waaah..."
+        },
+        "fala": {
+            "arara_chefes": "Hey, those are the guys capturing the animals!",
+            "arara_filhote_sozinho": "Forgive me, little one... we couldn't save your parents."
+        }
+    },
+
+    "arara_tips": {
+        "zona1": "The higher your combo meter, the more damage you deal!",
+        "zona2": "You've seen how the enemies get enraged, right? When they flash red, they're sure to try to hit you!"
+    },
+
     "ui": {
         "main_menu": {
             "title": "Ybytu - Wrath of the Forest",
@@ -145,6 +165,16 @@
         "stage_01_intro": {
             "scene_01": "Ybytu arrives at the forest entrance and finds traces of destruction.",
             "scene_02": "The invaders are not far. It's time to defend this place."
+        },
+        "stage_01_tutorial": {
+            "scene_01": "You woke up, huh, friend! Looks like the forest decided to give you a second chance.",
+            "scene_02": "Use W A S D to move around.",
+            "scene_03": "I was running from the fire and I found you.",
+            "scene_04": "Seems you died, pal, but the spirit energy is holding your death back.",
+            "scene_05": "You're probably still a bit confused, but since you're kind of mixed with nature now, I can talk to you.",
+            "scene_06": "You should be able to move faster than before, but the pain won't go away.",
+            "scene_07": "Use J K L to strike the enemies.",
+            "scene_08": "Hey, you see that totem over there? If you interact with it, maybe some of your spirit energy comes back!"
         },
         "stage_01_outro": {
             "scene_01": "The entrance is secure, but danger continues deeper into the forest.",

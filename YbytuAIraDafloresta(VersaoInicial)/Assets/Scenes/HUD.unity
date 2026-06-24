@@ -2666,6 +2666,7 @@ MonoBehaviour:
   dotScale: 0.26
   livesLabel: {fileID: 0}
   scoreLabel: {fileID: 0}
+  valueFont: {fileID: 11400000, guid: b59d7d40d1efc0242ada5ce8bc572d3f, type: 2}
   comboRankImage: {fileID: 252569891}
   comboBarFill: {fileID: 966565395}
   hitCountContainer: {fileID: 481905376}

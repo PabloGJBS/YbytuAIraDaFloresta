@@ -27,7 +27,7 @@ public class GameFlowManager : MonoBehaviour
     [SerializeField] private string stageSelectScene = "StageSelect";
     [SerializeField] private string scoreScene = "StageScore";
     [SerializeField] private string creditsScene = "Credits";
-    [SerializeField] private string finalCutsceneScene = "OutroCutscene";
+    [SerializeField] private string finalCutsceneScene = "FinalizacaoFase1Cutscene";
 
     public enum SaveSelectMode { NewGame, Continue }
     public SaveSelectMode PendingSaveSelectMode { get; private set; } = SaveSelectMode.NewGame;

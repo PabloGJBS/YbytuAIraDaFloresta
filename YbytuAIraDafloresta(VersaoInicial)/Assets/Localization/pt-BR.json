@@ -6,6 +6,26 @@
         "version": "1.0"
     },
 
+    "world": {
+        "fauna": {
+            "coelho_sufoco": "Tá difícil de respirar...",
+            "javali_socorro": "Socorro! Levaram meus filhotes!",
+            "javali_despedida": "Se você puder procurar meus filhotes, por favor!",
+            "filhote_mae": "Mãe!",
+            "filhote_procura": "Mãe...? Pai...?",
+            "filhote_choro": "Buááá..."
+        },
+        "fala": {
+            "arara_chefes": "Ei, são aqueles caras que tão capturando os animais!",
+            "arara_filhote_sozinho": "Me perdoa, pequeno... a gente não conseguiu salvar seus pais."
+        }
+    },
+
+    "arara_tips": {
+        "zona1": "Quanto maior o seu medidor de combo, mais dano você causa!",
+        "zona2": "Você já viu que os inimigos ficam enfurecidos, né? Quando eles brilharem vermelho, é garantido que vão tentar te acertar!"
+    },
+
 
 
     "ui": {
@@ -167,6 +187,16 @@
         "stage_01_intro": {
             "scene_01": "Ybytu chega à entrada da floresta e encontra rastros de destruição.",
             "scene_02": "Os invasores não estão longe. É hora de defender este lugar."
+        },
+        "stage_01_tutorial": {
+            "scene_01": "Acordou, né, amigo! Aparentemente a floresta resolveu te dar uma segunda chance.",
+            "scene_02": "Use W A S D para se movimentar.",
+            "scene_03": "Eu tava fugindo do fogo e te encontrei.",
+            "scene_04": "Aparentemente você morreu, colega, mas a energia espiritual tá atrasando a sua morte.",
+            "scene_05": "Você deve estar meio confuso ainda, mas como você meio que tá misturado com a natureza, eu consigo conversar com você.",
+            "scene_06": "Você deve conseguir se movimentar mais rápido que antes, mas a dor não vai passar.",
+            "scene_07": "Use J K L para golpear os inimigos.",
+            "scene_08": "Ei, tá vendo aquele totem ali? Se interagir com ele, talvez um pouco da sua energia espiritual volte!"
         },
         "stage_01_outro": {
             "scene_01": "A entrada está segura, mas o perigo continua floresta adentro.",

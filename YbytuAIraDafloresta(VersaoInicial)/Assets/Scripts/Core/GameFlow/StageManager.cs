@@ -19,7 +19,7 @@ public class StageManager : MonoBehaviour
     [Tooltip("Fracao da vida maxima curada ao concluir cada zona de combate.")]
     [SerializeField, Range(0f, 1f)] private float healPercentPerZone = 0.15f;
     [Tooltip("Fracao da vida maxima curada ao derrotar cada inimigo.")]
-    [SerializeField, Range(0f, 1f)] private float healPercentPerKill = 0.01f;
+    [SerializeField, Range(0f, 1f)] private float healPercentPerKill = 0.02f;
     [Tooltip("Pontos por ponto de vida excedente quando a vida ja esta cheia.")]
     [SerializeField] private int overflowPointsPerHp = 10;
 
@@ -128,6 +128,12 @@ public class StageManager : MonoBehaviour
         OnScoreChanged?.Invoke(totalScore);
         HealPlayerOnKill();
     }
+
+    /// <summary>
+    /// Registra a morte de um inimigo NAO gerenciado pela zona (ex.: capangas spawnados
+    /// pelo FinalBossEncounter): soma score, conta e cura o player igual a uma morte normal.
+    /// </summary>
+    public void RegisterExternalKill(int scoreValue) => HandleEnemyKilled(scoreValue);
 
     /// <summary>Cura uma fracao pequena da vida do player a cada inimigo derrotado.</summary>
     private void HealPlayerOnKill()

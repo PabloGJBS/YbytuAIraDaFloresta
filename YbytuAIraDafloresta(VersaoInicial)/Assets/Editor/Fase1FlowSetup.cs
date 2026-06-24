@@ -5,10 +5,10 @@ using UnityEngine;
 
 /// <summary>
 /// Configura o fluxo da Fase 1 de ponta a ponta:
-/// 1) Cria/atualiza o StageData (Stage1 como cena de gameplay, OutroCutscene como fim).
+/// 1) Cria/atualiza o StageData (Stage1 como cena de gameplay, FinalizacaoFase1Cutscene como fim).
 /// 2) Pluga esse StageData no GameFlowManager.stages (na cena Disclaimer).
-/// 3) Garante Stage1 e OutroCutscene no Build Settings.
-/// Rodar DEPOIS de "Build OutroCutscene Scene".
+/// 3) Garante Stage1 e FinalizacaoFase1Cutscene no Build Settings.
+/// Rodar DEPOIS de "Build FinalizacaoFase1Cutscene Scene".
 /// Menu: Tools/Ybytu/Setup Fase 1 Flow
 /// </summary>
 public static class Fase1FlowSetup
@@ -75,7 +75,7 @@ public static class Fase1FlowSetup
         }
         Ensure("Assets/Scenes/Stage1.unity");
         Ensure("Assets/Scenes/StageScore.unity");
-        Ensure("Assets/Scenes/OutroCutscene.unity");
+        Ensure("Assets/Scenes/FinalizacaoFase1Cutscene.unity");
         EditorBuildSettings.scenes = scenes.ToArray();
 
         Debug.Log("[Fase1FlowSetup] Fluxo da Fase 1 configurado.");

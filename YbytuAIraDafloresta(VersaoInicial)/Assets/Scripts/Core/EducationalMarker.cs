@@ -29,6 +29,12 @@ public class EducationalMarker : MonoBehaviour
     [Header("Player")]
     public string playerTag = "Player";
 
+    [Header("Extras opcionais (ex.: totem)")]
+    [Tooltip("Se ligado, a MESMA interacao que mostra o texto tambem dispara esta revoada (uma vez).")]
+    public BirdFlock birdFlockOnInteract;
+    [Tooltip("Se > 0, ao interagir devolve essa fracao da vida do player (energia espiritual do totem).")]
+    [Range(0f, 1f)] public float healPercentOnInteract = 0f;
+
     private bool used;
     private bool playerInside;
     private GameObject promptGo;
@@ -93,6 +99,19 @@ public class EducationalMarker : MonoBehaviour
         SetHighlight(false); // ja interagiu: apaga o brilho
         // Interativo (tronco) abre modal: rodape, freeze do player e so sai no "continuar".
         EducationalBanner.Show(phrase, holdSeconds, requireInteraction);
+
+        // Extras opcionais (totem): cura de energia + revoada, na mesma interacao.
+        if (healPercentOnInteract > 0f)
+        {
+            var playerGo = GameObject.FindGameObjectWithTag(playerTag);
+            var hp = playerGo != null ? playerGo.GetComponentInChildren<HealthSystem>() : null;
+            if (hp != null)
+            {
+                int amount = Mathf.RoundToInt(hp.MaxHealth * healPercentOnInteract);
+                if (amount > 0) hp.Heal(amount);
+            }
+        }
+        if (birdFlockOnInteract != null) birdFlockOnInteract.Trigger();
     }
 
     private void ShowPrompt(bool on)

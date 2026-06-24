@@ -122,7 +122,7 @@ public class OutroEndingMessage : MonoBehaviour
 
     private void GoToMenu()
     {
-        // O OutroCutscene_Manager pode ser DontDestroyOnLoad (via LocalizationManager),
+        // O FinalizacaoFase1Cutscene_Manager pode ser DontDestroyOnLoad (via LocalizationManager),
         // entao a tela preta persistiria por cima do menu. Destruir o overlay antes de trocar.
         if (root != null) Destroy(root);
         if (GameFlowManager.Instance != null) GameFlowManager.Instance.GoToMainMenu();

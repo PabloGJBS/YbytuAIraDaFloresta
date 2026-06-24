@@ -47,6 +47,23 @@ public class EnemyController : MonoBehaviour, IDamageable
     private bool hasAttackSlot;
     private int currentSlotIndex = -1;
 
+    // --- Alvos aliados opcionais (ex.: javalis na CombatZone3) ---
+    // Desligado por padrao (allyAggroChance = 0): CurrentTarget eh sempre o player e o
+    // comportamento fica identico ao normal. Quando ligado (pelo BoarRescue), o inimigo
+    // pode, ao reavaliar, mirar um aliado em vez do player por alguns segundos.
+    [System.NonSerialized] public float allyAggroChance = 0f;
+    [System.NonSerialized] public System.Collections.Generic.List<HealthSystem> allyTargets;
+    [System.NonSerialized] public int allyAttackDamage = 0; // 0 = usa data.attackDamage
+    private HealthSystem aggroAlly;     // != null quando o alvo atual eh um aliado
+    private float aggroAllyTimer;
+    private float allyRollTimer;
+    private bool damageFromAlly;        // true durante DamageFromAlly (nao conta no combo)
+    private int allyHitStreak;          // golpes seguidos levados de um aliado (regra dos 3 -> revida)
+    private float allyHitStreakTime;
+    private const int AllyHitsToAggro = 3;
+
+    private Transform Target => aggroAlly != null ? aggroAlly.transform : playerTarget;
+
     // Combo-break: ao tomar N golpes seguidos, o inimigo sai do stun, telegrafa
     // (brilho vermelho + "!") e revida. Chefe = tiro em linha; normal = contra-ataque melee.
     private int consecutiveHits;
@@ -57,6 +74,45 @@ public class EnemyController : MonoBehaviour, IDamageable
     private const float ConsecutiveResetTime = 1.5f; // hits muito espacados nao contam como "seguidos"
 
     private int HitsToBreak => (data != null && data.isBoss) ? HitsToBreakBoss : HitsToBreakNormal;
+
+    // --- Controle da luta final (FinalBossEncounter) ---
+    // Tiro especial do chefe: comeca LIBERADO (preserva o comportamento padrao do boss em
+    // qualquer outro uso). A luta final trava no inicio e destrava em 50% da vida somada.
+    [System.NonSerialized] public bool gunUnlocked = true;
+    // Recuo individual do chefe (pausa a IA so DESTE inimigo, diferente do CombatFrozen global).
+    private bool combatPaused;
+    // Ignora dano enquanto recuado (fora da camera).
+    private bool invulnerable;
+    public bool CombatPaused => combatPaused;
+    public bool IsAlive => currentState != EnemyState.Dead;
+
+    // Tiro PROATIVO do chefe (quando gunUnlocked): atira a distancia periodicamente,
+    // sem depender da regra de revide por golpes seguidos.
+    private float shootTimer;
+    private const float BossShootInterval = 2.5f;
+    private const float BossShootRange = 11f;
+    private const float BossShootLaneTol = 1.6f;
+
+    // Chefes ativos: pra se ESPALHAREM (cercar o player de lados opostos) em vez de empilhar.
+    private static readonly System.Collections.Generic.List<EnemyController> ActiveBosses = new System.Collections.Generic.List<EnemyController>();
+    private const float BossSeparation = 4.5f;
+
+    /// <summary>Pausa/retoma a IA so deste inimigo (recuo do chefe na luta final).</summary>
+    public void SetCombatPaused(bool value)
+    {
+        combatPaused = value;
+        if (value) { if (rb != null) rb.linearVelocity = Vector2.zero; retaliating = false; }
+        else if (currentState != EnemyState.Dead) ChangeState(EnemyState.Chase);
+    }
+
+    /// <summary>Liga/desliga invulnerabilidade (chefe recuado pra fora da camera).</summary>
+    public void SetInvulnerable(bool value) => invulnerable = value;
+
+    /// <summary>Dirige a animacao de andar/correr enquanto a IA esta pausada (recuo/volta do chefe).</summary>
+    public void SetMoveAnimSpeed(float speed)
+    {
+        if (animator != null) animator.SetFloat(SpeedHash, speed);
+    }
 
     // Posicoes relativas ao player onde cada slot de atacante se posiciona.
     // Index 0..3 cobre os 4 lados, com leve variacao vertical pra evitar empilhamento exato.
@@ -108,6 +164,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         health.OnDeath += HandleDeath;
         health.OnDamageTaken += HandleDamageTaken;
         TryBarkOnSpawn();
+        if (data != null && data.isBoss && !ActiveBosses.Contains(this)) ActiveBosses.Add(this);
     }
 
     private bool spawnBarked;
@@ -126,11 +183,16 @@ public class EnemyController : MonoBehaviour, IDamageable
         health.OnDeath -= HandleDeath;
         health.OnDamageTaken -= HandleDamageTaken;
         ReleaseAttackSlot();
+        ActiveBosses.Remove(this);
     }
+
+    /// <summary>Congela TODOS os inimigos (ex.: enquanto a arara fala uma dica). Eles nao avancam.</summary>
+    public static bool CombatFrozen;
 
     protected virtual void Update()
     {
         if (currentState == EnemyState.Dead) return;
+        if (CombatFrozen || combatPaused) return; // parado: dica da arara (global) ou recuo do chefe (individual)
 
         FindPlayer();
         UpdateState();
@@ -140,6 +202,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     protected virtual void FixedUpdate()
     {
         if (currentState == EnemyState.Dead) return;
+        if (CombatFrozen || combatPaused) { rb.linearVelocity = Vector2.zero; return; }
         if (retaliating) { rb.linearVelocity = Vector2.zero; return; }
 
         switch (currentState)
@@ -148,7 +211,12 @@ public class EnemyController : MonoBehaviour, IDamageable
                 MoveTowards(patrolTarget);
                 break;
             case EnemyState.Chase:
-                if (playerTarget != null)
+                if (aggroAlly != null)
+                {
+                    // mira direto no aliado, alinhando PE-COM-PE (aliado baixinho)
+                    MoveTowards(AllyChasePoint());
+                }
+                else if (playerTarget != null)
                 {
                     Vector2 target;
                     if (hasAttackSlot && currentSlotIndex >= 0 && currentSlotIndex < SlotOffsets.Length)
@@ -156,6 +224,7 @@ public class EnemyController : MonoBehaviour, IDamageable
                     else
                         target = GetWaitPosition();
                     target.y += runtimeYOffset;
+                    if (data.isBoss) target += BossSeparationOffset(); // chefes se espalham e cercam
                     MoveTowards(target);
                 }
                 break;
@@ -250,12 +319,33 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     protected virtual void UpdateChase()
     {
+        UpdateAllyAggro();
+
+        // --- Mirando um aliado (javali): persegue direto, sem o anel de slots ---
+        if (aggroAlly != null)
+        {
+            ReleaseAttackSlot();
+            if (Vector2.Distance(transform.position, aggroAlly.transform.position) > data.loseTargetRange)
+            {
+                aggroAlly = null; // aliado longe demais: volta a mirar o player
+                return;
+            }
+            if (IsAllyInAttackRange() && attackCooldownTimer <= 0f)
+                ChangeState(EnemyState.Attack);
+            return;
+        }
+
+        // --- Comportamento normal (player) ---
         if (playerTarget == null || !IsPlayerInRange(data.loseTargetRange))
         {
             ReleaseAttackSlot();
             ChangeState(EnemyState.Idle);
             return;
         }
+
+        // Chefe com tiro liberado (a partir de 50%): atira a distancia de vez em quando.
+        if (data.isBoss && gunUnlocked && !retaliating && TryRangedShot())
+            return;
 
         // Tenta reservar slot. Slot >= 0 = pode atacar e tem posicao no anel;
         // slot < 0 = circula esperando vez.
@@ -269,6 +359,101 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         if (hasAttackSlot && IsPlayerInAttackRange() && attackCooldownTimer <= 0f)
             ChangeState(EnemyState.Attack);
+    }
+
+    /// <summary>
+    /// Decide (com pequena chance) se o inimigo deve mirar um aliado (javali) por uns
+    /// segundos em vez do player. So faz algo se allyAggroChance > 0 (ligado pelo BoarRescue).
+    /// </summary>
+    private void UpdateAllyAggro()
+    {
+        if (aggroAlly != null)
+        {
+            aggroAllyTimer -= Time.deltaTime;
+            if (aggroAllyTimer <= 0f || aggroAlly.IsDead) aggroAlly = null;
+        }
+        if (aggroAlly != null) return;
+
+        var active = AllyCreature.Active;
+        bool hasActive = active != null && active.Count > 0;
+        if (!hasActive && (allyAggroChance <= 0f || allyTargets == null)) return;
+
+        allyRollTimer -= Time.deltaTime;
+        if (allyRollTimer > 0f) return;
+        allyRollTimer = UnityEngine.Random.Range(1.5f, 3f);
+
+        // Aliados ATIVOS (animais libertos): rola por bicho pelo peso de ameaca (aggroWeight).
+        // Onça ~0.5 (50/50 com o player), cobra ~0.1 (focada raramente), javali ~0.25.
+        if (hasActive)
+        {
+            for (int i = 0; i < active.Count; i++)
+            {
+                var ac = active[i];
+                if (ac == null || ac.IsDead) continue;
+                if (UnityEngine.Random.value < ac.aggroWeight)
+                {
+                    aggroAlly = ac.Health;
+                    aggroAllyTimer = UnityEngine.Random.Range(2f, 3.5f);
+                    ReleaseAttackSlot();
+                    return;
+                }
+            }
+            return;
+        }
+
+        // Fallback (allyTargets + allyAggroChance manuais, sem AllyCreature ativo).
+        if (UnityEngine.Random.value < allyAggroChance)
+        {
+            var ally = NearestAlly();
+            if (ally != null)
+            {
+                aggroAlly = ally;
+                aggroAllyTimer = UnityEngine.Random.Range(2f, 3.5f);
+                ReleaseAttackSlot();
+            }
+        }
+    }
+
+    private HealthSystem NearestAlly()
+    {
+        HealthSystem best = null;
+        float bestD = float.MaxValue;
+        foreach (var a in allyTargets)
+        {
+            if (a == null || a.IsDead) continue;
+            float d = Vector2.Distance(transform.position, a.transform.position);
+            if (d < bestD) { bestD = d; best = a; }
+        }
+        return best;
+    }
+
+    /// <summary>Da pra acertar o aliado? So checa proximidade horizontal (centro do sprite);
+    /// o aliado eh baixinho, entao uma checagem de Y apertada fazia o golpe passar por cima.</summary>
+    private bool IsAllyInAttackRange()
+    {
+        if (aggroAlly == null) return false;
+        var bsr = aggroAlly.GetComponentInChildren<SpriteRenderer>();
+        float bx = (bsr != null && bsr.sprite != null) ? bsr.bounds.center.x : aggroAlly.transform.position.x;
+        return Mathf.Abs(bx - transform.position.x) <= data.attackRange * 1.6f;
+    }
+
+    /// <summary>
+    /// O golpe encosta no hurtbox (collider) do aliado? Monta uma caixa de ataque na frente
+    /// do inimigo e checa interseccao com o collider do bicho ("encostou = acertou").
+    /// </summary>
+    /// <summary>Ponto pra perseguir o aliado: centro X dele, alinhado PE-COM-PE (resolve a altura).</summary>
+    private Vector2 AllyChasePoint()
+    {
+        var bsr = aggroAlly.GetComponentInChildren<SpriteRenderer>();
+        float bx = (bsr != null && bsr.sprite != null) ? bsr.bounds.center.x : aggroAlly.transform.position.x;
+        float by;
+        if (bsr != null && bsr.sprite != null && spriteRenderer != null && spriteRenderer.sprite != null)
+        {
+            float myFootGap = transform.position.y - spriteRenderer.bounds.min.y;
+            by = bsr.bounds.min.y + myFootGap;
+        }
+        else by = aggroAlly.transform.position.y + runtimeYOffset;
+        return new Vector2(bx, by);
     }
 
     protected virtual void UpdateAttack()
@@ -312,7 +497,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         switch (newState)
         {
             case EnemyState.Attack:
-                FacePlayer();
+                FaceTarget();
                 PerformAttack();
                 break;
             case EnemyState.Cooldown:
@@ -332,6 +517,27 @@ public class EnemyController : MonoBehaviour, IDamageable
         //  - Sprite default faces left:  flipX = true.
         bool playerRight = dx > 0f;
         spriteRenderer.flipX = playerRight ? !DefaultFacesRight : DefaultFacesRight;
+    }
+
+    /// <summary>Vira o sprite pra um X do mundo (usado externamente, ex.: encenacao do BoarRescue).</summary>
+    public void FaceTowards(float worldX)
+    {
+        if (spriteRenderer == null) return;
+        float dx = worldX - transform.position.x;
+        if (Mathf.Abs(dx) < 0.01f) return;
+        bool right = dx > 0f;
+        spriteRenderer.flipX = right ? !DefaultFacesRight : DefaultFacesRight;
+    }
+
+    /// <summary>Vira pro alvo atual (player ou aliado).</summary>
+    private void FaceTarget()
+    {
+        var t = Target;
+        if (t == null) return;
+        float dx = t.position.x - transform.position.x;
+        if (Mathf.Abs(dx) < 0.01f) return;
+        bool right = dx > 0f;
+        spriteRenderer.flipX = right ? !DefaultFacesRight : DefaultFacesRight;
     }
 
     private void ReleaseAttackSlot()
@@ -375,12 +581,44 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         // Se foi interrompido por Hurt/Dead antes do frame de impacto, ignorar.
         if (currentState != EnemyState.Attack) return;
-        if (playerTarget == null) return;
-        if (!IsPlayerInAttackRange(1.5f)) return;
 
-        var playerCombat = playerTarget.GetComponent<PlayerCombatManager>();
-        if (playerCombat != null)
-            playerCombat.ReceiveDamage(data.attackDamage);
+        // Javalis (aliados) na FRENTE do golpe levam dano via OverlapBox no HURTBOX deles
+        // (mesmo esquema do golpe do player nos inimigos). Pega mirando o javali ou nao.
+        DamageAlliesInFront();
+
+        // Player: leva o golpe se o inimigo NAO estiver focado num aliado.
+        if (aggroAlly == null && playerTarget != null && IsPlayerInAttackRange(1.5f))
+        {
+            var playerCombat = playerTarget.GetComponent<PlayerCombatManager>();
+            if (playerCombat != null)
+                playerCombat.ReceiveDamage(data.attackDamage);
+        }
+    }
+
+    /// <summary>
+    /// Aplica o golpe do inimigo nos hurtboxes dos aliados (javalis) que estiverem na caixa
+    /// de ataque a frente. Usa OverlapBox no collider, como o ataque do player faz nos inimigos.
+    /// </summary>
+    private void DamageAlliesInFront()
+    {
+        if (spriteRenderer == null) return;
+        bool facingRight = DefaultFacesRight ? !spriteRenderer.flipX : spriteRenderer.flipX;
+        float facing = facingRight ? 1f : -1f;
+
+        Vector2 center = new Vector2(transform.position.x + facing * data.attackRange,
+                                     transform.position.y + 1.0f);
+        Vector2 size = new Vector2(data.attackRange * 2.6f, 3.4f); // alto pra cobrir o hurtbox do bicho
+
+        int dmg = allyAttackDamage > 0 ? allyAttackDamage : data.attackDamage;
+        var hits = Physics2D.OverlapBoxAll(center, size, 0f);
+        foreach (var h in hits)
+        {
+            if (h == null) continue;
+            var ally = h.GetComponentInParent<AllyCreature>();
+            if (ally == null || ally.IsDead) continue;
+            var hp = ally.GetComponent<HealthSystem>();
+            if (hp != null) hp.TakeDamage(dmg);
+        }
     }
 
     private void HandleDamageTaken(int damage)
@@ -416,7 +654,8 @@ public class EnemyController : MonoBehaviour, IDamageable
             sm.PlaySFX(sm.Library.enemyHurt);
 
         // Registra o hit no combo do player (sem texto flutuante de dano, que era debug).
-        if (playerTarget != null)
+        // Dano vindo de um aliado (javali) NAO conta no combo do player.
+        if (playerTarget != null && !damageFromAlly)
         {
             var combo = playerTarget.GetComponent<ComboSystem>();
             if (combo != null) combo.RegisterHit();
@@ -427,6 +666,52 @@ public class EnemyController : MonoBehaviour, IDamageable
     }
 
     // --- Combo-break: retaliacao apos N golpes seguidos ---
+
+    /// <summary>
+    /// Chefe (gunUnlocked) atira a distancia: so quando o player esta em media distancia
+    /// (nem colado, nem longe demais) e na mesma lane. Retorna true se iniciou o tiro.
+    /// </summary>
+    private bool TryRangedShot()
+    {
+        shootTimer -= Time.deltaTime;
+        if (shootTimer > 0f || playerTarget == null) return false;
+
+        float dx = Mathf.Abs(playerTarget.position.x - transform.position.x);
+        float dy = Mathf.Abs(playerTarget.position.y - transform.position.y);
+        if (dx > BossShootRange || dx < data.attackRange * 1.2f || dy > BossShootLaneTol)
+            return false;
+
+        shootTimer = BossShootInterval;
+        ReleaseAttackSlot();
+        StartCoroutine(ShootRoutine());
+        return true;
+    }
+
+    /// <summary>Sequencia do tiro proativo (telegrafo + anim Shot + tiro em linha).</summary>
+    private IEnumerator ShootRoutine()
+    {
+        retaliating = true; // reusa o guard: pausa movimento/estado enquanto atira
+        rb.linearVelocity = Vector2.zero;
+        FacePlayer();
+
+        float telegraph = 0.45f;
+        var fx = RetaliateTelegraph.Spawn(transform, spriteRenderer, telegraph);
+        yield return new WaitForSeconds(telegraph);
+        if (currentState == EnemyState.Dead) { if (fx != null) fx.Stop(); retaliating = false; yield break; }
+
+        FacePlayer();
+        if (animator != null) animator.SetTrigger(JabHash); // Jab -> clip Shot no override
+        TryShotBark();
+        yield return new WaitForSeconds(0.15f);
+        if (currentState == EnemyState.Dead) { retaliating = false; yield break; }
+        FireLineShot();
+
+        yield return new WaitForSeconds(0.3f);
+        retaliating = false;
+        if (currentState == EnemyState.Dead) yield break;
+        attackCooldownTimer = data.attackCooldown;
+        ChangeState(EnemyState.Chase);
+    }
 
     private IEnumerator RetaliateRoutine()
     {
@@ -447,7 +732,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         }
 
         FacePlayer();
-        if (data != null && data.isBoss)
+        if (data != null && data.isBoss && gunUnlocked)
         {
             // Especial do chefe: animacao de tiro (trigger Jab -> clip Shot no override) + tiro em linha.
             if (animator != null) animator.SetTrigger(JabHash);
@@ -602,6 +887,28 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private bool DefaultFacesRight => skin == null || skin.defaultFacesRight;
 
+    /// <summary>
+    /// Empurra o destino de perseguição pra LONGE do outro chefe, pra os dois nao empilharem
+    /// e cercarem o player de lados opostos. Vies horizontal (pincer) reforcado.
+    /// </summary>
+    private Vector2 BossSeparationOffset()
+    {
+        Vector2 push = Vector2.zero;
+        foreach (var other in ActiveBosses)
+        {
+            if (other == this || other == null || !other.IsAlive) continue;
+            Vector2 d = (Vector2)transform.position - (Vector2)other.transform.position;
+            float dist = d.magnitude;
+            if (dist < BossSeparation && dist > 0.01f)
+            {
+                float strength = (BossSeparation - dist);
+                // reforca a componente horizontal pra virar cerco (um de cada lado)
+                push += new Vector2(d.normalized.x * strength * 1.6f, d.normalized.y * strength * 0.5f);
+            }
+        }
+        return push;
+    }
+
     private void MoveTowards(Vector2 target)
     {
         Vector2 toTarget = target - (Vector2)transform.position;
@@ -610,11 +917,12 @@ public class EnemyController : MonoBehaviour, IDamageable
         // Em chase direto ao player (com slot), para um pouco antes pra nao empurrar.
         // Circulando (sem slot), para mais longe pra dar espaco aos atacantes ativos.
         // Patrol/outros alvos: para no destino.
+        bool chasingAlly = currentState == EnemyState.Chase && aggroAlly != null;
         bool chasingPlayer = currentState == EnemyState.Chase && hasAttackSlot
                              && playerTarget != null
                              && (Vector2)playerTarget.position == target;
-        bool circling = currentState == EnemyState.Chase && !hasAttackSlot;
-        float stopDistance = chasingPlayer ? data.attackRange * 0.8f
+        bool circling = currentState == EnemyState.Chase && !hasAttackSlot && !chasingAlly;
+        float stopDistance = (chasingPlayer || chasingAlly) ? data.attackRange * 0.8f
                             : circling ? 0.5f
                             : 0.1f;
 
@@ -695,10 +1003,12 @@ public class EnemyController : MonoBehaviour, IDamageable
     /// pra que o inimigo "alinhado pelos pes" pelo auto-feet-alignment ainda conte
     /// como mesma lane mesmo com transform.y deslocado.
     /// </summary>
-    private bool IsPlayerInAttackRange(float multiplier = 1f)
+    private bool IsPlayerInAttackRange(float multiplier = 1f) => IsTargetInAttackRange(playerTarget, multiplier);
+
+    private bool IsTargetInAttackRange(Transform t, float multiplier = 1f)
     {
-        if (playerTarget == null) return false;
-        Vector2 delta = (Vector2)playerTarget.position - (Vector2)transform.position;
+        if (t == null) return false;
+        Vector2 delta = (Vector2)t.position - (Vector2)transform.position;
         float adjustedDeltaY = delta.y + runtimeYOffset;
         return Mathf.Abs(delta.x) <= data.attackRange * multiplier
             && Mathf.Abs(adjustedDeltaY) <= data.attackYTolerance * multiplier;
@@ -726,6 +1036,42 @@ public class EnemyController : MonoBehaviour, IDamageable
     /// </summary>
     public void TakeDamage(int damage)
     {
+        if (invulnerable) return; // chefe recuado pra fora da camera: nao toma dano
         health.TakeDamage(damage);
+    }
+
+    /// <summary>
+    /// Dano vindo de um ALIADO (ex.: javali). Aplica stun normal, mas NAO conta no combo
+    /// do player (evita inflar o combo com golpes que nao foram do jogador).
+    /// </summary>
+    /// <summary>Forca o inimigo a mirar um aliado (javali) - usado em cena de teste.</summary>
+    public void ForceAggroAlly(HealthSystem ally, float duration = 999f)
+    {
+        enabled = true;
+        aggroAlly = ally;
+        aggroAllyTimer = duration;
+        ReleaseAttackSlot();
+    }
+
+    public void DamageFromAlly(int damage, HealthSystem source)
+    {
+        if (invulnerable) return; // chefe recuado: imune tambem ao dano de aliados
+        damageFromAlly = true;
+        health.TakeDamage(damage);
+        damageFromAlly = false;
+
+        // Regra dos 3: se o MESMO aliado acerta varias vezes seguidas, o inimigo para de
+        // ignorar e comeca a revidar nele por um tempo (depois volta a priorizar o player).
+        if (source == null || currentState == EnemyState.Dead) return;
+        if (Time.time - allyHitStreakTime > 2.5f) allyHitStreak = 0;
+        allyHitStreakTime = Time.time;
+        allyHitStreak++;
+        if (allyHitStreak >= AllyHitsToAggro)
+        {
+            allyHitStreak = 0;
+            aggroAlly = source;
+            aggroAllyTimer = UnityEngine.Random.Range(3.5f, 5.5f);
+            ReleaseAttackSlot();
+        }
     }
 }

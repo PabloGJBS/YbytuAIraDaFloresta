@@ -37,7 +37,7 @@ public class LocalizationManager : MonoBehaviour
         if (instance != null && instance != this)
         {
             // Destroi apenas ESTE componente, nao o GameObject: o LocalizationManager
-            // compartilha o GameObject com o controller da cutscene (IntroCutscene/OutroCutscene).
+            // compartilha o GameObject com o controller da cutscene (IntroCutscene/FinalizacaoFase1Cutscene).
             // Destruir o GO inteiro mataria a cutscene -> tela preta no 2o play.
             Destroy(this);
             return;

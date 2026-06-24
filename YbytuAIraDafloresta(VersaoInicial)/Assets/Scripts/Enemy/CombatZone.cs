@@ -93,6 +93,10 @@ public class CombatZone : MonoBehaviour
     public event Action<CombatZone> OnZoneCompleted;
     public event Action<int> OnEnemyKilled; // scoreValue
 
+    // Sinais globais (qualquer zona) para reacoes externas, ex.: companheiro fugir/voltar
+    public static event Action OnAnyZoneActivated;
+    public static event Action OnAnyZoneCompleted;
+
     private void Awake()
     {
         // Garantir que o collider da zona eh trigger
@@ -133,6 +137,49 @@ public class CombatZone : MonoBehaviour
     {
         if (isActive || isCompleted) return;
 
+        // Tutorial (Fase 1): se o gate esta armado e os golpes ainda nao foram
+        // ensinados, a arara ensina os golpes (J K L) ANTES de comecar a luta.
+        // Evita o player entrar no combate sem saber atacar.
+        if (TutorialGate.ShouldTeachGolpe)
+        {
+            StartCoroutine(TeachGolpeThenActivate());
+            return;
+        }
+
+        ActivateZoneInternal();
+    }
+
+    /// <summary>
+    /// Tranca o player na entrada da arena, faz a arara ensinar os golpes e so
+    /// inicia o combate quando a fala terminar.
+    /// </summary>
+    private IEnumerator TeachGolpeThenActivate()
+    {
+        // tranca o player na arena enquanto a arara ensina (alem do freeze do balao)
+        SetBarriersActive(true);
+
+        var bubble = AraraSpeechBubble.Instance;
+        string line = TutorialGate.ResolveGolpeLine();
+        if (bubble != null && !string.IsNullOrEmpty(line))
+        {
+            bubble.Show(line);
+            yield return null;                       // deixa a fala entrar na fila
+            // Espera so terminar de DIGITAR (= quando o player e liberado), nao o hold na tela.
+            // Assim os inimigos sao ativados no MESMO instante em que o player volta a se mexer.
+            yield return new WaitUntil(() => !bubble.HasUntypedSpeech);
+        }
+
+        TutorialGate.TeachGolpe();
+
+        // a zona pode ter sido pulada/completada nesse meio tempo
+        if (isCompleted) yield break;
+        ActivateZoneInternal();
+    }
+
+    private void ActivateZoneInternal()
+    {
+        if (isActive || isCompleted) return;
+
         bool hasWaves = waves != null && waves.Length > 0;
         if (!hasWaves && testEmptyZoneDuration <= 0f)
         {
@@ -148,6 +195,7 @@ public class CombatZone : MonoBehaviour
         SetBarriersActive(true);
         NotifyCameraEnter();
         OnZoneActivated?.Invoke(this);
+        OnAnyZoneActivated?.Invoke();
         ShoutSpottedBark();
 
         if (hasWaves)
@@ -408,6 +456,7 @@ public class CombatZone : MonoBehaviour
         activeEnemies.Clear();
 
         OnZoneCompleted?.Invoke(this);
+        OnAnyZoneCompleted?.Invoke();
     }
 
     private void SetBarriersActive(bool active)

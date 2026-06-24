@@ -38,6 +38,9 @@ public class ComboSystem : MonoBehaviour
     private int totalHitsLanded; // acumulado na fase (nao reseta no break/hurt; zera ao recriar na fase)
     private float timeSinceLastHit;
     private bool isPaused;
+    // Quando true, o combo NAO quebra de vez por inatividade (timeout); so cai pela barra
+    // drenando. Usado na luta de chefe (gaps das levas de capanga nao zeram o combo).
+    private bool suppressTimeoutBreak;
 
     // Propriedades publicas
     public float CurrentGauge => currentGauge;
@@ -64,7 +67,8 @@ public class ComboSystem : MonoBehaviour
         timeSinceLastHit += Time.deltaTime;
 
         // Timeout: combo quebra completamente se ficar muito tempo sem acertar
-        if (currentHitCount > 0 && timeSinceLastHit >= comboTimeout)
+        // (desligado na luta de chefe: la o combo so cai pela barra drenando).
+        if (!suppressTimeoutBreak && currentHitCount > 0 && timeSinceLastHit >= comboTimeout)
         {
             BreakCombo();
             return;
@@ -154,6 +158,10 @@ public class ComboSystem : MonoBehaviour
     {
         isPaused = true;
     }
+
+    /// <summary>Liga/desliga a quebra do combo por inatividade (timeout). Na luta de chefe
+    /// fica ligado pra que os intervalos das levas de capanga nao zerem o combo.</summary>
+    public void SetSuppressTimeoutBreak(bool value) => suppressTimeoutBreak = value;
 
     /// <summary>
     /// Retoma o timer do combo. Reseta o tempo desde ultimo hit

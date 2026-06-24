@@ -8,20 +8,20 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
-/// Constroi a cena OutroCutscene.unity: cutscene de encerramento da Fase 1.
+/// Constroi a cena FinalizacaoFase1Cutscene.unity: cutscene de encerramento da Fase 1.
 /// Mostra a abertura, 5 cards de noticia (com fade entre eles) e a tela de
 /// agradecimento, reusando PrologueCutsceneController + CutsceneTextPlayer.
 /// Ao fim, OutroCutsceneBridge volta ao Menu Principal.
-/// Menu: Tools/Ybytu/Build OutroCutscene Scene
+/// Menu: Tools/Ybytu/Build FinalizacaoFase1Cutscene Scene
 /// </summary>
 public static class OutroCutsceneSceneBuilder
 {
-    private const string ScenePath = "Assets/Scenes/OutroCutscene.unity";
+    private const string ScenePath = "Assets/Scenes/FinalizacaoFase1Cutscene.unity";
     private const string PtBrJsonPath = "Assets/Localization/pt-BR.json";
     private const string EnUsJsonPath = "Assets/Localization/en-US.json";
     private const string Dir = "Assets/Sprites/UI/OutroCutscene";
 
-    [MenuItem("Tools/Ybytu/Build OutroCutscene Scene")]
+    [MenuItem("Tools/Ybytu/Build FinalizacaoFase1Cutscene Scene")]
     public static void BuildScene()
     {
         var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
@@ -116,7 +116,7 @@ public static class OutroCutsceneSceneBuilder
         var eventSystemGo = new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
         SceneManager.MoveGameObjectToScene(eventSystemGo, scene);
 
-        var managerGo = new GameObject("OutroCutscene_Manager");
+        var managerGo = new GameObject("FinalizacaoFase1Cutscene_Manager");
         SceneManager.MoveGameObjectToScene(managerGo, scene);
 
         var locManager = managerGo.AddComponent<LocalizationManager>();
@@ -160,7 +160,7 @@ public static class OutroCutsceneSceneBuilder
 
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene, ScenePath);
-        Debug.Log("[OutroCutsceneSceneBuilder] OutroCutscene.unity construida.");
+        Debug.Log("[OutroCutsceneSceneBuilder] FinalizacaoFase1Cutscene.unity construida.");
     }
 
     private static Sprite LoadSprite(string name)
