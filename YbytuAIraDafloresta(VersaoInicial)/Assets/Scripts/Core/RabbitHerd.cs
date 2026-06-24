@@ -1,15 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Fuga de coelhos: espelha o esquema da revoada de passaros (BirdFlock), mas no chao.
-/// Spawna alguns coelhos correndo pra esquerda (fugindo do fogo); UM deles passa mal,
-/// fala que esta sem ar, toma dano da fumaca e morre no meio do caminho (vira corpo
-/// que fica na cena). Os coelhos sao montados em codigo (SpriteRenderer + Animator +
-/// Rabbit), entao basta ligar o Controller do coelho aqui.
-///
-/// Disparo: por padrao quando o player cruza esta posicao (autoTriggerOnCross), igual
-/// ao gizmo da revoada. Tambem da pra chamar Trigger() de fora (ex.: um totem).
-/// </summary>
 public class RabbitHerd : MonoBehaviour
 {
     [Header("Coelhos")]
@@ -48,7 +38,6 @@ public class RabbitHerd : MonoBehaviour
     private bool fired;
     private Transform player;
 
-    /// <summary>Dispara a fuga (uma vez).</summary>
     public void Trigger()
     {
         if (fired) return;
@@ -91,15 +80,12 @@ public class RabbitHerd : MonoBehaviour
             if (rabbitController != null) anim.runtimeAnimatorController = rabbitController;
             anim.applyRootMotion = false;
 
-            // os de tras (i maior) correm um tico mais devagar -> ficam pra tras
             float vx = runVelocity.x + i * (speedVariation / n);
 
             var rabbit = go.AddComponent<Rabbit>();
-            // TODOS os coelhos passam mal e morrem (a fumaca pega todos); so UM tem o balao.
             bool hasBubble = (i == sick);
             rabbit.sickLine = hasBubble ? sickLine : "";
             rabbit.sickLocalizationKey = hasBubble ? sickLocalizationKey : "";
-            // escalona o momento de passar mal pra nao cairem todos juntos
             rabbit.sickAfterSeconds = Random.Range(1.0f, 3.0f);
             rabbit.Launch(new Vector2(vx, runVelocity.y), true);
             if (despawnPoint != null)
@@ -129,7 +115,6 @@ public class RabbitHerd : MonoBehaviour
             Gizmos.DrawLine(tip, tip - dir * 1f + perp);
             Gizmos.DrawLine(tip, tip - dir * 1f - perp);
         }
-        // linha-limite onde os coelhos somem (arrastar o despawnPoint)
         if (despawnPoint != null)
         {
             float lx = despawnPoint.position.x;

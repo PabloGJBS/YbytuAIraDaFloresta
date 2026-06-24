@@ -3,15 +3,6 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-/// <summary>
-/// Cria as variantes recoloridas dos inimigos comuns para a Fase 2.
-/// Reusa os PNGs recoloridos (pastas *-Alt geradas por recolor.py) e, para cada
-/// inimigo, CLONA os clips do override base remapeando os sprites para a pasta Alt
-/// (preserva frame rate, loop e eventos de ataque). Depois monta override/animData/
-/// skin/data/prefab da variante copiando os assets base.
-///
-/// Rodar via menu Tools/Setup/Setup Fase2 Enemy Variants.
-/// </summary>
 public static class SetupFase2Variants
 {
     private const string SpritesBase = "Assets/Sprites_Temporarios/Sprites/";
@@ -59,7 +50,6 @@ public static class SetupFase2Variants
         var baseOverride = baseAnimData.animatorOverride;
         var baseController = baseOverride.runtimeAnimatorController;
 
-        // 1) Clonar clips remapeando sprites base -> alt
         string clipDir = ClipsRoot + v.key + "/";
         EnsureFolder(clipDir);
         var overridesList = new List<KeyValuePair<AnimationClip, AnimationClip>>();
@@ -87,7 +77,6 @@ public static class SetupFase2Variants
         altOverride.ApplyOverrides(newList);
         EditorUtility.SetDirty(altOverride);
 
-        // 3) animData alt (copia do base, troca override)
         string baseAnimPath = AssetDatabase.GetAssetPath(baseAnimData);
         string altAnimPath = "Assets/Data/EnemySkins/" + v.altPrefix + "_AnimData.asset";
         var altAnimData = CopyAndLoad<CharacterAnimationData>(baseAnimPath, altAnimPath);
@@ -95,21 +84,18 @@ public static class SetupFase2Variants
         altAnimData.skinName = baseAnimData.skinName + " (Fase2)";
         EditorUtility.SetDirty(altAnimData);
 
-        // 4) skin alt (copia do base, troca animData)
         string altSkinPath = "Assets/Data/EnemySkins/" + v.altPrefix + "_EnemySkin.asset";
         var altSkin = CopyAndLoad<EnemySkin>(v.skinPath, altSkinPath);
         altSkin.animationData = altAnimData;
         altSkin.skinName = baseSkin.skinName + " Fase2";
         EditorUtility.SetDirty(altSkin);
 
-        // 5) data alt (copia do base, troca nome)
         string altDataPath = "Assets/Data/EnemyData/" + v.altPrefix + "_EnemyData.asset";
         var baseData = AssetDatabase.LoadAssetAtPath<EnemyData>(v.dataPath);
         var altData = CopyAndLoad<EnemyData>(v.dataPath, altDataPath);
         altData.enemyName = baseData != null ? baseData.enemyName + " Fase2" : v.altPrefix;
         EditorUtility.SetDirty(altData);
 
-        // 6) prefab alt (copia do base, troca refs EnemyData/EnemySkin)
         string altPrefabPath = "Assets/Prefabs/Enemies/" + v.altPrefix + "_Enemy.prefab";
         DuplicatePrefab(v.prefabPath, altPrefabPath, v.altPrefix + "_Enemy", altData, altSkin);
 
@@ -225,7 +211,6 @@ public static class SetupFase2Variants
 
     private static string Sanitize(string name)
     {
-        // pega o ultimo segmento depois de "_" se houver (ex.: EnemyPunk_Idle -> Idle)
         int i = name.LastIndexOf('_');
         return i >= 0 && i < name.Length - 1 ? name.Substring(i + 1) : name;
     }

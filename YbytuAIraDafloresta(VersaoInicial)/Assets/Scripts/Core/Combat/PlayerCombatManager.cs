@@ -1,10 +1,6 @@
 using UnityEngine;
 using System;
 
-/// <summary>
-/// Gerenciador central de combate do jogador.
-/// Conecta HealthSystem, LivesSystem e ComboSystem.
-/// </summary>
 [RequireComponent(typeof(HealthSystem))]
 [RequireComponent(typeof(LivesSystem))]
 [RequireComponent(typeof(ComboSystem))]
@@ -44,26 +40,15 @@ public class PlayerCombatManager : MonoBehaviour
         health.OnDamageTaken -= HandleDamageTaken;
     }
 
-    /// <summary>
-    /// Calcula o dano final de um ataque com base no rank atual do combo.
-    /// O registro do hit no combo acontece quando o dano e confirmado
-    /// (ver EnemyController.HandleDamageTaken), evitando contagem dupla
-    /// quando um mesmo golpe atinge varios inimigos.
-    /// </summary>
     public int CalculateAttackDamage(int baseDamage)
     {
         return Mathf.Max(1, Mathf.RoundToInt(baseDamage * combo.DamageMultiplier));
     }
 
-    /// <summary>
-    /// Chamado quando o player recebe dano.
-    /// Aplica o multiplicador de dano recebido pelo rank do combo.
-    /// </summary>
     public void ReceiveDamage(int baseDamage)
     {
-        if (DebugFlags.Godmode) return; // teste: player nao morre (toggle F4)
+        if (DebugFlags.Godmode) return;
 
-        // Esquiva: durante a janela de i-frames do pulo, o golpe nao acerta.
         if (playerController != null && playerController.IsInvulnerable)
             return;
 
@@ -77,14 +62,11 @@ public class PlayerCombatManager : MonoBehaviour
 
     private void HandleDamageTaken(int damage)
     {
-        // Futuro: flash vermelho, screen shake, SFX
     }
 
     private void HandleDeath()
     {
         OnPlayerDied?.Invoke();
-        // Sem auto-revive: apos um breve beat da animacao de morte, dispara o Game Over.
-        // O overlay (GameOverController) decide entre Continuar (custa uma vida) ou Desistir.
         Invoke(nameof(HandleGameOver), 0.6f);
     }
 
@@ -100,6 +82,5 @@ public class PlayerCombatManager : MonoBehaviour
         }
 
         OnGameOver?.Invoke();
-        // Futuro: tela de game over, opcao de continuar ou voltar ao menu
     }
 }

@@ -1,14 +1,6 @@
 using UnityEngine;
 using System;
 
-/// <summary>
-/// Sistema de combo do jogador.
-/// Cada golpe acertado enche a barra de combo. Ao encher, o rank sobe.
-/// Ranks mais altos aumentam dano causado mas tambem dano recebido.
-/// A barra fica progressivamente mais dificil de encher em ranks altos.
-/// Combo quebra por tempo sem acertar OU ao receber dano.
-/// Timer pode ser pausado (transicao de cenario, cutscenes).
-/// </summary>
 public class ComboSystem : MonoBehaviour
 {
     [Header("Barra de Combo")]
@@ -35,11 +27,9 @@ public class ComboSystem : MonoBehaviour
     private float currentGauge;
     private ComboRank currentRank = ComboRank.C;
     private int currentHitCount;
-    private int totalHitsLanded; // acumulado na fase (nao reseta no break/hurt; zera ao recriar na fase)
+    private int totalHitsLanded;
     private float timeSinceLastHit;
     private bool isPaused;
-    // Quando true, o combo NAO quebra de vez por inatividade (timeout); so cai pela barra
-    // drenando. Usado na luta de chefe (gaps das levas de capanga nao zeram o combo).
     private bool suppressTimeoutBreak;
 
     // Propriedades publicas
@@ -66,47 +56,34 @@ public class ComboSystem : MonoBehaviour
 
         timeSinceLastHit += Time.deltaTime;
 
-        // Timeout: combo quebra completamente se ficar muito tempo sem acertar
-        // (desligado na luta de chefe: la o combo so cai pela barra drenando).
         if (!suppressTimeoutBreak && currentHitCount > 0 && timeSinceLastHit >= comboTimeout)
         {
             BreakCombo();
             return;
         }
 
-        // Decay: barra drena apos um delay menor que o timeout
         if (timeSinceLastHit > decayStartDelay && currentGauge > 0)
         {
             ChangeGauge(-comboDrainPerSecond * Time.deltaTime);
         }
     }
 
-    /// <summary>
-    /// Chamado quando o jogador acerta um golpe no inimigo.
-    /// </summary>
     public void RegisterHit()
     {
         currentHitCount++;
         totalHitsLanded++;
         timeSinceLastHit = 0f;
 
-        // Ganho ajustado pela dificuldade do rank atual
         float adjustedGain = comboGainPerHit * gainScalePerRank[(int)currentRank];
         ChangeGauge(adjustedGain);
         OnHitCountChanged?.Invoke(currentHitCount);
     }
 
-    /// <summary>
-    /// Chamado quando o jogador leva dano. Reseta o combo completamente para C.
-    /// </summary>
     public void OnPlayerHurt()
     {
         FullResetCombo();
     }
 
-    /// <summary>
-    /// Quebra suave (timeout sem acertar): hit count zera, barra zera, rank desce 1.
-    /// </summary>
     private void BreakCombo()
     {
         currentHitCount = 0;
@@ -121,10 +98,6 @@ public class ComboSystem : MonoBehaviour
         OnHitCountChanged?.Invoke(0);
     }
 
-    /// <summary>
-    /// Reset total: zera tudo e volta direto para C.
-    /// Usado quando o jogador toma dano.
-    /// </summary>
     private void FullResetCombo()
     {
         currentHitCount = 0;
@@ -137,9 +110,6 @@ public class ComboSystem : MonoBehaviour
         OnHitCountChanged?.Invoke(0);
     }
 
-    /// <summary>
-    /// Reseta o combo completamente para D (morte, nova fase, etc).
-    /// </summary>
     public void ResetCombo()
     {
         currentGauge = 0f;
@@ -150,23 +120,13 @@ public class ComboSystem : MonoBehaviour
         OnHitCountChanged?.Invoke(0);
     }
 
-    /// <summary>
-    /// Pausa o timer do combo (transicao de cenario, cutscenes, dialogo).
-    /// A barra e o rank sao mantidos.
-    /// </summary>
     public void Pause()
     {
         isPaused = true;
     }
 
-    /// <summary>Liga/desliga a quebra do combo por inatividade (timeout). Na luta de chefe
-    /// fica ligado pra que os intervalos das levas de capanga nao zerem o combo.</summary>
     public void SetSuppressTimeoutBreak(bool value) => suppressTimeoutBreak = value;
 
-    /// <summary>
-    /// Retoma o timer do combo. Reseta o tempo desde ultimo hit
-    /// para dar uma janela ao jogador apos a transicao.
-    /// </summary>
     public void Resume()
     {
         isPaused = false;
@@ -195,7 +155,6 @@ public class ComboSystem : MonoBehaviour
         }
     }
 
-    // Toca a nota correspondente ao novo rank ([0]=C ... [5]=SSS).
     private void PlayRankUpSfx()
     {
         var sm = SoundManager.Instance;

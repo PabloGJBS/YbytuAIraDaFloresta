@@ -2,11 +2,6 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-/// <summary>
-/// Aplica nos troncos JA POSICIONADOS: InteractableHighlight (brilho/contorno branco)
-/// + marca o EducationalMarker como useRandomFromPool (sorteia 1 das 7 frases, sem
-/// repetir). NAO mexe em posicao. One-shot. Menu: Tools/Ybytu/Setup Tronco Interactables
-/// </summary>
 public static class SetupTroncoInteractables
 {
     private const string ScenePath = "Assets/Scenes/Stage1.unity";

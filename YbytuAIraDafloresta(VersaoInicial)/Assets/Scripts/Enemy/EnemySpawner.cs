@@ -2,10 +2,6 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-/// <summary>
-/// Spawner de inimigos para uma wave dentro de uma CombatZone.
-/// Gerencia a quantidade e timing de spawn dos inimigos.
-/// </summary>
 [Serializable]
 public class SpawnWave
 {

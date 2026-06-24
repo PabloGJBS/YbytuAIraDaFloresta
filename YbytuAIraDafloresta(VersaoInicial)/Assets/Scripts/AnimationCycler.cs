@@ -1,8 +1,5 @@
 using UnityEngine;
 
-// Cicla um Animator por uma lista de estados, X segundos cada, em loop.
-// Cria um rotulo (TextMesh) acima do objeto mostrando a animacao atual.
-// Usado na cena caracterTest para revisar as animacoes dos animais.
 public class AnimationCycler : MonoBehaviour
 {
     public string[] states;

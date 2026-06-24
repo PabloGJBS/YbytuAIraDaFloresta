@@ -2,11 +2,6 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-/// <summary>
-/// Cria os prefabs dos animais aliados da Fase 2 (3 cobras + onça + javali) e o prefab
-/// da jaula danificavel. Reusa AllyCreature (luta/foge/bonus) + os controllers/sprites ja
-/// existentes. Stats default - calibrar no playtest. Rodar via Tools/Setup/Setup Fase2 Animals.
-/// </summary>
 public static class SetupFase2Animals
 {
     private const string SprDir = "Assets/Sprites_Temporarios/Sprites/";
@@ -51,7 +46,6 @@ public static class SetupFase2Animals
     {
         EnsureFolder(OutDir);
         foreach (var c in Animals) BuildAnimal(c);
-        // As jaulas vem da caracterTest via BuildFase2Cages (sprites Jaula1/2/3 calibrados).
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         Debug.Log("[Fase2Animals] OK. Animais (3 cobras + onça + javali) em " + OutDir);

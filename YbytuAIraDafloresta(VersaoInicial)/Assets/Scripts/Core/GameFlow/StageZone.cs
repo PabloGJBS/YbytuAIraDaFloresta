@@ -1,10 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Marca os limites visuais da fase, posicao de spawn do player e area caminhavel
-/// via transforms filhos arrastaveis na Scene View.
-/// PlayerController e CameraController leem este componente automaticamente no Start.
-/// </summary>
 public class StageZone : MonoBehaviour
 {
     [Header("Limites do Cenario (Camera)")]

@@ -1,10 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Camera controller para beat 'em up.
-/// - Movimentacao livre: acompanha o player no eixo X
-/// - Zona de combate: fica fixa no centro da zona com leve elasticidade nas bordas
-/// </summary>
 public class CameraController : MonoBehaviour
 {
     [Header("Target")]
@@ -91,16 +86,11 @@ public class CameraController : MonoBehaviour
         if (target != null) playerRef = target.GetComponent<PlayerController>();
         baseCameraY = transform.position.y;
 
-        // Em "Continuar" (retomando de checkpoint) nao toca o pan de intro: a camera e
-        // snapada direto no player reposicionado (StageManager.RepositionToCheckpoint).
         bool resuming = GameFlowManager.Instance != null && GameFlowManager.Instance.HasStageCheckpoint;
         if (playIntroOnStart && target != null && !resuming)
             BeginIntroPan();
     }
 
-    /// <summary>
-    /// Snapa a camera imediatamente no target (sem pan/lerp). Usado ao retomar de checkpoint.
-    /// </summary>
     public void SnapToTarget()
     {
         if (target == null) return;
@@ -121,9 +111,6 @@ public class CameraController : MonoBehaviour
         if (useStageBounds)
             endX = Mathf.Clamp(endX, stageMinX + cameraHalfWidth, stageMaxX - cameraHalfWidth);
 
-        // Y final = mesma formula do follow estatico (sem peek). Garante continuidade
-        // ao trocar do estado de intro para o follow, evitando o "flick" no fim do pan.
-        // Clampado a >= 0 pelo mesmo motivo: nunca enquadrar abaixo do Y base.
         float endVerticalFollow = Mathf.Max(0f, (target.position.y - verticalAnchorY) * verticalFollowStrength);
         float endY = baseCameraY + endVerticalFollow;
 
@@ -155,13 +142,9 @@ public class CameraController : MonoBehaviour
         else
             desiredPos = CalculateFreeFollowPosition();
 
-        // Peek up (quando o player segura cima na borda superior)
         float targetPeek = (playerRef != null && playerRef.IsPushingUpAtBoundary) ? peekUpOffset : 0f;
         currentPeekY = Mathf.Lerp(currentPeekY, targetPeek, peekSmoothSpeed * Time.deltaTime);
 
-        // Follow vertical leve (acompanha Y do player com peso configuravel).
-        // So acompanha pra cima, nunca pra baixo: o limite inferior da camera
-        // e o Y base, mantendo o rodape do chao no fundo da tela sem revelar
         // o vazio abaixo dele.
         float verticalFollow = (target.position.y - verticalAnchorY) * verticalFollowStrength;
         verticalFollow = Mathf.Max(0f, verticalFollow);
@@ -191,9 +174,6 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Camera segue o player suavemente no eixo X.
-    /// </summary>
     private Vector3 CalculateFreeFollowPosition()
     {
         Vector3 targetPos = new Vector3(
@@ -205,23 +185,16 @@ public class CameraController : MonoBehaviour
         return Vector3.Lerp(transform.position, targetPos, followSmoothSpeed * Time.deltaTime);
     }
 
-    /// <summary>
-    /// Camera fixa no centro da zona, com leve elasticidade nas bordas.
-    /// Quando o player se aproxima da borda, a camera acompanha levemente
-    /// e depois retorna ao centro - evita sensacao de tela 100% presa.
-    /// </summary>
     private Vector3 CalculateCombatZonePosition()
     {
         float centerX = combatZoneCenter.x;
         float playerX = target.position.x;
 
-        // Calcular o quanto o player esta proximo da borda da zona
         float zoneWidth = combatZoneMaxX - combatZoneMinX;
         float halfWidth = zoneWidth * 0.5f;
         float distFromCenter = playerX - centerX;
         float normalizedDist = Mathf.Abs(distFromCenter) / halfWidth; // 0=centro, 1=borda
 
-        // Elasticidade: so aplica quando o player esta perto da borda
         float elasticOffset = 0f;
         if (normalizedDist > edgeThreshold)
         {
@@ -237,9 +210,6 @@ public class CameraController : MonoBehaviour
         return new Vector3(smoothX, transform.position.y, transform.position.z);
     }
 
-    /// <summary>
-    /// Entrar em modo zona de combate. Chamado pela CombatZone.
-    /// </summary>
     public void EnterCombatZone(Vector2 center, float minX, float maxX)
     {
         inCombatZone = true;
@@ -248,17 +218,11 @@ public class CameraController : MonoBehaviour
         combatZoneMaxX = maxX;
     }
 
-    /// <summary>
-    /// Sair do modo zona de combate. Volta a seguir o player.
-    /// </summary>
     public void ExitCombatZone()
     {
         inCombatZone = false;
     }
 
-    /// <summary>
-    /// Definir limites do stage (chamado no inicio da fase).
-    /// </summary>
     public void SetStageBounds(float minX, float maxX)
     {
         stageMinX = minX;
@@ -266,9 +230,6 @@ public class CameraController : MonoBehaviour
         useStageBounds = true;
     }
 
-    /// <summary>
-    /// Setar target manualmente (se o player spawnar depois).
-    /// </summary>
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;

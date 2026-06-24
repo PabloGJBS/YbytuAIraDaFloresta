@@ -3,10 +3,6 @@ using UnityEngine.UI;
 using UnityEditor;
 using TMPro;
 
-/// <summary>
-/// Ferramenta de editor que cria toda a estrutura do Canvas da HUD.
-/// Menu: Tools > Setup Game HUD
-/// </summary>
 public class HUDSetupTool
 {
     [MenuItem("Tools/Setup Game HUD")]
@@ -25,9 +21,6 @@ public class HUDSetupTool
 
         var hud = canvasGO.AddComponent<GameHUD>();
 
-        // ============================================
-        // SUPERIOR ESQUERDO - Retrato + Barra de Vida
-        // ============================================
         var topLeft = CreatePanel(canvasGO.transform, "TopLeft_HealthPanel",
             TextAnchor.UpperLeft, new Vector2(0, 1), new Vector2(0, 1),
             new Vector2(20, -20), new Vector2(350, 80));
@@ -59,14 +52,10 @@ public class HUDSetupTool
             new Vector2(90, -20), new Vector2(240, 25),
             "100/100", 16, TextAlignmentOptions.Center);
 
-        // ============================================
-        // SUPERIOR DIREITO - Vidas + Score
-        // ============================================
         var topRight = CreatePanel(canvasGO.transform, "TopRight_LivesScorePanel",
             TextAnchor.UpperRight, new Vector2(1, 1), new Vector2(1, 1),
             new Vector2(-20, -20), new Vector2(250, 80));
 
-        // Container de vidas (X + digitos)
         var livesContainerGO = new GameObject("LivesContainer", typeof(RectTransform), typeof(HorizontalLayoutGroup));
         livesContainerGO.transform.SetParent(topRight.transform, false);
         var livesRT = livesContainerGO.GetComponent<RectTransform>();
@@ -96,12 +85,9 @@ public class HUDSetupTool
         scoreLayout.childForceExpandHeight = false;
         scoreLayout.spacing = 6f;
 
-        // ============================================
-        // DIREITA (75% altura) - Combo Rank + Barra
-        // ============================================
         var comboContainer = CreatePanel(canvasGO.transform, "Combo",
             TextAnchor.MiddleRight, new Vector2(1, 0), new Vector2(1, 0),
-            new Vector2(-30, 270), new Vector2(100, 120)); // 270px from bottom ≈ 75% em 1080p
+            new Vector2(-30, 270), new Vector2(100, 120));
 
         // Letra grande do rank (imagem)
         var comboRankImageGO = new GameObject("ComboRankImage", typeof(RectTransform), typeof(Image));
@@ -116,7 +102,6 @@ public class HUDSetupTool
         comboRankImage.preserveAspect = true;
         comboRankImage.raycastTarget = false;
 
-        // Container de digitos do hit count (HorizontalLayoutGroup)
         var hitCountGO = new GameObject("HitCountContainer", typeof(RectTransform), typeof(HorizontalLayoutGroup));
         hitCountGO.transform.SetParent(comboContainer.transform, false);
         var hcRT = hitCountGO.GetComponent<RectTransform>();
@@ -137,7 +122,6 @@ public class HUDSetupTool
             new Vector2(0, 5), new Vector2(80, 15));
         comboBarBg.color = new Color(0.15f, 0.15f, 0.15f, 0.9f);
 
-        // Preenchimento da barra de combo
         var comboBarFill = CreateImage(comboBarBg.transform, "ComboBar_Fill",
             new Vector2(0, 0), new Vector2(0, 0),
             new Vector2(2, 2), new Vector2(76, 11));
@@ -146,9 +130,6 @@ public class HUDSetupTool
         comboBarFill.fillMethod = Image.FillMethod.Horizontal;
         comboBarFill.fillAmount = 0f;
 
-        // ============================================
-        // INFERIOR DIREITO - Item utilizável
-        // ============================================
         var itemContainer = CreatePanel(canvasGO.transform, "ItemContainer",
             TextAnchor.LowerRight, new Vector2(1, 0), new Vector2(1, 0),
             new Vector2(-30, 30), new Vector2(80, 80));
@@ -165,9 +146,6 @@ public class HUDSetupTool
             new Vector2(-5, 5), new Vector2(40, 25),
             "x1", 16, TextAlignmentOptions.Right);
 
-        // ============================================
-        // CENTRO - Wave Info (aparece temporariamente)
-        // ============================================
         var waveContainer = CreatePanel(canvasGO.transform, "WaveContainer",
             TextAnchor.UpperCenter, new Vector2(0.5f, 1), new Vector2(0.5f, 1),
             new Vector2(0, -100), new Vector2(300, 50));
@@ -178,9 +156,6 @@ public class HUDSetupTool
             "Wave 1/3", 28, TextAlignmentOptions.Center);
         waveText.fontStyle = FontStyles.Bold;
 
-        // ============================================
-        // Conectar referencias no GameHUD via SerializedObject
-        // ============================================
         var so = new SerializedObject(hud);
         so.FindProperty("portraitImage").objectReferenceValue = portrait;
         so.FindProperty("healthBarFill").objectReferenceValue = healthBarFill;
@@ -198,7 +173,6 @@ public class HUDSetupTool
         so.FindProperty("waveContainer").objectReferenceValue = waveContainer;
         so.ApplyModifiedProperties();
 
-        // Desativar containers opcionais por padrao
         comboContainer.SetActive(false);
         itemContainer.SetActive(false);
         waveContainer.SetActive(false);

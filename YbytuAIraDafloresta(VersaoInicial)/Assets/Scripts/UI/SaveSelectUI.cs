@@ -2,11 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// Controlador da tela de selecao de save (3 slots).
-/// Opera em dois modos: NewGame (escolhe slot vazio e digita nome) ou Continue (carrega slot ocupado).
-/// O modo eh definido em GameFlowManager.PendingSaveSelectMode antes de carregar esta cena.
-/// </summary>
 public class SaveSelectUI : MonoBehaviour
 {
     [Header("Slots")]
@@ -67,7 +62,6 @@ public class SaveSelectUI : MonoBehaviour
             bool hasSave = SaveManager.Instance.HasSave(i);
             SaveData data = hasSave ? SaveManager.Instance.LoadSave(i) : null;
             saveSlots[i].Setup(i, data);
-            // Tela de Continuar: todos os slots sao clicaveis. Vazio abre dialog de nome,
             // cheio carrega e segue.
             saveSlots[i].SetSelectable(true);
         }
@@ -80,7 +74,6 @@ public class SaveSelectUI : MonoBehaviour
         bool hasSave = SaveManager.Instance.HasSave(slot);
         if (!hasSave)
         {
-            // Slot vazio: abre painel de nome e cria save novo.
             pendingSlot = slot;
             if (nameInputField != null)
                 nameInputField.text = "";
@@ -125,7 +118,6 @@ public class SaveSelectUI : MonoBehaviour
         if (nameInputPanel != null)
             nameInputPanel.SetActive(false);
 
-        // Novo save sempre vai pra IntroCutscene (historia inicial) antes de gameplay.
         if (GameFlowManager.Instance != null)
             GameFlowManager.Instance.GoToIntroCutscene();
     }

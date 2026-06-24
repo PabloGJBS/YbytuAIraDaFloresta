@@ -1,11 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Da um contorno branco brilhante (pulsante) a um sprite quando ativado.
-/// Cria em runtime uma silhueta branca atras do sprite, levemente maior (= contorno),
-/// e pulsa o alpha (= brilho). Usado pelos elementos interativos (troncos) pra
-/// sinalizar "voce pode interagir". Ligar/desligar via SetHighlighted(bool).
-/// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
 public class InteractableHighlight : MonoBehaviour
 {
@@ -34,7 +28,7 @@ public class InteractableHighlight : MonoBehaviour
         outline = go.AddComponent<SpriteRenderer>();
         outline.sprite = source.sprite;
         outline.sortingLayerID = source.sortingLayerID;
-        outline.sortingOrder = source.sortingOrder - 1; // atras do tronco: so a borda aparece
+        outline.sortingOrder = source.sortingOrder - 1;
         outline.color = new Color(outlineColor.r, outlineColor.g, outlineColor.b, 0f);
         outline.enabled = false;
     }
@@ -46,7 +40,7 @@ public class InteractableHighlight : MonoBehaviour
         if (on)
         {
             outline.sprite = source.sprite;                 // sincroniza se o sprite mudou
-            outline.sortingOrder = source.sortingOrder - 1; // YSort muda a ordem do tronco em runtime
+            outline.sortingOrder = source.sortingOrder - 1;
             outline.enabled = true;
         }
         else

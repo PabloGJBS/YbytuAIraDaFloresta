@@ -4,16 +4,6 @@ using UnityEngine.InputSystem;
 using TMPro;
 using System.Collections;
 
-/// <summary>
-/// Tela de ATENCAO (aviso de conteudo) exibida logo apos o boot, antes do menu.
-/// Avisa sobre violencia simbolica e temas sensiveis, com finalidade educacional.
-/// Fundo preto, texto centralizado e prompt "Espaco para continuar" piscando.
-///
-/// A UI inteira eh construida em codigo (mesmo padrao de GameHUD/EnemyBark), entao
-/// a cena Disclaimer so precisa ter este componente num GameObject. Avanca apenas
-/// com Espaco (ou Start no controle), sem auto-avanco, depois do tempo minimo.
-/// Mostrada so na primeira execucao (gate em GameFlowManager/PlayerPrefs).
-/// </summary>
 public class DisclaimerUI : MonoBehaviour
 {
     [Header("Tempo minimo antes de permitir avancar (segundos)")]
@@ -66,13 +56,10 @@ public class DisclaimerUI : MonoBehaviour
             GameFlowManager.Instance.OnDisclaimerEnd();
     }
 
-    // --- Construcao da UI em codigo ---
-
     private void BuildUI()
     {
         var font = LoadFont();
 
-        // Canvas overlay por cima de tudo
         var canvasGO = new GameObject("DisclaimerCanvas",
             typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
         canvasGO.transform.SetParent(transform, false);
@@ -105,7 +92,6 @@ public class DisclaimerUI : MonoBehaviour
             pivot: new Vector2(0.5f, 0.5f), anchoredPos: new Vector2(0, 10),
             size: new Vector2(1300, 600), alignment: TextAlignmentOptions.Center);
 
-        // Prompt piscante "Espaco para continuar"
         promptLabel = CreateText("Prompt", canvasGO.transform, font, PromptText, 30,
             FontStyles.Bold, new Color(1f, 0.95f, 0.6f),
             anchorMin: new Vector2(0.5f, 0f), anchorMax: new Vector2(0.5f, 0f),

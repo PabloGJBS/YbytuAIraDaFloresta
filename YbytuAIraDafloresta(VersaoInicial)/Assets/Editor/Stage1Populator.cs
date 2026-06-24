@@ -3,15 +3,6 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Popula as 3 CombatZones do Stage1 com waves de inimigos em progressao:
-///  CZ1 - intro facil (Punk + BrawlerGirl)
-///  CZ2 - medio (introduz Forte 1 e Forte 2)
-///  CZ3 - boss (Chefe1 + capangas)
-///
-/// Operacao idempotente: substitui as waves existentes pelas configuradas aqui.
-/// Rodar via "Tools/Setup/Populate Stage1 Waves".
-/// </summary>
 public static class Stage1Populator
 {
     private const string ScenePath = "Assets/Scenes/Stage1.unity";
@@ -19,7 +10,6 @@ public static class Stage1Populator
     [MenuItem("Tools/Setup/Populate Stage1 Waves")]
     public static void Run()
     {
-        // Garantir que a cena Stage1 esta carregada
         var scene = SceneManager.GetSceneByPath(ScenePath);
         if (!scene.IsValid() || !scene.isLoaded)
         {
@@ -38,7 +28,6 @@ public static class Stage1Populator
             return;
         }
 
-        // --- CombatZone 1 (intro facil) ---
         var cz1 = GameObject.Find("CombatZone1")?.GetComponent<CombatZone>();
         if (cz1 != null)
         {
@@ -55,7 +44,6 @@ public static class Stage1Populator
         }
         else Debug.LogWarning("[Stage1Populator] CombatZone1 nao encontrada.");
 
-        // --- CombatZone 2 (medio, introduz fortes) ---
         var cz2 = GameObject.Find("CombatZone2")?.GetComponent<CombatZone>();
         if (cz2 != null)
         {

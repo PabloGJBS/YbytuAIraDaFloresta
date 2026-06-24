@@ -1,10 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Desenha o Collider2D do GameObject sempre (mesmo nao selecionado),
-/// usando Gizmos. Util para debugar tamanho/offset de hitbox/colliders
-/// no Scene view ou no Game view (com Gizmos ligado no toolbar).
-/// </summary>
 public class ColliderDebugDraw : MonoBehaviour
 {
     [SerializeField] private Color wallColor = new Color(0.2f, 1f, 0.4f, 0.8f);
@@ -42,7 +37,6 @@ public class ColliderDebugDraw : MonoBehaviour
         Vector3 scale = transform.lossyScale;
         Vector2 size = new Vector2(capsule.size.x * Mathf.Abs(scale.x), capsule.size.y * Mathf.Abs(scale.y));
         Gizmos.matrix = Matrix4x4.TRS(worldOffset, transform.rotation, Vector3.one);
-        // Aproxima a capsula com um wirecube
         Gizmos.DrawWireCube(Vector3.zero, new Vector3(size.x, size.y, 0.01f));
         Gizmos.matrix = Matrix4x4.identity;
     }

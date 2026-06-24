@@ -1,10 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Define qual BGM toca quando a cena carrega.
-/// Adicione um GameObject com este componente em cada cena que tem trilha sonora.
-/// O SoundManager faz o crossfade automaticamente se ja estiver tocando outra BGM.
-/// </summary>
 public class SceneBgm : MonoBehaviour
 {
     [SerializeField] private AudioClip clip;

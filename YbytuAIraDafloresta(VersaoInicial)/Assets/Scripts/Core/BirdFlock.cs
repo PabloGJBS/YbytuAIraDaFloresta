@@ -1,12 +1,6 @@
 using UnityEngine;
 using TMPro;
 
-/// <summary>
-/// Dispara uma revoada de passaros quando o player cruza este gatilho. Os passaros
-/// surgem a frente (lado do fogo) e voam pra tras fugindo, passando por cima do
-/// player, enquanto o lider grita uma frase. Posicione o GameObject (com um
-/// BoxCollider2D trigger) onde a revoada deve comecar, ex.: entre as zonas de combate.
-/// </summary>
 public class BirdFlock : MonoBehaviour
 {
     [Header("Revoada")]
@@ -41,7 +35,6 @@ public class BirdFlock : MonoBehaviour
     private bool fired;
     private Transform player;
 
-    /// <summary>Dispara a revoada (uma vez). Chamado pelo totem ao interagir.</summary>
     public void Trigger()
     {
         if (fired) return;
@@ -70,7 +63,6 @@ public class BirdFlock : MonoBehaviour
 
         for (int i = 0; i < birdCount; i++)
         {
-            // formacao em diagonal (cada um um pouco mais a frente e mais alto)
             Vector3 pos = new Vector3(
                 origin.x + i * spacingX,
                 origin.y + i * spacingY,
@@ -142,7 +134,6 @@ public class BirdFlock : MonoBehaviour
         Vector3 origin = transform.position;
         Gizmos.color = new Color(1f, 0.85f, 0.2f);
 
-        // onde cada passaro surge (formacao)
         int n = Mathf.Max(1, birdCount);
         for (int i = 0; i < n; i++)
             Gizmos.DrawWireSphere(origin + new Vector3(i * spacingX, i * spacingY, 0f), 0.4f);
@@ -158,7 +149,6 @@ public class BirdFlock : MonoBehaviour
             Gizmos.DrawLine(tip, tip - dir * 1.2f + perp);
             Gizmos.DrawLine(tip, tip - dir * 1.2f - perp);
         }
-        // linha-limite onde os passaros somem (arrastar o despawnPoint)
         if (despawnPoint != null)
         {
             float lx = despawnPoint.position.x;

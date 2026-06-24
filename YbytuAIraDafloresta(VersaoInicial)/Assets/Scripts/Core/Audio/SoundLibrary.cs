@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Biblioteca central de referencias a AudioClips do jogo.
-/// Um unico SO listado no SoundManager, evita refs espalhadas em prefabs.
-/// </summary>
 [CreateAssetMenu(fileName = "SoundLibrary", menuName = "Game/Sound Library")]
 public class SoundLibrary : ScriptableObject
 {
@@ -31,6 +27,20 @@ public class SoundLibrary : ScriptableObject
     public AudioClip enemyAlert;
     [Tooltip("Tiro de arma de fogo. Usado por inimigos com EnemyData.usesGunshotSfx (Chefe1).")]
     public AudioClip enemyGunshot;
+
+    [Header("Chefe Trator (Fase 2)")]
+    [Tooltip("Motor/investida do trator.")]
+    public AudioClip tractorEngine;
+    [Tooltip("Clangor de metal quando o player acerta o trator (superaquecido).")]
+    public AudioClip tractorHitMetal;
+    [Tooltip("Som de superaquecimento (vapor/alarme) ao abrir a janela vulneravel.")]
+    public AudioClip tractorOverheat;
+    [Tooltip("Explosoes (verticais, transicao, morte). Tocadas a ~60% do volume. Sorteia uma.")]
+    public AudioClip[] explosions;
+
+    [Header("Arara (companheira) - Fases 1 e 2")]
+    [Tooltip("Som curto quando a arara fala (por linha de dialogo / aviso).")]
+    public AudioClip araraTalk;
 
     [Header("Combate / Combo")]
     public AudioClip hitConnect;

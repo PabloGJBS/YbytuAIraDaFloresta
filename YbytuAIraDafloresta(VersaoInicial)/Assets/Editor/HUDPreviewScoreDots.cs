@@ -14,7 +14,6 @@ public static class HUDPreviewScoreDots
         var dotSprite = AssetDatabase.LoadAssetAtPath<Sprite>(dotPath);
         if (dotSprite == null) { Debug.LogError("LetraPonto sprite not loaded"); return; }
 
-        // Insert dot at sibling index 2 and at index 6 (assumes 8 digit children)
         for (int j = 0; j < 2; j++)
         {
             int targetIndex = (j == 0) ? 2 : 6;

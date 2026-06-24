@@ -2,10 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
-/// <summary>
-/// Controlador do jogador estilo beat 'em up (Streets of Rage).
-/// Movimentacao em X e Y com combate por botoes separados.
-/// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -22,6 +18,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("Combate")]
     [SerializeField] private float attackCooldown = 0.3f;
+
+    [Header("Knockback (ex.: atropelamento do chefe trator)")]
+    [Tooltip("Amortecimento da velocidade de knockback ao longo do tempo.")]
+    [SerializeField] private float knockbackDamping = 6f;
 
     [Header("Hurt / Invulnerabilidade")]
     [Tooltip("Tempo (s) totalmente travado apos receber dano: nao move nem ataca.")]
@@ -56,14 +56,12 @@ public class PlayerController : MonoBehaviour
 
     public bool IsPushingUpAtBoundary { get; private set; }
 
-    /// <summary>Trava global de input/movimento do player (ex.: banner educativo modal).</summary>
     public static bool InputFrozen;
 
     [Header("Esquiva (Pulo)")]
     [Tooltip("Fracao inicial do pulo em que o player fica invulneravel (esquiva). 0.7 = 70% do pulo.")]
     [SerializeField] private float dodgeInvulnFraction = 0.7f;
 
-    /// <summary>True durante a janela de i-frames do pulo: o pulo serve como esquiva.</summary>
     public bool IsInvulnerable =>
         isJumping && jumpDuration > 0f && (jumpTimer / jumpDuration) <= dodgeInvulnFraction;
 
@@ -89,10 +87,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 jumpMoveDir;
     private float hurtStunTimer;
     private float hurtNoAttackTimer;
+    private float knockbackTimer;
+    private Vector2 knockbackVel;
     private Coroutine hurtFlashRoutine;
     private AudioSource footstepSource;
 
-    // Tags usadas nos states do Animator para identificar tipo
     private const string AttackTag = "Attack";
     private const string JumpTag = "Jump";
 
@@ -115,7 +114,6 @@ public class PlayerController : MonoBehaviour
         skinController = GetComponent<CharacterSkinController>();
         combatManager = GetComponent<PlayerCombatManager>();
 
-        // Rigidbody config para beat 'em up 2D top-down
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
@@ -168,7 +166,6 @@ public class PlayerController : MonoBehaviour
         footstepSource.outputAudioMixerGroup = sm.SfxGroup;
     }
 
-    // Loop de passos enquanto o player anda no chao; pausa parado/no ar/atacando/atordoado.
     private void HandleFootsteps()
     {
         if (footstepSource == null) return;
@@ -222,11 +219,10 @@ public class PlayerController : MonoBehaviour
     {
         var stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        // Se estava atacando, verificar se a animacao de ataque terminou
         if (isAttacking && !stateInfo.IsTag(AttackTag))
         {
             isAttacking = false;
-            animator.speed = 1f; // restaura velocidade apos o golpe (ex.: chute acelerado)
+            animator.speed = 1f;
         }
     }
 
@@ -235,6 +231,15 @@ public class PlayerController : MonoBehaviour
         if (InputFrozen)
         {
             rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (knockbackTimer > 0f)
+        {
+            knockbackTimer -= Time.fixedDeltaTime;
+            rb.linearVelocity = knockbackVel;
+            knockbackVel = Vector2.Lerp(knockbackVel, Vector2.zero, Time.fixedDeltaTime * knockbackDamping);
+            ClampToWalkArea();
             return;
         }
 
@@ -265,11 +270,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // Arco parabolico: sin(0..PI) vai de 0 -> 1 -> 0
         float heightOffset = Mathf.Sin(t * Mathf.PI) * jumpHeight;
         float newY = groundY + heightOffset;
 
-        // Movimento horizontal durante o pulo (mantém a direcao de quando pulou)
         float speed = skinController != null ? skinController.GetMoveSpeed() : moveSpeed;
         Vector2 pos = rb.position;
         pos.x += jumpMoveDir.x * speed * Time.fixedDeltaTime;
@@ -282,7 +285,6 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = moveAction?.ReadValue<Vector2>() ?? Vector2.zero;
 
-        // Bloqueia ataques durante a janela pos-hurt (invulneravel mas sem golpear).
         if (hurtNoAttackTimer > 0f) return;
 
         // Ataques - verificar cooldown
@@ -306,7 +308,6 @@ public class PlayerController : MonoBehaviour
             else if (!isJumping)
                 TriggerAttack(KickHash, kickDamage);
         }
-        // Jab - L / Gamepad B (apenas no chao)
         else if (!isJumping && jabAction != null && jabAction.WasPressedThisFrame())
         {
             TriggerAttack(JabHash, jabDamage);
@@ -337,7 +338,6 @@ public class PlayerController : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, walkAreaMin.x, walkAreaMax.x);
         pos.y = Mathf.Clamp(pos.y, walkAreaMin.y, walkAreaMax.y);
 
-        // Zerar velocidade no eixo que bateu na borda pra evitar empurrar contra ela
         Vector2 v = rb.linearVelocity;
         if ((atMaxX && v.x > 0f) || (atMinX && v.x < 0f)) v.x = 0f;
         if ((atMaxY && v.y > 0f) || (atMinY && v.y < 0f)) v.y = 0f;
@@ -371,7 +371,6 @@ public class PlayerController : MonoBehaviour
         currentAttackDamage = damage;
         rb.linearVelocity = Vector2.zero;
         animator.SetTrigger(triggerHash);
-        // Chute 15% mais rapido que os demais golpes (so afeta o animator do player).
         animator.speed = (triggerHash == KickHash) ? 1.15f : 1f;
 
         var sm = SoundManager.Instance;
@@ -402,15 +401,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // --- Animation Events ---
-    // Estes metodos podem ser chamados via Animation Events nos clips .anim.
-    // Para usar: abra o clip no Animation Window, posicione no frame desejado,
-    // clique em "Add Event" e selecione o metodo.
 
-    /// <summary>
-    /// Frame exato do impacto do ataque. Projeta uma hitbox na frente do player
-    /// e aplica dano a todos os IDamageable atingidos.
-    /// Chamado via Animation Event no frame de impacto do clip de ataque.
-    /// </summary>
     public void OnAttackHit()
     {
         float dir = spriteRenderer.flipX ? -1f : 1f;
@@ -435,29 +426,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Fim da animacao de ataque - libera o jogador.
-    /// </summary>
     public void OnAttackEnd()
     {
         isAttacking = false;
         animator.speed = 1f;
     }
 
-    /// <summary>
-    /// Fim da animacao de pulo - retorna ao chao.
-    /// </summary>
     public void OnJumpEnd()
     {
         isJumping = false;
         transform.position = new Vector3(transform.position.x, groundY, transform.position.z);
     }
 
-    /// <summary>
-    /// Chamado externamente quando o player leva dano.
-    /// Trava por hurtStunDuration (sem mover/atacar), depois libera movimento
-    /// mas mantem invulneravel/sem atacar ate hurtNoAttackDuration.
-    /// </summary>
     public void TakeHit()
     {
         isAttacking = false;
@@ -473,6 +453,12 @@ public class PlayerController : MonoBehaviour
 
         if (hurtFlashRoutine != null) StopCoroutine(hurtFlashRoutine);
         hurtFlashRoutine = StartCoroutine(HurtFlash(hurtNoAttackDuration));
+    }
+
+    public void ApplyKnockback(Vector2 velocity, float duration)
+    {
+        knockbackVel = velocity;
+        knockbackTimer = Mathf.Max(knockbackTimer, duration);
     }
 
     private System.Collections.IEnumerator HurtFlash(float duration)
@@ -493,7 +479,6 @@ public class PlayerController : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool drawAttackHitbox = true;
 
-    // Visualiza a hitbox de ataque sempre (toggle via inspector OU DebugFlags).
     private void OnDrawGizmos()
     {
         if (!drawAttackHitbox || !DebugFlags.ShowAttackHitbox) return;

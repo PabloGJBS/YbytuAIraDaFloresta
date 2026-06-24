@@ -52,7 +52,6 @@ public static class SaveSlotAnimSetup
         var ignite = MakeClip("SaveSlot_BurningIgnite", binding, igniteKeys,
             loop: false, stopTime: 6f / FPS);
 
-        // Loop: alterna frame 5 e 6 enquanto selecionado
         var loopKeys = new[]
         {
             new ObjectReferenceKeyframe { time = 0f,        value = sprites[4] },
@@ -83,21 +82,17 @@ public static class SaveSlotAnimSetup
         loopState.motion = AssetDatabase.LoadAssetAtPath<AnimationClip>(loopPath);
         sm.defaultState = idleState;
 
-        // Idle -> Ignite quando isSelected=true
         AddTransition(idleState, igniteState, hasExit: false, duration: 0.05f,
             cond: ("isSelected", AnimatorConditionMode.If));
 
-        // Ignite -> Loop ao terminar (exit time = 1)
         var t = igniteState.AddTransition(loopState);
         t.hasExitTime = true;
         t.exitTime = 1f;
         t.duration = 0f;
 
-        // Ignite -> Idle se desselecionar no meio
         AddTransition(igniteState, idleState, hasExit: false, duration: 0.05f,
             cond: ("isSelected", AnimatorConditionMode.IfNot));
 
-        // Loop -> Idle quando isSelected=false
         AddTransition(loopState, idleState, hasExit: false, duration: 0.05f,
             cond: ("isSelected", AnimatorConditionMode.IfNot));
 

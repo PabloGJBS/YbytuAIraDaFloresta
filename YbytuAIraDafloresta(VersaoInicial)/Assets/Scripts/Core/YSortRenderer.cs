@@ -1,10 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Ordena o SpriteRenderer pela posicao Y a cada frame.
-/// Quem esta mais abaixo na cena (Y menor) aparece na frente.
-/// Padrao classico de beat'em up / RPG 2D top-down.
-/// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
 public class YSortRenderer : MonoBehaviour
 {
@@ -26,7 +21,6 @@ public class YSortRenderer : MonoBehaviour
         RecalcBottomOffset();
     }
 
-    // Distancia (em unidades de mundo) do pivo ate a base do sprite. Negativa quando o pivo esta acima da base.
     private void RecalcBottomOffset()
     {
         bottomOffset = 0f;

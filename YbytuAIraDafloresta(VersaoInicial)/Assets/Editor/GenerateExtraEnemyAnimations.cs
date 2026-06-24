@@ -4,24 +4,6 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-/// <summary>
-/// Gera todos os clips de animacao restantes a partir dos sprites em
-/// Assets/Sprites_Temporarios/Sprites/Enemy-*. Idempotente: rerodar
-/// reescreve clips, sem duplicar assets.
-///
-/// Cobre:
-///   - Gangster2: Attack2, Attack3, Dead, Idle2, Jump, Run
-///   - Raider3:   Attack2, Attack3, Dead, Idle2, Jump, Run
-///   - Chefe1:    Dead, Idle2, Jump, Run  (Shot/Recharge IGNORADOS por regra: sem ranged)
-///   - BrawlerGirl como inimiga: cria clips proprios em Animations/Enemy/BrawlerGirl/
-///     (Idle/Walk/Punch/Hurt) + AnimatorOverride + AnimData novos.
-///     Atualiza BrawlerGirl_EnemySkin pra usar esses, separando do skin do player.
-///
-/// IMPORTANTE: gerar os .anim apenas DISPONIBILIZA os assets. Pra que Attack2/3/
-/// Jump/Run/Dead/Idle2 sejam realmente tocados no jogo, o AnimatorController precisa
-/// ganhar estados novos + EnemyController.PerformAttack precisa selecionar variantes.
-/// Esse passo fica pra uma proxima iteracao.
-/// </summary>
 public static class GenerateExtraEnemyAnimations
 {
     private const string ExtraClipsDir = "Assets/Animations/Player/Clips/"; // mesmo dir dos existentes
@@ -44,8 +26,6 @@ public static class GenerateExtraEnemyAnimations
         AssetDatabase.Refresh();
         Debug.Log("[GenerateExtraEnemyAnimations] OK. Clips extras gerados + Brawler-Enemy separado.");
     }
-
-    // ============ GERADORES POR INIMIGO ============
 
     private static void GenerateForGangster2()
     {
@@ -76,7 +56,6 @@ public static class GenerateExtraEnemyAnimations
         CreateClip(ExtraClipsDir + "EnemyChefe1_Idle2.anim",      BuildFrames(root, "Idle2/idle2",     14), 8f,  true);
         CreateClip(ExtraClipsDir + "EnemyChefe1_Jump.anim",       BuildFrames(root, "Jump/jump",       10), 12f, false);
         CreateClip(ExtraClipsDir + "EnemyChefe1_Run.anim",        BuildFrames(root, "Run/run",         10), 14f, true);
-        // Chefe1 ganhou arma: Shot ranged (hitscan) + Recharge sem hit.
         CreateClip(ExtraClipsDir + "EnemyChefe1_Shot.anim",       BuildFrames(root, "Shot/shot",       12), 15f, false, attackEventFrame: 8);
         CreateClip(ExtraClipsDir + "EnemyChefe1_Recharge.anim",   BuildFrames(root, "Recharge/recharge", 6), 12f, false);
     }
@@ -90,11 +69,9 @@ public static class GenerateExtraEnemyAnimations
         var walk  = CreateClip(BrawlerEnemyDir + "BrawlerGirlEnemy_Walk.anim",  BuildFrames(root, "Walk/walk",  10), 12f, true);
         var punch = CreateClip(BrawlerEnemyDir + "BrawlerGirlEnemy_Punch.anim", BuildFrames(root, "Punch/punch", 3), 15f, false, attackEventFrame: 1);
         var hurt  = CreateClip(BrawlerEnemyDir + "BrawlerGirlEnemy_Hurt.anim",  BuildFrames(root, "Hurt/hurt",   2), 12f, false);
-        // Ataques extras: Brawler-Enemy ganha Jab e Kick alem do Punch base.
         CreateClip(BrawlerEnemyDir + "BrawlerGirlEnemy_Jab.anim",  BuildFrames(root, "Jab/jab",   3), 15f, false, attackEventFrame: 1);
         CreateClip(BrawlerEnemyDir + "BrawlerGirlEnemy_Kick.anim", BuildFrames(root, "Kick/kick", 5), 15f, false, attackEventFrame: 3);
 
-        // AnimatorOverrideController novo, independente do player
         var baseController = AssetDatabase.LoadAssetAtPath<AnimatorController>("Assets/Animations/Player/PlayerBase.controller");
         if (baseController == null)
         {
@@ -131,7 +108,6 @@ public static class GenerateExtraEnemyAnimations
         overrideController.ApplyOverrides(newOverrides);
         EditorUtility.SetDirty(overrideController);
 
-        // AnimData novo, separado do player
         const string animDataPath = "Assets/Data/EnemySkins/BrawlerGirlEnemy_AnimData.asset";
         var animData = AssetDatabase.LoadAssetAtPath<CharacterAnimationData>(animDataPath);
         if (animData == null)
@@ -144,7 +120,6 @@ public static class GenerateExtraEnemyAnimations
         animData.description = "Inimiga Brawler - clips separados do player Ybytu.";
         EditorUtility.SetDirty(animData);
 
-        // Atualiza o EnemySkin pra apontar pro AnimData novo
         var enemySkin = AssetDatabase.LoadAssetAtPath<EnemySkin>("Assets/Data/EnemySkins/BrawlerGirl_EnemySkin.asset");
         if (enemySkin != null)
         {
@@ -158,8 +133,6 @@ public static class GenerateExtraEnemyAnimations
         }
     }
 
-    // ============ FABRICA DE CLIP (mesmo padrao do EnemyGangster2Setup) ============
-
     private static string[] BuildFrames(string rootPath, string prefixWithSlash, int count)
     {
         var arr = new string[count];
@@ -167,10 +140,6 @@ public static class GenerateExtraEnemyAnimations
         return arr;
     }
 
-    /// <summary>
-    /// Cria/atualiza um AnimationClip. Se attackEventFrame >= 0, anexa um
-    /// AnimationEvent OnAttackHit nesse frame.
-    /// </summary>
     private static AnimationClip CreateClip(string clipPath, string[] spritePaths, float frameRate, bool loop, int attackEventFrame = -1)
     {
         var clip = new AnimationClip { frameRate = frameRate };
@@ -215,8 +184,6 @@ public static class GenerateExtraEnemyAnimations
         return clip;
     }
 
-    // ============ IMPORTERS + FOLDERS ============
-
     private static void ConfigureImportersForRoot(string root)
     {
         string[] guids = AssetDatabase.FindAssets("t:Texture2D", new[] { root });
@@ -252,7 +219,6 @@ public static class GenerateExtraEnemyAnimations
 
     private static void EnsureFolder(string folder)
     {
-        // folder e.g. "Assets/Animations/Enemy/BrawlerGirl/"
         var parts = folder.TrimEnd('/').Split('/');
         string current = parts[0]; // "Assets"
         for (int i = 1; i < parts.Length; i++)

@@ -1,11 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Confina o inimigo dentro de um retangulo no mundo. Usado pela EnemyTestZone
-/// pra cada inimigo nao sair da sua area de teste. Aplicado em LateUpdate
-/// (depois de Move/FixedUpdate do EnemyController) e tambem zera linearVelocity
-/// quando bate na borda pra evitar empurrao continuo.
-/// </summary>
 [DisallowMultipleComponent]
 public class EnemyZoneClamp : MonoBehaviour
 {

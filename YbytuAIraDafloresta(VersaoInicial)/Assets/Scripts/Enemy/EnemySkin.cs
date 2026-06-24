@@ -1,8 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Visual de um inimigo. Mesma logica do CharacterSkin.
-/// </summary>
 [CreateAssetMenu(fileName = "NewEnemySkin", menuName = "Game/Enemy Skin")]
 public class EnemySkin : ScriptableObject
 {

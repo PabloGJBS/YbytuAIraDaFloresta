@@ -2,11 +2,6 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 
-/// <summary>
-/// Texto flutuante de dano que aparece acima do alvo,
-/// sobe e some. Cor reflete o rank do combo ativo.
-/// Spawn via FloatingDamageText.Spawn(position, damage, rank).
-/// </summary>
 public class FloatingDamageText : MonoBehaviour
 {
     [SerializeField] private float lifetime = 0.9f;
@@ -31,10 +26,6 @@ public class FloatingDamageText : MonoBehaviour
         new Color(0.4f, 0.95f, 1f),                    // SSS ciano
     };
 
-    /// <summary>
-    /// Cria um texto flutuante acima da posicao indicada.
-    /// rankIndex: 0..5 (C..SSS). Mostra valor e, se rank > 0, o multiplicador.
-    /// </summary>
     public static FloatingDamageText Spawn(Vector3 worldPos, int damage, int rankIndex = 0, float multiplier = 1f)
     {
         var go = new GameObject("FloatingDamage", typeof(TextMeshPro));
@@ -52,7 +43,6 @@ public class FloatingDamageText : MonoBehaviour
             ? RankColors[rankIndex]
             : Color.white;
         tmp.sortingOrder = 50;
-        // RectTransform com tamanho suficiente pra nao truncar
         var rt = go.GetComponent<RectTransform>();
         if (rt != null) rt.sizeDelta = new Vector2(4f, 1.5f);
 

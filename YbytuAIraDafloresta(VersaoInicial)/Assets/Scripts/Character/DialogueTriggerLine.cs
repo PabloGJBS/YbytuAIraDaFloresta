@@ -1,10 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Marcador na Scene View (linha vertical + label, no estilo do "Start" do StageZone)
-/// que dispara UMA fala da arara quando o player cruza esta posicao X andando pra
-/// frente. Coloque varios na fase, um por fala, e ajuste o X arrastando.
-/// </summary>
 public class DialogueTriggerLine : MonoBehaviour
 {
     [Tooltip("Numero da fala (1 = scene_01, 2 = scene_02 ...).")]
@@ -20,6 +15,16 @@ public class DialogueTriggerLine : MonoBehaviour
 
     private bool fired;
     private Transform player;
+
+    private void Awake()
+    {
+        var gfm = GameFlowManager.Instance;
+        if (gfm != null && gfm.HasStageCheckpoint)
+        {
+            fired = true;
+            TutorialGate.TeachGolpe();
+        }
+    }
 
     private void Update()
     {
@@ -38,8 +43,6 @@ public class DialogueTriggerLine : MonoBehaviour
     {
         fired = true;
 
-        // Qualquer fala disparando significa que estamos na fase com tutorial: arma o
-        // gate que impede o player de lutar antes de aprender os golpes.
         TutorialGate.Arm();
 
         var bubble = AraraSpeechBubble.Instance;
@@ -48,7 +51,6 @@ public class DialogueTriggerLine : MonoBehaviour
             int number = dialogueNumber + j;
             if (bubble != null)
                 bubble.Show(ResolveText(number));
-            // A fala dos golpes (J K L) foi entregue: libera o combate.
             if (number == TutorialGate.GolpeDialogueNumber)
                 TutorialGate.TeachGolpe();
         }

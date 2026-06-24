@@ -33,11 +33,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Stage1.unity
     guid: 5e52946acaf329049bb60bb5ce72046e
   - enabled: 1
-    path: Assets/Scenes/FinalizacaoFase1Cutscene.unity
+    path: Assets/Scenes/CutsceneFinalizadoraFase1.unity
     guid: 687d459b21375434197ce1f99e1dbd9d
   - enabled: 1
     path: Assets/Scenes/StageScore.unity
     guid: e5b377e4873a37e41865b9aa26e2559d
+  - enabled: 1
+    path: Assets/Scenes/Stage2.unity
+    guid: e25f9331d58f4edd9899b46a4add3c1a
+  - enabled: 1
+    path: Assets/Scenes/CutsceneFinalizadoraFase2.unity
+    guid: 8b036933165656442b0c80abbb2a3488
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -2,13 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// Coordena o set-piece dos javalis na CombatZone3. Antes do player chegar: ENCENACAO
-/// (os 2 inimigos iniciais - com EnemyController desligado - e os javalis trocam golpes
-/// SEM dano). Quando a zona ativa (player entrou): os javalis viram aliados (gritam +
-/// dano real) e os inimigos ganham uma PEQUENA CHANCE de atacar os javalis em vez do
-/// player (priorizam o Ybytu). A vida de todos so comeca a cair a partir daqui.
-/// </summary>
 public class BoarRescue : MonoBehaviour
 {
     [Header("Refs")]
@@ -35,7 +28,6 @@ public class BoarRescue : MonoBehaviour
     private float sparTimer;
     private static readonly int AttackHash = Animator.StringToHash("Attack");
 
-    /// <summary>Quantos javalis pais sobreviveram ao confronto 3 (lido pelo desfecho da luta final).</summary>
     public static int LastSurvivorCount;
 
     private void Start()
@@ -46,7 +38,6 @@ public class BoarRescue : MonoBehaviour
             zone.OnZoneCompleted += HandleZoneCompleted;
         }
 
-        // Pareia a encenacao: cada javali encara um inimigo.
         for (int i = 0; i < boars.Count; i++)
         {
             if (boars[i] != null && i < startingEnemies.Count && startingEnemies[i] != null)
@@ -63,8 +54,6 @@ public class BoarRescue : MonoBehaviour
         }
     }
 
-    // Briga acabou: os javalis que SOBREVIVERAM correm pra esquerda (um pede pra procurar os
-    // filhotes). Os mortos ficam de corpo na cena.
     private void HandleZoneCompleted(CombatZone z)
     {
         bool farewellGiven = false;
@@ -79,7 +68,6 @@ public class BoarRescue : MonoBehaviour
             b.FleeLeft(!farewellGiven);
             farewellGiven = true;
 
-            // BONUS por javali sobrevivente: pontos extras + numero flutuante de comemoracao.
             if (stage != null && survivorBonus > 0)
             {
                 stage.AddScore(survivorBonus);
@@ -93,7 +81,6 @@ public class BoarRescue : MonoBehaviour
     {
         if (activated) return;
 
-        // Vira cada inimigo pro javali (encara o oponente, nao ficam todos pro mesmo lado).
         for (int i = 0; i < startingEnemies.Count; i++)
         {
             var e = startingEnemies[i];
@@ -102,8 +89,6 @@ public class BoarRescue : MonoBehaviour
                 e.FaceTowards(boars[i].transform.position.x);
         }
 
-        // Golpes encenados periodicos (a anim toca, mas OnAttackHit nao da dano porque o
-        // estado do controller continua Idle). Vida nao cai ate o player chegar.
         sparTimer -= Time.deltaTime;
         if (sparTimer <= 0f)
         {
@@ -126,7 +111,6 @@ public class BoarRescue : MonoBehaviour
 
     private IEnumerator ActivationSequence()
     {
-        // PAUSA DRAMATICA: todo mundo para enquanto o javali grita (da tempo de ler).
         PlayerController.InputFrozen = true;
         foreach (var b in boars)
         {
@@ -134,11 +118,9 @@ public class BoarRescue : MonoBehaviour
             b.SetFrozen(true);
             if (b.shoutOnActivate) b.Shout();
         }
-        // (os inimigos iniciais ainda estao com o EnemyController desligado = nao se mexem)
 
         yield return new WaitForSeconds(pauseBeforeCombat);
 
-        // Solta o combate: player volta a andar, javalis viram aliados, inimigos entram.
         PlayerController.InputFrozen = false;
 
         var boarHealths = new List<HealthSystem>();
@@ -151,14 +133,12 @@ public class BoarRescue : MonoBehaviour
             if (h != null) boarHealths.Add(h);
         }
 
-        // Inimigos: entram no combate JA (reagem aos golpes dos javalis com Hurt na hora) e
-        // priorizam o player com pequena chance de atacar os javalis.
         foreach (var e in startingEnemies)
         {
             if (e == null) continue;
             e.enabled = true;
             e.allyTargets = boarHealths;
-            e.allyAttackDamage = 0; // usa o data.attackDamage do proprio inimigo
+            e.allyAttackDamage = 0;
             e.allyAggroChance = enemyAllyAggroChance;
         }
     }

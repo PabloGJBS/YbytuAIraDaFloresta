@@ -3,17 +3,6 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-/// <summary>
-/// Atualiza os AnimatorOverrideController dos inimigos pra mapear os slots
-/// Jab/Kick (originalmente usados pelo player) pros clips de ataque variante:
-///   Gangster2: Jab -> EnemyGangster2_Attack2,  Kick -> EnemyGangster2_Attack3
-///   Raider3:   Jab -> EnemyRaider3_Attack2,    Kick -> EnemyRaider3_Attack3
-///   Chefe1:    Jab -> EnemyChefe1_Shot,        Kick -> EnemyChefe1_Recharge
-/// Demais slots ja existentes (Idle/Walk/Punch/Hurt) preservados.
-///
-/// Pareados com EnemyData.attackTriggers (lista de triggers a randomizar
-/// em PerformAttack) e os triggers Jab/Kick ja existem em PlayerBase.controller.
-/// </summary>
 public static class WireAttackVariants
 {
     [MenuItem("Tools/Setup/Wire Attack Variants")]
@@ -48,10 +37,6 @@ public static class WireAttackVariants
         Debug.Log("[WireAttackVariants] OK. Jab/Kick mapeados em Gangster2/Raider3/Chefe1/BrawlerEnemy.");
     }
 
-    /// <summary>
-    /// Carrega o override controller, e pra cada chave (nome do slot do base) substitui
-    /// o clip override pelo asset em assetPath. Slots nao listados ficam intocados.
-    /// </summary>
     private static void ApplyOverrides(string overridePath, Dictionary<string, string> nameToClipPath)
     {
         var overrideController = AssetDatabase.LoadAssetAtPath<AnimatorOverrideController>(overridePath);

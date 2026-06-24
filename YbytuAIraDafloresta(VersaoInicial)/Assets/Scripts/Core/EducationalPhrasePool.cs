@@ -1,11 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Pool das 7 frases educativas aprovadas. Distribui frases aleatorias SEM REPETIR
-/// (saco embaralhado): cada tronco pega uma unica frase distinta. So refaz o saco
-/// depois de esgotar as 7. Reseta a cada entrada em play mode.
-/// </summary>
 public static class EducationalPhrasePool
 {
     public static readonly string[] Phrases =
@@ -27,7 +22,6 @@ public static class EducationalPhrasePool
         bag = null;
     }
 
-    /// <summary>Retorna uma frase ainda nao usada (aleatoria). Refaz o saco ao esgotar.</summary>
     public static string Take()
     {
         if (bag == null || bag.Count == 0)

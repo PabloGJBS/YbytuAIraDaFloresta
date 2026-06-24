@@ -2,11 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-/// <summary>
-/// Transicao de tela com fade in/out.
-/// Singleton que persiste entre cenas.
-/// Usar: SceneTransition.Instance.FadeOut(() => { carregarCena(); });
-/// </summary>
 public class SceneTransition : MonoBehaviour
 {
     private static SceneTransition instance;
@@ -56,27 +51,18 @@ public class SceneTransition : MonoBehaviour
         rt.anchoredPosition = Vector2.zero;
     }
 
-    /// <summary>
-    /// Fade para preto, executar acao, fade de volta.
-    /// </summary>
     public void FadeOutIn(System.Action onMiddle)
     {
         if (isFading) return;
         StartCoroutine(FadeOutInCoroutine(onMiddle));
     }
 
-    /// <summary>
-    /// Apenas fade para preto (com callback).
-    /// </summary>
     public void FadeOut(System.Action onComplete = null)
     {
         if (isFading) return;
         StartCoroutine(FadeCoroutine(0f, 1f, onComplete));
     }
 
-    /// <summary>
-    /// Apenas fade de preto para transparente.
-    /// </summary>
     public void FadeIn(System.Action onComplete = null)
     {
         if (isFading) return;
@@ -88,10 +74,8 @@ public class SceneTransition : MonoBehaviour
         // Fade out
         yield return FadeCoroutine(0f, 1f, null);
 
-        // Executar acao no meio (carregar cena, etc)
         onMiddle?.Invoke();
 
-        // Esperar um frame para a cena carregar
         yield return null;
 
         // Fade in

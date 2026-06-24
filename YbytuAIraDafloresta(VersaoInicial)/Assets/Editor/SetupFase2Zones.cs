@@ -3,18 +3,6 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-/// <summary>
-/// Configura as 3 zonas de combate da Stage2 com os inimigos recoloridos (Alt) e os
-/// chefes rebaixados (HP reduzido) como mini-bosses nas zonas 1 e 2.
-///
-/// - Cria EnemyData/prefab de chefe com vida reduzida (nao mexe nos originais do boss final).
-/// - Limpa os starting enemies herdados da Fase 1 (Starting_*) e qualquer MiniBoss/ZoneMiniBoss anterior.
-/// - Reescreve as waves de cada zona com os 4 comuns Alt.
-/// - Zonas 1 e 2: posiciona 1 chefe (startingEnemy) + ZoneMiniBoss (recuo + reforco 1x a 50%).
-/// - Zona 3: so comuns Alt (sem chefe; o personagem novo entra depois).
-///
-/// Requer a Stage2.unity ABERTA. Rodar via Tools/Setup/Setup Fase2 Combat Zones.
-/// </summary>
 public static class SetupFase2Zones
 {
     private const string Pfx = "Assets/Prefabs/Enemies/";
@@ -29,7 +17,6 @@ public static class SetupFase2Zones
     [MenuItem("Tools/Setup/Setup Fase2 Combat Zones")]
     public static void Run()
     {
-        // 1) Chefes com vida reduzida (variantes; originais do boss final intactos)
         string chefe1 = MakeReducedChefe(
             "Assets/Data/EnemyData/EnemyChefe1_EnemyData.asset",
             Pfx + "EnemyChefe1_Enemy.prefab", "EnemyChefe1Zone");
@@ -46,21 +33,18 @@ public static class SetupFase2Zones
             return;
         }
 
-        // 2) Zona 1: comuns Alt + Chefe1 mini-boss
         Cleanup(z1);
         SetWaves(z1, new List<List<(string, int)>> {
             new List<(string, int)> { (PunkAlt, 2), (GangAlt, 1) },
         });
         WireMiniBoss(z1, chefe1, new List<string> { RaidAlt, BrawAlt, PunkAlt });
 
-        // 3) Zona 2: comuns Alt + Chefe1Black mini-boss
         Cleanup(z2);
         SetWaves(z2, new List<List<(string, int)>> {
             new List<(string, int)> { (RaidAlt, 2), (BrawAlt, 1) },
         });
         WireMiniBoss(z2, chefe1Black, new List<string> { GangAlt, PunkAlt, RaidAlt });
 
-        // 4) Zona 3: so comuns Alt (sem chefe por enquanto)
         Cleanup(z3);
         SetWaves(z3, new List<List<(string, int)>> {
             new List<(string, int)> { (PunkAlt, 2), (GangAlt, 1) },
@@ -75,13 +59,10 @@ public static class SetupFase2Zones
         Debug.Log("[Fase2Zones] OK. Zonas 1/2 com mini-boss + reforco a 50%; zona 3 com comuns Alt.");
     }
 
-    // ---- mini-boss (zonas 1 e 2) ----
     private static void WireMiniBoss(CombatZone cz, string chefePrefabPath, List<string> reinforcementPaths)
     {
         var spawnPoints = GetSpawnPoints(cz);
 
-        // posiciona o chefe DENTRO da arena visivel (logo a frente do player, perto
-        // do limite direito da camera de combate) - nao no spawn point (que fica off-screen).
         var prefab = Load<GameObject>(chefePrefabPath);
         var chefe = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
         chefe.transform.SetParent(cz.transform, true);
@@ -136,7 +117,6 @@ public static class SetupFase2Zones
             AssetDatabase.CopyAsset(basePrefabPath, newPrefabPath);
             AssetDatabase.ImportAsset(newPrefabPath);
         }
-        // troca a ref de EnemyData no prefab pela versao reduzida
         var root = PrefabUtility.LoadPrefabContents(newPrefabPath);
         root.name = newPrefix + "_Enemy";
         foreach (var comp in root.GetComponentsInChildren<MonoBehaviour>(true))
@@ -158,7 +138,6 @@ public static class SetupFase2Zones
         return newPrefabPath;
     }
 
-    // ---- helpers de zona (SerializedObject nos campos privados) ----
     private static void SetWaves(CombatZone cz, List<List<(string path, int count)>> waves)
     {
         var so = new SerializedObject(cz);
@@ -190,7 +169,7 @@ public static class SetupFase2Zones
         for (int i = 0; i < enemies.Length; i++)
             p.GetArrayElementAtIndex(i).objectReferenceValue = enemies[i];
         var br = so.FindProperty("bossReinforcements");
-        if (br != null) br.arraySize = 0; // ZoneMiniBoss cuida dos reforcos
+        if (br != null) br.arraySize = 0;
         so.ApplyModifiedProperties();
     }
 

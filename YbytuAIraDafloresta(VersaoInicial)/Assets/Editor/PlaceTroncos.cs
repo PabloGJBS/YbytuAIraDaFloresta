@@ -3,12 +3,6 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Posiciona os 3 troncos interativos nos trechos de caminhada da Stage1.
-/// Cada tronco: SpriteRenderer + BoxCollider2D solido na base (nao atravessavel) +
-/// YSortRenderer + um filho "EduTrigger" com EducationalMarker (frase, modo interativo).
-/// Idempotente. Menu: Tools/Ybytu/Place Troncos
-/// </summary>
 public static class PlaceTroncos
 {
     private const string ScenePath = "Assets/Scenes/Stage1.unity";
@@ -44,26 +38,22 @@ public static class PlaceTroncos
 
         var sr = go.GetComponent<SpriteRenderer>();
         sr.sprite = AssetDatabase.LoadAssetAtPath<Sprite>($"{Dir}/{sprite}.png");
-        // Ordem visivel em edit mode (= -Y*100, igual ao YSort em runtime)
         sr.sortingOrder = Mathf.RoundToInt(-pos.y * 100f);
 
-        // Brilho/contorno branco ao aproximar
         go.AddComponent<InteractableHighlight>();
 
-        // Colisor solido na base do tronco (player nao atravessa; passa por cima/baixo na faixa)
         var col = go.GetComponent<BoxCollider2D>();
         col.isTrigger = false;
         col.size = new Vector2(2.4f, 1.6f);
         col.offset = new Vector2(0f, -2.0f);
 
-        // Trigger educativo (filho) - area maior pra disparar a frase ao chegar perto
         var trig = new GameObject("EduTrigger", typeof(BoxCollider2D), typeof(EducationalMarker));
         trig.transform.SetParent(go.transform, false);
         var tcol = trig.GetComponent<BoxCollider2D>();
         tcol.size = new Vector2(6f, 6f);
         tcol.offset = new Vector2(0f, -1.5f);
         var marker = trig.GetComponent<EducationalMarker>();
-        marker.useRandomFromPool = true; // sorteia 1 das 7, sem repetir entre troncos
+        marker.useRandomFromPool = true;
         marker.requireInteraction = true;
         marker.showOnce = true;
     }

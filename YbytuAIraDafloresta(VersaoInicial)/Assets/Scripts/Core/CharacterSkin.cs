@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// ScriptableObject que centraliza toda a identidade visual de um personagem.
-/// Para trocar a aparencia, basta trocar o CharacterSkin referenciado.
-/// </summary>
 [CreateAssetMenu(fileName = "NewCharacterSkin", menuName = "Game/Character Skin")]
 public class CharacterSkin : ScriptableObject
 {

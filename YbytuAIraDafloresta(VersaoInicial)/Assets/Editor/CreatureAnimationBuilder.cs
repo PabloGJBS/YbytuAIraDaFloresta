@@ -4,16 +4,12 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-// Monta AnimationClips + AnimatorController para as criaturas do jogo a partir dos
-// sprites ja separados em Assets/Sprites_Temporarios/Sprites/<Criatura>/<Acao>/<Acao>-<n>.png
-// As acoes sao descobertas automaticamente (subpastas). Loop e frameRate sao deduzidos do nome da acao.
 // Menu: Tools > Criaturas > ...
 public static class CreatureAnimationBuilder
 {
     const string SpriteRoot = "Assets/Sprites_Temporarios/Sprites";
     const string AnimRoot = "Assets/Animations";
 
-    // criaturas geradas por este builder (adicione novos bichos aqui)
     static readonly string[] Creatures = {
         "Onca", "Coelho", "Arara", "Javali", "Cobra", "Passaro1", "Passaro2", "Sapo", "Inseto",
         "AraraVermelha", "CobraVerde", "CobraAzul",
@@ -22,7 +18,6 @@ public static class CreatureAnimationBuilder
         "SapoLaranja", "SapoAzul", "SapoMarrom",
     };
 
-    // acoes que repetem em loop (idle/locomocao); o resto (ataque/morte/hurt) toca uma vez
     static readonly string[] LoopActions = { "idle", "walk", "run", "move", "fly", "swim" };
 
     [MenuItem("Tools/Criaturas/Build All")]
@@ -57,7 +52,6 @@ public static class CreatureAnimationBuilder
 
         ConfigureImporters(spriteDir);
 
-        // descobre as acoes (subpastas) automaticamente
         var actions = AssetDatabase.GetSubFolders(spriteDir)
             .Select(p => p.Substring(p.LastIndexOf('/') + 1))
             .OrderBy(n => n)
@@ -77,7 +71,6 @@ public static class CreatureAnimationBuilder
         Debug.Log($"[Criaturas] {creature}: {clips.Count} clips ({string.Join(", ", clips.Keys)}) + controller em {animDir}");
     }
 
-    // Padroes de import do projeto: Sprite Single, PPU 32, Point, sem compressao, pivo na base
     static void ConfigureImporters(string spriteDir)
     {
         foreach (var g in AssetDatabase.FindAssets("t:Texture2D", new[] { spriteDir }))

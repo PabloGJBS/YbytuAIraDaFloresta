@@ -1,9 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// Menu de pausa durante o gameplay.
-/// </summary>
 public class PauseMenuUI : MonoBehaviour
 {
     [SerializeField] private GameObject pausePanel;

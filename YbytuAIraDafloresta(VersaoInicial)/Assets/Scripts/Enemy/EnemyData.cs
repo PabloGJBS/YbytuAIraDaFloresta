@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Configuracoes de um tipo de inimigo.
-/// Criar um SO para cada tipo (Punk, Boss, Ninja, etc).
-/// </summary>
 [CreateAssetMenu(fileName = "NewEnemyData", menuName = "Game/Enemy Data")]
 public class EnemyData : ScriptableObject
 {

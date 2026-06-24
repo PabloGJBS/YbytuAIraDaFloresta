@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Aplica um StageSkin ao cenario.
-/// Referencia os SpriteRenderers das layers do stage.
-/// </summary>
 public class StageSkinController : MonoBehaviour
 {
     [SerializeField] private StageSkin currentSkin;

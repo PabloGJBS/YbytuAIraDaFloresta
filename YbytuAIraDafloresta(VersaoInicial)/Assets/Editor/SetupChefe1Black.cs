@@ -3,22 +3,6 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-/// <summary>
-/// Setup do EnemyChefe1Black - variant cosmetica do Chefe1 com cabelo preto.
-/// Reusa os mesmos sprites recoloridos via script Python (recolor_chefe_hair.py)
-/// em Assets/Sprites_Temporarios/Sprites/Enemy-Chefe1-BlackHair/.
-///
-/// O que cria/atualiza:
-///   1. Importers nos PNGs novos (PPU 32, Point, FullRect, sem compressao)
-///   2. 10 clips: Idle/Idle2/Walk/Run/Punch/Hurt/Dead/Jump/Shot/Recharge
-///   3. AnimatorOverrideController (BlackHair) espelhando o Chefe1 com Jab→Shot e Kick→Recharge
-///   4. CharacterAnimationData proprio
-///   5. EnemySkin proprio (mesma config do Chefe1 + aponta pro AnimData novo)
-///   6. EnemyData proprio (copia stats do Chefe1)
-///   7. Prefab EnemyChefe1Black_Enemy duplicando o EnemyChefe1_Enemy com refs trocadas
-///
-/// Rodar via menu Tools/Setup/Setup Chefe1 Black Variant.
-/// </summary>
 public static class SetupChefe1Black
 {
     private const string Root = "Assets/Sprites_Temporarios/Sprites/Enemy-Chefe1-BlackHair/";
@@ -46,7 +30,6 @@ public static class SetupChefe1Black
         Debug.Log("[SetupChefe1Black] OK. Variant pronto. Prefab em " + PrefabDst);
     }
 
-    // ---------- 1) Importer ----------
     private static void ConfigureImporters()
     {
         string[] guids = AssetDatabase.FindAssets("t:Texture2D", new[] { Root.TrimEnd('/') });
@@ -79,7 +62,6 @@ public static class SetupChefe1Black
     private static Dictionary<string, AnimationClip> CreateClips()
     {
         var clips = new Dictionary<string, AnimationClip>();
-        // Mesmas contagens/frame rates/eventos do Chefe1 original.
         clips["Idle"]     = CreateClip(ClipsDir + "EnemyChefe1Black_Idle.anim",     BuildFrames("Idle/idle",         7),  8f, true);
         clips["Idle2"]    = CreateClip(ClipsDir + "EnemyChefe1Black_Idle2.anim",    BuildFrames("Idle2/idle2",      14),  8f, true);
         clips["Walk"]     = CreateClip(ClipsDir + "EnemyChefe1Black_Walk.anim",     BuildFrames("Walk/walk",        10), 12f, true);
@@ -137,7 +119,6 @@ public static class SetupChefe1Black
         return clip;
     }
 
-    // ---------- 3) Override ----------
     private static AnimatorOverrideController CreateOverride(Dictionary<string, AnimationClip> clips)
     {
         var baseController = AssetDatabase.LoadAssetAtPath<AnimatorController>("Assets/Animations/Player/PlayerBase.controller");
@@ -159,12 +140,10 @@ public static class SetupChefe1Black
         {
             string n = pair.Key.name;
             AnimationClip val;
-            // Slots base mapeados pros clips equivalentes:
             if (n.Contains("Idle"))      val = clips["Idle"];
             else if (n.Contains("Walk")) val = clips["Walk"];
             else if (n.Contains("Punch"))val = clips["Punch"];
             else if (n.Contains("Hurt")) val = clips["Hurt"];
-            // Slot Jab usado pra Shot (variant ranged), Kick usado pra Recharge (gambiarra do boss).
             else if (n.Contains("Jab"))  val = clips["Shot"];
             else if (n.Contains("Kick")) val = clips["Recharge"];
             else if (n.Contains("Jump")) val = clips["Jump"];
@@ -176,7 +155,6 @@ public static class SetupChefe1Black
         return overrideController;
     }
 
-    // ---------- 4) AnimData ----------
     private static CharacterAnimationData CreateAnimData(AnimatorOverrideController overrideController)
     {
         var animData = AssetDatabase.LoadAssetAtPath<CharacterAnimationData>(AnimDataPath);
@@ -192,10 +170,8 @@ public static class SetupChefe1Black
         return animData;
     }
 
-    // ---------- 5) EnemySkin ----------
     private static EnemySkin CreateEnemySkin(CharacterAnimationData animData)
     {
-        // Copia config do Chefe1 original
         var srcSkin = AssetDatabase.LoadAssetAtPath<EnemySkin>("Assets/Data/EnemySkins/EnemyChefe1_EnemySkin.asset");
         var skin = AssetDatabase.LoadAssetAtPath<EnemySkin>(EnemySkinPath);
         if (skin == null)
@@ -216,7 +192,6 @@ public static class SetupChefe1Black
         return skin;
     }
 
-    // ---------- 6) EnemyData ----------
     private static EnemyData CreateEnemyData()
     {
         var src = AssetDatabase.LoadAssetAtPath<EnemyData>("Assets/Data/EnemyData/EnemyChefe1_EnemyData.asset");
@@ -248,7 +223,6 @@ public static class SetupChefe1Black
         return data;
     }
 
-    // ---------- 7) Prefab ----------
     private static void DuplicatePrefab(EnemyData enemyData, EnemySkin enemySkin)
     {
         if (AssetDatabase.LoadAssetAtPath<GameObject>(PrefabSrc) == null)

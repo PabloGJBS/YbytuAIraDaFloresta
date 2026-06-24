@@ -2,9 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// Controlador da tela de selecao de fases (mapa).
-/// </summary>
 public class StageSelectUI : MonoBehaviour
 {
     [Header("Stage Buttons")]

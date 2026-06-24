@@ -2,12 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-/// <summary>
-/// Totem interativo: na PRIMEIRA interacao (player perto + tecla Espaco/E), devolve
-/// energia espiritual (cura uma fracao da vida) e dispara a revoada de passaros.
-/// Detecta o player por DISTANCIA (nao precisa de collider). Posicione este objeto
-/// em cima do totem e ajuste interactRange (gizmo = esfera azul).
-/// </summary>
 public class TotemInteraction : MonoBehaviour
 {
     [Header("Cura (energia espiritual)")]
@@ -37,7 +31,6 @@ public class TotemInteraction : MonoBehaviour
     {
         highlight = GetComponentInParent<InteractableHighlight>();
 
-        // Seguro: se a revoada nao foi ligada no Inspector, acha ela sozinho na cena.
         if (birdFlock == null)
         {
             birdFlock = FindFirstObjectByType<BirdFlock>(FindObjectsInactive.Include);

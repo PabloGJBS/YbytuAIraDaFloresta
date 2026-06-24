@@ -1,10 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Painel overlay de tutorial exibido sobre a cena atual (ex: MainMenu).
-/// Scaffold inicial: Show/Hide, botao de fechar e navegacao simples entre paginas.
-/// </summary>
 public class TutorialOverlayUI : MonoBehaviour
 {
     [Header("Painel raiz (ativado/desativado pelo Show/Hide)")]

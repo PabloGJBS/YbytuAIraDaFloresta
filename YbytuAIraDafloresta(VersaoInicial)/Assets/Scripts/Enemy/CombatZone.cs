@@ -3,21 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// Zona de combate dentro de uma fase.
-/// Quando o jogador entra na zona, barreiras aparecem trancando o jogador na area.
-/// Waves de inimigos sao spawnadas. Ao eliminar todos, as barreiras abrem.
-///
-/// Uso no editor:
-/// 1. Criar um GameObject vazio com CombatZone
-/// 2. Adicionar um trigger collider (BoxCollider2D, isTrigger=true) como area de ativacao
-/// 3. Configurar as barreiras (colliders que trancam o jogador)
-/// 4. Posicionar spawn points onde os inimigos aparecem
-/// 5. Configurar as waves no Inspector
-/// </summary>
 [RequireComponent(typeof(BoxCollider2D))]
 public class CombatZone : MonoBehaviour
 {
+    [Header("Chefe (zona so do boss)")]
+    [Tooltip("Se setado, esta zona e a ARENA DO CHEFE: ao ativar, trava camera+barreiras e inicia o boss; completa quando ele morre. Ignora as waves (sem inimigos basicos).")]
+    [SerializeField] private TractorBoss tractorBoss;
+
     [Header("Waves")]
     [SerializeField] private SpawnWave[] waves;
 
@@ -71,7 +63,6 @@ public class CombatZone : MonoBehaviour
     private bool isCompleted;
     private List<EnemyController> activeEnemies = new List<EnemyController>();
 
-    // Reforco dos chefes (meia-vida somada)
     private readonly List<HealthSystem> trackedBosses = new List<HealthSystem>();
     private int bossCountExpected;
     private int trackedBossesMaxTotal;
@@ -93,13 +84,11 @@ public class CombatZone : MonoBehaviour
     public event Action<CombatZone> OnZoneCompleted;
     public event Action<int> OnEnemyKilled; // scoreValue
 
-    // Sinais globais (qualquer zona) para reacoes externas, ex.: companheiro fugir/voltar
     public static event Action OnAnyZoneActivated;
     public static event Action OnAnyZoneCompleted;
 
     private void Awake()
     {
-        // Garantir que o collider da zona eh trigger
         var col = GetComponent<BoxCollider2D>();
         col.isTrigger = true;
 
@@ -130,16 +119,10 @@ public class CombatZone : MonoBehaviour
         ActivateZone();
     }
 
-    /// <summary>
-    /// Ativa a zona de combate: fecha barreiras e inicia waves.
-    /// </summary>
     public void ActivateZone()
     {
         if (isActive || isCompleted) return;
 
-        // Tutorial (Fase 1): se o gate esta armado e os golpes ainda nao foram
-        // ensinados, a arara ensina os golpes (J K L) ANTES de comecar a luta.
-        // Evita o player entrar no combate sem saber atacar.
         if (TutorialGate.ShouldTeachGolpe)
         {
             StartCoroutine(TeachGolpeThenActivate());
@@ -149,13 +132,8 @@ public class CombatZone : MonoBehaviour
         ActivateZoneInternal();
     }
 
-    /// <summary>
-    /// Tranca o player na entrada da arena, faz a arara ensinar os golpes e so
-    /// inicia o combate quando a fala terminar.
-    /// </summary>
     private IEnumerator TeachGolpeThenActivate()
     {
-        // tranca o player na arena enquanto a arara ensina (alem do freeze do balao)
         SetBarriersActive(true);
 
         var bubble = AraraSpeechBubble.Instance;
@@ -164,14 +142,11 @@ public class CombatZone : MonoBehaviour
         {
             bubble.Show(line);
             yield return null;                       // deixa a fala entrar na fila
-            // Espera so terminar de DIGITAR (= quando o player e liberado), nao o hold na tela.
-            // Assim os inimigos sao ativados no MESMO instante em que o player volta a se mexer.
             yield return new WaitUntil(() => !bubble.HasUntypedSpeech);
         }
 
         TutorialGate.TeachGolpe();
 
-        // a zona pode ter sido pulada/completada nesse meio tempo
         if (isCompleted) yield break;
         ActivateZoneInternal();
     }
@@ -181,7 +156,8 @@ public class CombatZone : MonoBehaviour
         if (isActive || isCompleted) return;
 
         bool hasWaves = waves != null && waves.Length > 0;
-        if (!hasWaves && testEmptyZoneDuration <= 0f)
+        bool hasBoss = tractorBoss != null;
+        if (!hasWaves && !hasBoss && testEmptyZoneDuration <= 0f)
         {
             CompleteZone();
             return;
@@ -198,10 +174,27 @@ public class CombatZone : MonoBehaviour
         OnAnyZoneActivated?.Invoke();
         ShoutSpottedBark();
 
-        if (hasWaves)
+        if (hasBoss)
+            StartBossFight();              // arena do chefe: ignora waves
+        else if (hasWaves)
             StartCoroutine(StartWaveSequence());
         else
             StartCoroutine(TestLockRoutine());
+    }
+
+    private void StartBossFight()
+    {
+        var lib = SoundManager.Instance != null ? SoundManager.Instance.Library : null;
+        if (lib != null) PlayBgm(lib.bgmBoss);
+
+        tractorBoss.OnDefeated += HandleBossDefeated;
+        tractorBoss.StartFight();
+    }
+
+    private void HandleBossDefeated()
+    {
+        if (tractorBoss != null) tractorBoss.OnDefeated -= HandleBossDefeated;
+        CompleteZone();
     }
 
     private IEnumerator TestLockRoutine()
@@ -247,7 +240,6 @@ public class CombatZone : MonoBehaviour
             // Delay antes da wave
             if (wave.delayBeforeWave > 0f)
             {
-                // Pausar combo durante transicao entre waves
                 if (pauseComboBetweenWaves && currentWaveIndex > 0)
                     PausePlayerCombo();
 
@@ -257,12 +249,10 @@ public class CombatZone : MonoBehaviour
                     ResumePlayerCombo();
             }
 
-            // Spawnar wave (na 1a wave, inclui os inimigos ja presentes na arena)
             SpawnWaveEnemies(wave, currentWaveIndex == 0);
             OnWaveStarted?.Invoke(currentWaveIndex);
             UpdateCombatBgm(wave);
 
-            // Esperar todos os inimigos da wave morrerem
             yield return new WaitUntil(() => enemiesAliveInWave <= 0);
 
             OnWaveCompleted?.Invoke(currentWaveIndex);
@@ -277,21 +267,19 @@ public class CombatZone : MonoBehaviour
     {
         enemiesAliveInWave = 0;
 
-        // Rastreamento de chefes desta wave (pro reforco de meia-vida)
         trackedBosses.Clear();
         trackedBossesMaxTotal = 0;
         bossReinforced = false;
         monitoringBosses = false;
         bossCountExpected = CountBosses(wave);
 
-        // Inimigos ja presentes na arena (idle) entram na contagem da 1a wave
         if (includeStarting && startingEnemies != null)
         {
             int enemyLayer = LayerMask.NameToLayer("Enemy");
             foreach (var e in startingEnemies)
             {
                 if (e == null) continue;
-                e.enabled = true;                     // liga a IA (estava desabilitada)
+                e.enabled = true;
                 e.gameObject.layer = enemyLayer;
                 e.OnEnemyDied += HandleEnemyDied;
                 activeEnemies.Add(e);
@@ -319,7 +307,6 @@ public class CombatZone : MonoBehaviour
 
         var spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
 
-        // Pequeno offset aleatorio para nao spawnar todos no mesmo ponto
         Vector2 offset = UnityEngine.Random.insideUnitCircle * 0.5f;
         Vector3 spawnPos = spawnPoint.position + (Vector3)offset;
 
@@ -367,7 +354,6 @@ public class CombatZone : MonoBehaviour
     {
         if (bossReinforcements == null || bossReinforcements.Length == 0) return;
 
-        // Um chefe vivo grita ao chamar os capangas
         if (!string.IsNullOrEmpty(bossReinforcementBark))
         {
             foreach (var b in trackedBosses)
@@ -382,15 +368,12 @@ public class CombatZone : MonoBehaviour
         foreach (var prefab in bossReinforcements)
         {
             if (prefab == null) continue;
-            enemiesAliveInWave++;              // a wave so completa quando os reforcos morrerem
+            enemiesAliveInWave++;
             StartCoroutine(SpawnEnemyDelayed(prefab, delay));
             delay += 0.25f;
         }
     }
 
-    /// <summary>
-    /// Um dos inimigos iniciais grita uma frase aleatoria ao avistar o player.
-    /// </summary>
     private void ShoutSpottedBark()
     {
         if (spottedBarks == null || spottedBarks.Length == 0 || startingEnemies == null) return;
@@ -412,12 +395,10 @@ public class CombatZone : MonoBehaviour
         OnEnemyKilled?.Invoke(scoreValue);
     }
 
-    // --- BGM por contexto: combate normal vs chefe ---
     private void UpdateCombatBgm(SpawnWave wave)
     {
         var lib = SoundManager.Instance != null ? SoundManager.Instance.Library : null;
         if (lib == null) return;
-        // PlayBGM ignora se ja for o mesmo clip, entao chamar por wave nao reinicia a faixa.
         PlayBgm(WaveHasBoss(wave) ? lib.bgmBoss : lib.bgmCombat);
     }
 
@@ -448,7 +429,6 @@ public class CombatZone : MonoBehaviour
         SetBarriersActive(false);
         NotifyCameraExit();
 
-        // Volta pra trilha de exploracao ao limpar a zona
         var lib = SoundManager.Instance != null ? SoundManager.Instance.Library : null;
         if (lib != null) PlayBgm(lib.bgmExploration);
 
@@ -485,26 +465,17 @@ public class CombatZone : MonoBehaviour
         combo?.Resume();
     }
 
-    /// <summary>
-    /// Marca a zona como ja limpa SEM tocar waves/eventos. Usado ao retomar de um
-    /// checkpoint: as zonas anteriores ao checkpoint ja contam como concluidas e
-    /// nao reativam quando o player passa por elas.
-    /// </summary>
     public void SkipAsCleared()
     {
         isActive = false;
         isCompleted = true;
         SetBarriersActive(false);
 
-        // Esconde os inimigos idle ja posicionados (a zona nao vai mais ativa-los).
         if (startingEnemies != null)
             foreach (var e in startingEnemies)
                 if (e != null) e.gameObject.SetActive(false);
     }
 
-    /// <summary>
-    /// Forcar o fim da zona (debug, cutscene, etc).
-    /// </summary>
     public void ForceComplete()
     {
         StopAllCoroutines();
@@ -520,7 +491,6 @@ public class CombatZone : MonoBehaviour
         CompleteZone();
     }
 
-    // --- Gizmos para visualizar a zona no editor ---
     private void OnDrawGizmos()
     {
         var col = GetComponent<BoxCollider2D>();
@@ -532,7 +502,6 @@ public class CombatZone : MonoBehaviour
 
         Gizmos.DrawCube(transform.position + (Vector3)col.offset, col.size);
 
-        // Limites laterais da camera (linhas verticais laranja - sempre visiveis)
         var orange = new Color(1f, 0.5f, 0f, 1f);
         if (cameraLimitLeft != null) DrawZoneLine(cameraLimitLeft.position.x, orange, "Combat L");
         if (cameraLimitRight != null) DrawZoneLine(cameraLimitRight.position.x, orange, "Combat R");

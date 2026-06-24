@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Aplica um CharacterSkin ao personagem em runtime.
-/// Troca animator, escala e tint de forma centralizada.
-/// </summary>
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class CharacterSkinController : MonoBehaviour

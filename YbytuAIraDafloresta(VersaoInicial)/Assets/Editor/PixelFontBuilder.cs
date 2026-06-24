@@ -7,10 +7,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
 
-/// <summary>
-/// Constroi TMP_FontAsset bitmap a partir de um atlas PNG + descritor JSON
-/// gerado pelos scripts Python (Ferramentas/PixelFont). Uso: menu Tools/Pixel Fonts.
-/// </summary>
 public static class PixelFontBuilder
 {
     [System.Serializable] class GlyphRec { public int src, x, y, w, h, bearingX, bearingY, advance; }
@@ -31,7 +27,6 @@ public static class PixelFontBuilder
     [MenuItem("Tools/Pixel Fonts/Build Bold02")]
     public static void BuildBold02() => Build(Dir + "Bold02_Atlas.png", Dir + "Bold02_Atlas.json", Dir + "Bold02.asset");
 
-    // Reaponta o material da fonte ja existente pro shader colorido (preserva o GUID do asset).
     [MenuItem("Tools/Pixel Fonts/Apply Color Shader (Bold02 + Tiny01)")]
     public static void ApplyColorShader()
     {
@@ -86,7 +81,6 @@ public static class PixelFontBuilder
             charTable.Add(new TMP_Character((uint)c.u, glyphTable[c.g]));
         }
 
-        // 3) FaceInfo (via reflection - struct com setters internos)
         object face = new FaceInfo();
         SetFI(ref face, "m_FamilyName", desc.name);
         SetFI(ref face, "m_StyleName", "Regular");
@@ -124,7 +118,6 @@ public static class PixelFontBuilder
         font.atlasPopulationMode = AtlasPopulationMode.Static;
         font.isMultiAtlasTexturesEnabled = false;
 
-        // 5) Material: shader colorido usa o RGB do atlas (cores ja desenhadas na fonte)
         var shader = Shader.Find("TMP/PixelColorBitmap");
         if (shader == null) shader = Shader.Find("TextMeshPro/Bitmap");
         var mat = new Material(shader);

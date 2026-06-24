@@ -3,14 +3,6 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-/// <summary>
-/// Setup das variants cosmeticas (PunkDark + BrawlerGirlEnemyDark).
-/// Reusa sprites recoloridos via Python (recolor_sprites.py).
-/// Cria, pra cada variant: importers, clips, override controller, animData,
-/// enemySkin, enemyData (stats copiados do original) e prefab duplicado.
-///
-/// Rodar via menu Tools/Setup/Setup Color Variants.
-/// </summary>
 public static class SetupColorVariants
 {
     [MenuItem("Tools/Setup/Setup Color Variants")]
@@ -23,7 +15,6 @@ public static class SetupColorVariants
         Debug.Log("[SetupColorVariants] OK. PunkDark + BrawlerEnemyDark prontos.");
     }
 
-    // ==================== PUNK DARK ====================
     private static void SetupPunkDark()
     {
         const string root = "Assets/Sprites_Temporarios/Sprites/Enemy-Punk-Dark/";
@@ -32,7 +23,6 @@ public static class SetupColorVariants
         var idle  = CreateClip("Assets/Animations/Player/Clips/EnemyPunkDark_Idle.anim",  BuildFrames(root, "Idle/idle",  4),  8f, true);
         var walk  = CreateClip("Assets/Animations/Player/Clips/EnemyPunkDark_Walk.anim",  BuildFrames(root, "Walk/walk",  4), 12f, true);
         var punch = CreateClip("Assets/Animations/Player/Clips/EnemyPunkDark_Punch.anim", BuildFrames(root, "Punch/punch", 3), 15f, false, attackEventFrame: 1);
-        // Hurt usa apenas 3 frames (igual ao Punk original) - hurt4 e o "voa pra longe", removido.
         var hurt  = CreateClip("Assets/Animations/Player/Clips/EnemyPunkDark_Hurt.anim",  BuildFrames(root, "Hurt/hurt",   3), 12f, false);
 
         var overrideController = CreateOverride(
@@ -69,7 +59,6 @@ public static class SetupColorVariants
             data, enemySkin);
     }
 
-    // ==================== BRAWLER DARK ====================
     private static void SetupBrawlerDark()
     {
         const string root = "Assets/Sprites_Temporarios/Sprites/Brawler-Girl-Dark/";
@@ -119,7 +108,6 @@ public static class SetupColorVariants
             data, enemySkin);
     }
 
-    // ==================== HELPERS ====================
     private static void ConfigureImporters(string root)
     {
         string[] guids = AssetDatabase.FindAssets("t:Texture2D", new[] { root.TrimEnd('/') });

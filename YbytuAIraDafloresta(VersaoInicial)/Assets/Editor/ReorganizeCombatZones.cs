@@ -3,12 +3,6 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-/// <summary>
-/// Reorganiza as zonas de combate da Stage1: CZ4 vira a zona FINAL com os chefes
-/// (x=90) e a CZ3 vira a pre-boss (x=62) com inimigos variados/escuros. Os chefes
-/// passam a vir SO na zona final. Opera na CENA ATIVA (sem OpenScene) pra nao
-/// reverter posicoes nao salvas (troncos). Menu: Tools/Ybytu/Reorganize Combat Zones (Boss in CZ4)
-/// </summary>
 public static class ReorganizeCombatZones
 {
     private const string PrefabDir = "Assets/Prefabs/Enemies";
@@ -35,7 +29,6 @@ public static class ReorganizeCombatZones
         var cz4 = GameObject.Find("CombatZone4");
         if (cz3 == null || cz4 == null) { Debug.LogError("[ReorgCZ] CombatZone3/4 nao encontradas."); return; }
 
-        // Swap de posicoes: CZ4 = final (x90), CZ3 = pre-boss (x62)
         SetX(cz3, 62f);
         SetX(cz4, 90f);
 
@@ -48,7 +41,6 @@ public static class ReorganizeCombatZones
         var chefe1 = Load("EnemyChefe1_Enemy");
         var chefe1Black = Load("EnemyChefe1Black_Enemy");
 
-        // CZ3 = pre-boss (variados, variacoes escuras, SEM chefe)
         SetWaves(cz3, new List<W>
         {
             new W { name = "Wave 1", delay = 1.2f, interval = 0.4f, enemies = new[] { (punkDark, 1), (gangster, 1) } },
@@ -63,7 +55,6 @@ public static class ReorganizeCombatZones
             new W { name = "Wave 3 - Chefes", delay = 2.0f, interval = 0.6f, enemies = new[] { (chefe1, 1), (chefe1Black, 1) } },
         });
 
-        // Reforco: quando os 2 chefes chegam a meia-vida somada, chamam 1 de cada capanga
         SetBossReinforcements(cz4, 0.5f, new[] { punk, gangster, raider, brawler });
 
         EditorSceneManager.MarkSceneDirty(scene);

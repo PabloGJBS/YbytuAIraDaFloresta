@@ -2,25 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// HUD do gameplay.
-///
-/// Layout:
-/// ┌──────────────────────────────────────────────────┐
-/// │ [Foto] ████████ HP Bar              Vidas: x3  │
-/// │                                     Score: 1500 │
-/// │                                                  │
-/// │                                                  │
-/// │                                                  │
-/// │                                          [C]     │  ← Combo Rank (75% altura)
-/// │                               Item ►     ███     │  ← Combo Bar
-/// └──────────────────────────────────────────────────┘
-///
-/// Canto sup. esquerdo: foto do personagem + barra de vida
-/// Canto sup. direito: vidas restantes + score total
-/// Canto inf. direito (75% altura): letra do combo rank + barra de combo
-/// Canto inf. direito: item utilizavel
-/// </summary>
 public class GameHUD : MonoBehaviour
 {
     [Header("Vida - Superior Esquerdo")]
@@ -77,7 +58,6 @@ public class GameHUD : MonoBehaviour
     [SerializeField] private TMP_Text waveText;
     [SerializeField] private GameObject waveContainer;
 
-
     private PlayerCombatManager playerCombat;
     private ComboSystem combo;
     private HealthSystem health;
@@ -97,9 +77,7 @@ public class GameHUD : MonoBehaviour
     {
         // Esconder wave info por padrao
         if (waveContainer != null) waveContainer.SetActive(false);
-        // Combo oculto ate o primeiro hit
         if (comboContainer != null) comboContainer.SetActive(false);
-        // Reset visual do combo (caso a cena tenha sido salva com estado SSS/cheio)
         UpdateComboRank(ComboRank.C);
         UpdateComboBar(0f);
 
@@ -110,7 +88,6 @@ public class GameHUD : MonoBehaviour
         FindPlayer();
         FindStageManager();
 
-        // Se nao ha StageManager, acumular score localmente via evento estatico de inimigos.
         useLocalScore = stageManager == null;
         UpdateScore(0);
     }
@@ -137,10 +114,6 @@ public class GameHUD : MonoBehaviour
         hudCanvas = comboContainer.GetComponentInParent<Canvas>();
     }
 
-    /// <summary>
-    /// Deixa o combo (rank/barra/hits) semitransparente quando o player passa por tras
-    /// dele na tela, igual aos props frontais.
-    /// </summary>
     private void UpdateComboFade()
     {
         if (comboGroup == null || comboFadeRect == null || playerTransform == null) return;
@@ -176,15 +149,12 @@ public class GameHUD : MonoBehaviour
         BuildLifeIcon();
     }
 
-    // Aplica a fonte pixel (Bold02) nos valores numericos, se atribuida no Inspector.
     private void ApplyValueFont(TMP_Text label)
     {
         if (label != null && valueFont != null)
             label.font = valueFont;
     }
 
-    // Recria o icone (rosto do Ybytu) a esquerda do contador de vidas. O EnsureLabel limpa
-    // os filhos do container, entao o icone precisa ser criado depois dele.
     private void BuildLifeIcon()
     {
         if (livesContainer == null || lifeIconSprite == null) return;
@@ -204,7 +174,6 @@ public class GameHUD : MonoBehaviour
         img.preserveAspect = true;
         img.raycastTarget = false;
 
-        // Empurra o "xN" pra direita do icone pra nao sobrepor.
         if (livesLabel != null)
         {
             var lrt = livesLabel.rectTransform;
@@ -216,7 +185,6 @@ public class GameHUD : MonoBehaviour
     {
         if (parent == null) return existing;
 
-        // Limpa todos os children sprite (digitos antigos, icones)
         for (int i = parent.childCount - 1; i >= 0; i--)
         {
             var child = parent.GetChild(i);
@@ -386,7 +354,6 @@ public class GameHUD : MonoBehaviour
     {
         if (livesLabel == null) return;
         int n = Mathf.Max(0, currentLives);
-        // "X" antes do numero. A Bold02 nao tem letras, entao o "X" vai na fonte normal.
         livesLabel.text = valueFont != null
             ? $"<font=\"LiberationSans SDF\">X</font> {n}"
             : $"X {n}";
@@ -398,7 +365,6 @@ public class GameHUD : MonoBehaviour
     {
         if (scoreLabel == null) return;
         string num = Mathf.Max(0, score).ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("pt-BR"));
-        // "PTS." a esquerda do valor. A Bold02 nao tem letras, entao o rotulo vai na fonte normal.
         scoreLabel.text = valueFont != null
             ? $"<font=\"LiberationSans SDF\"><size=55%>PTS.</size></font> {num}"
             : $"PTS. {num}";
@@ -432,14 +398,12 @@ public class GameHUD : MonoBehaviour
 
     private void OnComboBreak()
     {
-        // Futuro: animacao de combo break, flash vermelho, etc
     }
 
     // --- Wave ---
 
     public void ShowWaveInfo(int current, int total)
     {
-        // Contador de wave (ex.: "Wave 1/2") removido a pedido: nunca exibir.
         if (waveContainer != null) waveContainer.SetActive(false);
     }
 

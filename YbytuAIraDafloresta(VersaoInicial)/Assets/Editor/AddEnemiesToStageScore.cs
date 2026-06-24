@@ -3,11 +3,6 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-/// <summary>
-/// Adiciona o contador de inimigos abatidos ao quadro da StageScore (sem rebuildar,
-/// preservando o layout manual). Insere AbatidosCaption + Abatidos no espaco central
-/// e religa StageScoreUI.enemiesText. Idempotente. Menu: Tools/Ybytu/Add Enemies to StageScore
-/// </summary>
 public static class AddEnemiesToStageScore
 {
     private const string ScenePath = "Assets/Scenes/StageScore.unity";

@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Dados de uma fase do jogo.
-/// Cada fase tem sua cena, cutscenes e configuracoes.
-/// </summary>
 [CreateAssetMenu(fileName = "NewStage", menuName = "Game/Stage Data")]
 public class StageData : ScriptableObject
 {
@@ -17,6 +13,8 @@ public class StageData : ScriptableObject
     public string gameplaySceneName;
     public string introCutsceneId;
     public string outroCutsceneId;
+    [Tooltip("Cutscene finalizadora que roda DEPOIS da tela de score. Ao terminar, vai pra proxima fase (ou Menu se for a ultima).")]
+    public string finalizerCutsceneId;
 
     [Header("Desbloqueio")]
     public bool unlockedByDefault;

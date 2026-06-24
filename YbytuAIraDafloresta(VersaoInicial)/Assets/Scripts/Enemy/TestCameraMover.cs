@@ -1,10 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// Move a camera livremente numa cena de TESTE (WASD/setas pra pan, Q/E pra zoom).
-/// Pra inspecionar varios pontos sem precisar andar com o personagem.
-/// </summary>
 public class TestCameraMover : MonoBehaviour
 {
     public float panSpeed = 14f;

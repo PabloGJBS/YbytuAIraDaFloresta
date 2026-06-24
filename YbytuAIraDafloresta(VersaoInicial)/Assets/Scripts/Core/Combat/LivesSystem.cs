@@ -1,11 +1,6 @@
 using UnityEngine;
 using System;
 
-/// <summary>
-/// Sistema de tentativas (vidas extras) do jogador.
-/// Ao morrer, gasta uma tentativa para reviver.
-/// Sem tentativas = Game Over.
-/// </summary>
 public class LivesSystem : MonoBehaviour
 {
     [Header("Tentativas")]
@@ -34,7 +29,6 @@ public class LivesSystem : MonoBehaviour
 
     private void Start()
     {
-        // Reflete as vidas persistentes do GameFlowManager (continuam entre restarts da fase)
         if (GameFlowManager.Instance != null)
         {
             currentLives = GameFlowManager.Instance.PlayerLives;
@@ -42,9 +36,6 @@ public class LivesSystem : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Tenta usar uma tentativa para reviver. Retorna true se conseguiu.
-    /// </summary>
     public bool TryRevive(HealthSystem health)
     {
         if (currentLives <= 0)
@@ -63,9 +54,6 @@ public class LivesSystem : MonoBehaviour
         return true;
     }
 
-    /// <summary>
-    /// Adicionar tentativa extra (power-up, bonus, etc).
-    /// </summary>
     public void AddLife()
     {
         if (currentLives < maxLives)
@@ -75,9 +63,6 @@ public class LivesSystem : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Resetar tentativas para o valor inicial.
-    /// </summary>
     public void ResetLives()
     {
         currentLives = startingLives;

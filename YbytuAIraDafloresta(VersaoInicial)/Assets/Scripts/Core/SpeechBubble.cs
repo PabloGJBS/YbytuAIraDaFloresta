@@ -2,14 +2,6 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 
-/// <summary>
-/// Balao de fala estilizado em world-space: caixa escura + borda + rabicho apontando pra
-/// baixo (pro falante) + texto. Reutilizado pela arara, pelos inimigos (barks) e pelos
-/// javalis. A caixa se redimensiona pro texto via SetText().
-///
-/// Uso transiente (some sozinho): SpeechBubble.Pop(worldPos, "texto", ...).
-/// Uso controlado (typewriter): SpeechBubble.Create(parent...) + SetText() + Label.
-/// </summary>
 public class SpeechBubble : MonoBehaviour
 {
     private TextMeshPro tmp;
@@ -26,7 +18,6 @@ public class SpeechBubble : MonoBehaviour
 
     public TMP_Text Label => tmp;
 
-    // Sprite branco 1x1 reutilizavel.
     private static Sprite _quad;
     private static Sprite Quad()
     {
@@ -62,11 +53,10 @@ public class SpeechBubble : MonoBehaviour
         return sb;
     }
 
-    /// <summary>Fala transiente: aparece, sobe um pouco, segura e some sozinha.</summary>
     public static SpeechBubble Pop(Vector3 worldPos, string text, float fontSize = 3.0f, Color? textColor = null, int baseOrder = 800, float hold = 2.2f, float rise = 0.4f, float wrapWidth = 8f)
     {
         var sb = CreateWorld(worldPos, baseOrder, fontSize, wrapWidth, textColor ?? new Color(1f, 0.97f, 0.86f), true);
-        sb.clampScreen = true; // barks transientes: nao deixar sair da tela (ex.: chefe no canto)
+        sb.clampScreen = true;
         sb.SetText(text);
         sb.StartCoroutine(sb.LifeRoutine(hold, rise));
         return sb;
@@ -115,7 +105,6 @@ public class SpeechBubble : MonoBehaviour
         return q;
     }
 
-    /// <summary>Troca o texto e redimensiona a caixa.</summary>
     public void SetText(string text)
     {
         if (tmp == null) return;
@@ -125,7 +114,6 @@ public class SpeechBubble : MonoBehaviour
         Relayout();
     }
 
-    /// <summary>Pro efeito de digitacao: quantos caracteres mostrar (caixa ja dimensionada).</summary>
     public void SetVisibleChars(int n)
     {
         if (tmp != null) tmp.maxVisibleCharacters = Mathf.Max(0, n);
@@ -156,7 +144,6 @@ public class SpeechBubble : MonoBehaviour
         }
     }
 
-    // Mantem o balao dentro da area visivel da camera (so pros barks transientes).
     private void LateUpdate()
     {
         if (!clampScreen || box == null || !box.enabled) return;

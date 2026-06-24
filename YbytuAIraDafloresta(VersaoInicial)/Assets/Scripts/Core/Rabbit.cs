@@ -2,14 +2,6 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 
-/// <summary>
-/// Um coelho da fuga: corre no chao (com pulinho) fugindo do fogo e some ao sair da
-/// tela. Vira o sprite pra direcao da corrida e toca o estado "Run" do Animator.
-///
-/// Se for o coelho DOENTE (isSick), depois de alguns segundos ele passa mal: desacelera,
-/// fala que esta sem ar, toma alguns "danos" da fumaca (texto flutuante) e MORRE no meio
-/// do caminho, virando um corpo que FICA na cena (animais mortos nao somem como inimigos).
-/// </summary>
 public class Rabbit : MonoBehaviour
 {
     [Header("Movimento")]
@@ -52,10 +44,9 @@ public class Rabbit : MonoBehaviour
         sr = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
         baseY = transform.position.y;
-        phase = transform.position.x * 0.7f; // dessincroniza o pulinho entre coelhos
+        phase = transform.position.x * 0.7f;
     }
 
-    /// <summary>Lanca o coelho numa direcao. sick = este eh o que passa mal e morre.</summary>
     public void Launch(Vector2 vel, bool sick)
     {
         velocity = vel;
@@ -68,7 +59,7 @@ public class Rabbit : MonoBehaviour
         ApplyFacing();
         PlayState(runStateName);
         if (isSick) StartCoroutine(SickRoutine());
-        else Destroy(gameObject, lifetime); // os saudaveis somem fora da tela
+        else Destroy(gameObject, lifetime);
     }
 
     private void Update()
@@ -93,7 +84,7 @@ public class Rabbit : MonoBehaviour
     {
         yield return new WaitForSeconds(sickAfterSeconds);
 
-        velocity *= 0.45f;                 // desacelera, comecando a passar mal
+        velocity *= 0.45f;
         ShowLine(ResolveLine());
         yield return new WaitForSeconds(0.7f);
 
@@ -109,7 +100,6 @@ public class Rabbit : MonoBehaviour
 
     private void TakeSmokeHit(int dmg)
     {
-        // Sem numero de dano flutuante: a fumaca o sufoca aos poucos (so cambaleia + pisca).
         velocity *= 0.6f;                  // cambaleia
         StartCoroutine(Flash());
     }
@@ -128,10 +118,9 @@ public class Rabbit : MonoBehaviour
         dead = true;
         velocity = Vector2.zero;
         var p = transform.position;
-        p.y = baseY;                       // pousa o corpo no chao (sem o offset do pulo)
+        p.y = baseY;
         transform.position = p;
         PlayState(deathStateName);
-        // NAO destroi: o corpo fica na cena (animais mortos nao somem como inimigos).
     }
 
     private void PlayState(string state)
@@ -184,6 +173,6 @@ public class Rabbit : MonoBehaviour
         tmp.rectTransform.sizeDelta = new Vector2(7f, 2.5f);
         tmp.sortingOrder = 1000;
 
-        Destroy(go, 4f); // a fala some depois de um tempo (o corpo fica)
+        Destroy(go, 4f);
     }
 }

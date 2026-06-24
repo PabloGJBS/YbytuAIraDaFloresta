@@ -1,11 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-/// <summary>
-/// Ao ATIVAR uma CombatZone, a arara fala uma DICA antes de voar embora; enquanto ela fala,
-/// os inimigos ficam congelados (nao avancam). Usado nas zonas 1 (combo) e 2 (inimigo
-/// enfurecido). Coloque um por zona, ligue a CombatZone e a chave de localizacao.
-/// </summary>
 public class ZoneIntroTip : MonoBehaviour
 {
     [Tooltip("A zona de combate cuja ativacao dispara a dica.")]
@@ -39,7 +34,6 @@ public class ZoneIntroTip : MonoBehaviour
         string text = Resolve();
         if (bubble == null || string.IsNullOrEmpty(text)) yield break;
 
-        // A arara segura a fuga (fala antes de voar) e os inimigos param.
         var companion = bubble.GetComponent<CompanionFollow>();
         if (companion != null) companion.HoldFlee(true);
         EnemyController.CombatFrozen = true;
@@ -53,7 +47,6 @@ public class ZoneIntroTip : MonoBehaviour
             yield return null;
         }
 
-        // Acabou a dica: inimigos avancam e a arara voa.
         EnemyController.CombatFrozen = false;
         if (companion != null) companion.HoldFlee(false);
     }

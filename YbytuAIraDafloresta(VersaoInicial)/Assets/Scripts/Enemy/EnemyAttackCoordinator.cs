@@ -1,11 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-/// <summary>
-/// Coordena quantos inimigos podem atacar simultaneamente.
-/// Padrao beat'em up: poucos atacando, demais circulando esperando vez.
-/// Singleton auto-criado se nao existir na cena.
-/// </summary>
 public class EnemyAttackCoordinator : MonoBehaviour
 {
     [Tooltip("Numero maximo de inimigos atacando ao mesmo tempo.")]
@@ -46,11 +41,6 @@ public class EnemyAttackCoordinator : MonoBehaviour
         _instance = this;
     }
 
-    /// <summary>
-    /// Tenta reservar um slot de ataque. Retorna o indice do slot (0..maxAttackers-1)
-    /// ou -1 se nenhum slot disponivel. O indice define o ponto ao redor do player
-    /// onde este inimigo deve se posicionar pra atacar.
-    /// </summary>
     public int TryReserveSlot(EnemyController enemy)
     {
         if (enemy == null) return -1;

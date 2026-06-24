@@ -8,12 +8,6 @@ using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/// <summary>
-/// Constroi a cena StageScore.unity: tela de pontuacao de fim de fase.
-/// Background da finalizacao + a moldura dos saves (com chamas animadas) contendo
-/// pontos, tempo e rank. Toca FinalizacaoDeFase.mp3 e avanca com Espaco.
-/// Menu: Tools/Ybytu/Build StageScore Scene
-/// </summary>
 public static class StageScoreSceneBuilder
 {
     private const string ScenePath = "Assets/Scenes/StageScore.unity";
@@ -68,12 +62,11 @@ public static class StageScoreSceneBuilder
             FontStyles.Bold, new Color(0.55f, 0.9f, 0.45f));
         Place(title.rectTransform, new Vector2(0, 430), new Vector2(1500, 110));
 
-        // Moldura (com chamas) - container do score
         var frameGo = new GameObject("ScoreFrame", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
         frameGo.transform.SetParent(canvasGo.transform, false);
         var frameImg = frameGo.GetComponent<Image>();
-        frameImg.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(FramePath); // ultimo frame, estatico (chamas)
-        frameImg.preserveAspect = false; // esticado um pouco na horizontal pra dar margem ao conteudo
+        frameImg.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(FramePath);
+        frameImg.preserveAspect = false;
         frameImg.raycastTarget = false;
         Place(frameGo.GetComponent<RectTransform>(), new Vector2(0, -10), new Vector2(540, 800));
 

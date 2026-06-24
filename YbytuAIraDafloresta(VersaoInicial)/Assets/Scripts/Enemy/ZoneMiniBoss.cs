@@ -2,19 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// Mini-chefe de uma CombatZone normal da Fase 2: um chefe da Fase 1 rebaixado a
-/// inimigo (vida reduzida) que, UMA unica vez ao bater um limiar de vida (50%),
-/// RECUA correndo pra fora da tela (invulneravel, IA pausada), chama alguns reforcos
-/// e, quando eles morrem, VOLTA andando e retoma a luta.
-///
-/// Diferente do FinalBossEncounter, NAO encerra a fase: a propria CombatZone completa
-/// normalmente quando o chefe (+ comuns) morrem. O chefe so fica vulneravel de novo
-/// depois que os reforcos morrem, entao a zona nunca fecha deixando reforco solto.
-///
-/// Uso: por num GameObject filho da zona; referenciar a zona, o chefe (EnemyController
-/// ja posicionado como startingEnemy), os spawn points e os prefabs de reforco.
-/// </summary>
 public class ZoneMiniBoss : MonoBehaviour
 {
     [Header("Refs")]
@@ -41,7 +28,7 @@ public class ZoneMiniBoss : MonoBehaviour
     public string returnBark = "Você vai se arrepender disso!";
 
     private HealthSystem bossHp;
-    private bool armed;       // zona ativada -> comeca a monitorar
+    private bool armed;
     private bool triggered;   // ja disparou (uma vez so)
     private bool running;     // coreografia em andamento
     private readonly List<EnemyController> liveMinions = new List<EnemyController>();

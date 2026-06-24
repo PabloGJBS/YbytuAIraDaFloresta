@@ -4,14 +4,6 @@ using UnityEngine.InputSystem;
 using TMPro;
 using System.Collections;
 
-/// <summary>
-/// Banner de frase educativa no rodape da tela. Dois modos:
-///  - Auto (modal=false): aparece com fade, segura e some sozinho. Nao pausa o jogo.
-///  - Modal (modal=true): CONGELA o player e so sai quando o jogador aperta continuar
-///    (Espaco/Enter/clique/A). Usado pelos elementos interativos (troncos).
-/// UI construida em codigo, reaproveitada entre as chamadas.
-/// Uso: EducationalBanner.Show("frase", 5f, modal: true);
-/// </summary>
 public class EducationalBanner : MonoBehaviour
 {
     private static EducationalBanner instance;
@@ -37,7 +29,7 @@ public class EducationalBanner : MonoBehaviour
         label.ForceMeshUpdate();
         if (panelRect != null)
         {
-            float extra = modal ? 78f : 44f; // espaco extra pra linha de "continuar"
+            float extra = modal ? 78f : 44f;
             float h = label.preferredHeight + extra;
             panelRect.sizeDelta = new Vector2(1300f, Mathf.Max(130f, h));
         }
@@ -63,7 +55,7 @@ public class EducationalBanner : MonoBehaviour
         PlayerController.InputFrozen = true;
 
         yield return Fade(group.alpha, 1f, 0.35f);
-        canDismiss = true; // so aceita continuar depois do fade (evita consumir o mesmo aperto que abriu)
+        canDismiss = true;
 
         while (!ContinuePressed())
             yield return null;
@@ -76,7 +68,6 @@ public class EducationalBanner : MonoBehaviour
 
     private void OnDisable()
     {
-        // Evita deixar o player travado se o banner for destruido durante o modal (troca de cena).
         if (modalActive) PlayerController.InputFrozen = false;
     }
 
@@ -139,7 +130,6 @@ public class EducationalBanner : MonoBehaviour
         panelImg.color = new Color(0.04f, 0.08f, 0.04f, 0.86f); // verde-escuro translucido
         panelImg.raycastTarget = false;
 
-        // Faixinha de destaque (verde) na esquerda
         var accentGo = new GameObject("Accent", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
         accentGo.transform.SetParent(panelGo.transform, false);
         var art = accentGo.GetComponent<RectTransform>();
@@ -167,7 +157,6 @@ public class EducationalBanner : MonoBehaviour
         tmp.enableWordWrapping = true;
         tmp.raycastTarget = false;
 
-        // Linha "continuar" (so aparece no modo modal)
         var contGo = new GameObject("ContinuePrompt", typeof(RectTransform));
         contGo.transform.SetParent(panelGo.transform, false);
         var ctmp = contGo.AddComponent<TextMeshProUGUI>();

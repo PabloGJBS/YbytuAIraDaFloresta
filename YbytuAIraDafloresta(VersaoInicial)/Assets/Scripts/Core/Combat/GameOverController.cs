@@ -5,17 +5,10 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 
-/// <summary>
-/// Overlay de Game Over. Aparece sobre a gameplay (cena escurecida atras) quando o
-/// player perde todas as vidas (PlayerCombatManager.OnGameOver). Mostra "GAME OVER",
-/// Continuar e Desistir, e um contador de 10 a 0. Ao chegar a 0, some o Continuar.
-/// - Continuar: reinicia a fase do inicio.
-/// - Desistir: salva a pontuacao e volta ao menu.
-/// </summary>
 public class GameOverController : MonoBehaviour
 {
     [Header("Refs (preenchidas pelo builder)")]
-    [SerializeField] private GameObject root;          // overlay inteiro (escondido por padrao)
+    [SerializeField] private GameObject root;
     [SerializeField] private Button continueButton;
     [SerializeField] private Button desistirButton;
     [SerializeField] private TMP_Text countdownText;
@@ -43,21 +36,18 @@ public class GameOverController : MonoBehaviour
         if (player != null) player.OnGameOver -= Show;
     }
 
-    /// <summary>Exibe o Game Over (chamado pelo evento do player, ou manualmente).</summary>
     public void Show()
     {
         if (shown) return;
         shown = true;
 
-        // Checkpoint: grava a zona de combate atual pra o "Continuar" retomar dela.
         var stage = FindAnyObjectByType<StageManager>();
         if (stage != null && GameFlowManager.Instance != null)
             GameFlowManager.Instance.SetStageCheckpoint(stage.CurrentZoneIndex);
 
         if (root != null) root.SetActive(true);
-        Time.timeScale = 0f; // congela a gameplay; o jogo fica escurecido atras
+        Time.timeScale = 0f;
 
-        // So pode Continuar se ainda houver vida (Continuar custa uma). Senao, so Desistir.
         int livesLeft = GameFlowManager.Instance != null ? GameFlowManager.Instance.PlayerLives
                       : (player != null && player.Lives != null ? player.Lives.CurrentLives : 1);
         bool canContinue = livesLeft > 0;
@@ -89,7 +79,7 @@ public class GameOverController : MonoBehaviour
         while (t > 0f)
         {
             if (countdownText != null) countdownText.text = Mathf.CeilToInt(t).ToString();
-            t -= Time.unscaledDeltaTime; // unscaled: roda mesmo com timeScale 0
+            t -= Time.unscaledDeltaTime;
             yield return null;
         }
         if (countdownText != null) countdownText.text = "0";
@@ -100,7 +90,7 @@ public class GameOverController : MonoBehaviour
     {
         Time.timeScale = 1f;
         if (GameFlowManager.Instance != null && GameFlowManager.Instance.CurrentStage != null)
-            GameFlowManager.Instance.ContinueCurrentStage(); // retoma na zona do checkpoint (custa uma vida)
+            GameFlowManager.Instance.ContinueCurrentStage();
         else
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); // fallback: recarrega a cena
     }

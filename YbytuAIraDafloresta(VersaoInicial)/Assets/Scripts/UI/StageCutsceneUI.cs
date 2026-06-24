@@ -1,10 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// Controlador generico de cutscenes entre fases.
-/// Reutilizado para intro e outro de cada fase.
-/// </summary>
 public class StageCutsceneUI : MonoBehaviour
 {
     [SerializeField] private bool allowSkip = true;

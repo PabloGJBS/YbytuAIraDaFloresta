@@ -4,12 +4,6 @@ using UnityEngine.InputSystem;
 using TMPro;
 using System.Globalization;
 
-/// <summary>
-/// Controlador da tela de pontuacao ao final de uma fase. Mostra pontos/tempo/rank
-/// (do GameFlowManager), toca a musica de finalizacao (parando a BGM da fase) e, ao
-/// continuar (botao ou Espaco), segue o fluxo. Ultima fase -> cutscene final.
-/// Em teste isolado (sem GameFlowManager) carrega a FinalizacaoFase1Cutscene direto.
-/// </summary>
 public class StageScoreUI : MonoBehaviour
 {
     [Header("Textos")]
@@ -36,7 +30,6 @@ public class StageScoreUI : MonoBehaviour
 
     private void Start()
     {
-        // Para a BGM persistente da fase e toca a musica de finalizacao
         if (SoundManager.Instance != null) SoundManager.Instance.StopBGM();
         if (music != null) music.Play();
 
@@ -88,7 +81,7 @@ public class StageScoreUI : MonoBehaviour
         if (GameFlowManager.Instance != null)
             GameFlowManager.Instance.OnStageScoreContinue();
         else
-            UnityEngine.SceneManagement.SceneManager.LoadScene("FinalizacaoFase1Cutscene"); // fallback (teste isolado)
+            UnityEngine.SceneManagement.SceneManager.LoadScene("CutsceneFinalizadoraFase1"); // fallback (teste isolado)
     }
 
     private void OnRetry()

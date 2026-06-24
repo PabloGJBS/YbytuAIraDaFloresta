@@ -4,12 +4,6 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Organiza a hierarquia da Stage1 em grupos pais (Environment/Gameplay/Systems),
-/// preservando a posicao de mundo. Deduplica CombatGlobals. Mantem no root o que
-/// precisa ser root (Main Camera, AudioManager=DontDestroyOnLoad, CombatGlobals).
-/// Idempotente. Menu: Tools/Ybytu/Organize Stage1 Hierarchy
-/// </summary>
 public static class OrganizeStage1
 {
     private const string ScenePath = "Assets/Scenes/Stage1.unity";
@@ -19,7 +13,6 @@ public static class OrganizeStage1
     {
         var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
 
-        // 1) Deduplica CombatGlobals (mantem 1)
         GameObject keptGlobals = null;
         var toKill = new List<GameObject>();
         foreach (var go in scene.GetRootGameObjects())
@@ -40,7 +33,6 @@ public static class OrganizeStage1
         var systems = NewGroup("Systems", scene, null);
         var groups = new HashSet<GameObject> { env, sky, tiles, props, gameplay, czGroup, systems };
 
-        // 3) Reparent por nome (world position preservada)
         foreach (var go in scene.GetRootGameObjects())
         {
             if (groups.Contains(go)) continue;

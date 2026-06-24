@@ -2,14 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-/// <summary>
-/// Marcador interativo nos trechos de caminhada. Quando o player entra na area,
-/// exibe uma frase educativa (via EducationalBanner). Pode ser automatico (aparece
-/// ao passar) ou interativo (aparece quando o player aperta a tecla). Mostra uma vez.
-///
-/// Uso: GameObject vazio no caminho + BoxCollider2D (isTrigger) + este script.
-/// Preencher "phrase" no Inspector com a frase educativa.
-/// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class EducationalMarker : MonoBehaviour
 {
@@ -97,10 +89,8 @@ public class EducationalMarker : MonoBehaviour
     {
         used = true;
         SetHighlight(false); // ja interagiu: apaga o brilho
-        // Interativo (tronco) abre modal: rodape, freeze do player e so sai no "continuar".
         EducationalBanner.Show(phrase, holdSeconds, requireInteraction);
 
-        // Extras opcionais (totem): cura de energia + revoada, na mesma interacao.
         if (healPercentOnInteract > 0f)
         {
             var playerGo = GameObject.FindGameObjectWithTag(playerTag);
@@ -130,7 +120,6 @@ public class EducationalMarker : MonoBehaviour
             tmp.color = new Color(0.85f, 1f, 0.65f);
             tmp.outlineWidth = 0.22f;
             tmp.outlineColor = new Color32(0, 0, 0, 255);
-            // Bem acima de tudo (o tronco passa a ~213 no YSort). Sempre legivel na frente.
             tmp.sortingOrder = 1000;
         }
         else if (promptGo != null)

@@ -5,11 +5,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/// <summary>
-/// Monta o overlay de Game Over dentro da Stage1: um Canvas escurecido (escondido por
-/// padrao) com "GAME OVER", contador 10->0 e os botoes Continuar/Desistir, usando os
-/// sprites tratados. Idempotente. Menu: Tools/Ybytu/Build GameOver Overlay (Stage1)
-/// </summary>
 public static class GameOverOverlayBuilder
 {
     private const string StagePath = "Assets/Scenes/Stage1.unity";
@@ -30,7 +25,6 @@ public static class GameOverOverlayBuilder
         SceneManager.MoveGameObjectToScene(manager, scene);
         var controller = manager.AddComponent<GameOverController>();
 
-        // Canvas (overlay) - o root que liga/desliga
         var canvasGo = new GameObject("GameOverCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
         canvasGo.transform.SetParent(manager.transform, false);
         var canvas = canvasGo.GetComponent<Canvas>();

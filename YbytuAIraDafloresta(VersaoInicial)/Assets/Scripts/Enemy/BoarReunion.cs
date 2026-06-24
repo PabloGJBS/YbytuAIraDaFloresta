@@ -3,15 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// Desfecho da fase 1: depois da luta final, os javalis pais que SOBREVIVERAM ao confronto 3
-/// entram andando pela esquerda e um filhote (50% menor) vem caminhando da direita chamando
-/// a mae. Eles se encontram no meio da cena e a fase acaba.
-///
-/// Os javalis sao montados em codigo (SpriteRenderer + Animator), no estilo do RabbitHerd:
-/// basta ligar o RuntimeAnimatorController do javali (Idle/Run) e um sprite de preview.
-/// Chamado pelo FinalBossEncounter via Play(survivorCount, onComplete).
-/// </summary>
 public class BoarReunion : MonoBehaviour
 {
     [Header("Visual do javali")]
@@ -51,7 +42,6 @@ public class BoarReunion : MonoBehaviour
 
     private readonly Dictionary<Transform, string> lastAnim = new Dictionary<Transform, string>();
 
-    /// <summary>Toca o reencontro. survivorCount = javalis pais sobreviventes do confronto 3.</summary>
     public void Play(int survivorCount, Action onComplete)
     {
         StartCoroutine(Run(Mathf.Max(0, survivorCount), onComplete));
@@ -66,14 +56,13 @@ public class BoarReunion : MonoBehaviour
         float leftStart = cx - halfW - 2f;
         float rightStart = cx + halfW + 2f;
 
-        // Adultos entram pela esquerda (em fila), filhote pela direita.
         var adultsList = new List<Transform>();
         for (int i = 0; i < adults; i++)
             adultsList.Add(MakeBoar(adultScale, new Vector3(leftStart - i * adultSpacing, groundY, 0f)));
         var baby = MakeBoar(babyScale, new Vector3(rightStart, groundY, 0f));
 
         float adultTargetX = meetX - meetGap;
-        float babyTargetX = adults > 0 ? meetX + meetGap : meetX; // sem pais, o filhote vai ate o centro
+        float babyTargetX = adults > 0 ? meetX + meetGap : meetX;
 
         bool moving = true;
         while (moving)
@@ -91,27 +80,22 @@ public class BoarReunion : MonoBehaviour
 
         if (adultsList.Count > 0)
         {
-            // Algum pai sobreviveu: reencontro feliz.
             ShowBabyLine(baby);
             yield return new WaitForSeconds(holdAfterMeet);
         }
         else
         {
-            // Ninguem sobreviveu: a arara fala com o filhote no lugar dos pais.
             yield return LonelyBabyRoutine(baby);
         }
         onComplete?.Invoke();
     }
 
-    /// <summary>Caso triste: nenhum javali sobreviveu. O filhote procura os pais, a arara
-    /// volta e pede desculpas no lugar deles, o filhote chora e a fase encerra.</summary>
     private IEnumerator LonelyBabyRoutine(Transform baby)
     {
         // 1) filhote procura os pais
         ShowPop(baby.position + Vector3.up * 1.6f, Resolve(babySearchingLine, babySearchingKey));
         yield return new WaitForSeconds(1.8f);
 
-        // 2) a arara APARECE ao lado do filhote e fala no lugar dos pais (entrada rapida,
         // sem o voo lento de volta).
         var arara = AraraSpeechBubble.Instance;
         if (arara != null)
@@ -136,7 +120,6 @@ public class BoarReunion : MonoBehaviour
             yield return new WaitForSeconds(2.5f);
         }
 
-        // 3) o filhote chora e a fase encerra
         ShowPop(baby.position + Vector3.up * 1.6f, Resolve(babyCryLine, babyCryKey));
         yield return new WaitForSeconds(holdAfterMeet);
     }
@@ -161,7 +144,6 @@ public class BoarReunion : MonoBehaviour
             SpeechBubble.Pop(pos, text, 3.0f, new Color(1f, 0.97f, 0.86f), 1000, 2.5f, 0.3f, 6f);
     }
 
-    // Retorna true se ainda esta andando (nao chegou no alvo).
     private bool MoveToward(Transform t, float targetX, int dir)
     {
         if (t == null) return false;
@@ -199,7 +181,6 @@ public class BoarReunion : MonoBehaviour
         sr.flipX = spriteFacesRight ? goingLeft : !goingLeft;
     }
 
-    // So chama anim.Play quando o estado muda (senao reseta no frame 0 todo frame).
     private void SetAnim(Transform t, string state)
     {
         var anim = t.GetComponent<Animator>();

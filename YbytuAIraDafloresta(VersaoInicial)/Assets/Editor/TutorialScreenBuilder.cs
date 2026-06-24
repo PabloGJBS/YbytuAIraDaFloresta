@@ -4,12 +4,6 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using TMPro;
 
-/// <summary>
-/// Constroi o conteudo da tela de tutorial (controles) dentro do TutorialOverlay
-/// da cena MainMenu: fundo preto, titulo, linhas de controle e botao Voltar.
-/// Idempotente: limpa o conteudo anterior antes de reconstruir.
-/// Rodar via menu: Ybytu/UI/Build Tutorial Screen (com a MainMenu aberta).
-/// </summary>
 public static class TutorialScreenBuilder
 {
     [MenuItem("Ybytu/UI/Build Tutorial Screen")]
@@ -38,12 +32,10 @@ public static class TutorialScreenBuilder
             soRoot.ApplyModifiedPropertiesWithoutUndo();
         }
 
-        // Overlay e Root preenchem a tela inteira
         Stretch(overlayRt);
         Stretch(rootTr);
         overlay.transform.SetAsLastSibling();
 
-        // Limpa conteudo anterior (rebuild limpo)
         for (int i = rootTr.childCount - 1; i >= 0; i--)
             Object.DestroyImmediate(rootTr.GetChild(i).gameObject);
 
@@ -53,7 +45,6 @@ public static class TutorialScreenBuilder
         bg.color = Color.black;
         bg.raycastTarget = true;
 
-        // Container central com layout vertical
         var content = NewChild("Content", rootTr);
         Stretch(content);
         var vlg = content.gameObject.AddComponent<VerticalLayoutGroup>();
@@ -72,7 +63,6 @@ public static class TutorialScreenBuilder
 
         var backBtn = MakeButton(content, "BackButton", "ui.tutorial.back", "Voltar");
 
-        // Fia o closeButton (campo privado [SerializeField]) e define a unica pagina
         var so = new SerializedObject(overlay);
         so.FindProperty("closeButton").objectReferenceValue = backBtn;
         var pagesProp = so.FindProperty("pages");
@@ -81,7 +71,6 @@ public static class TutorialScreenBuilder
         pagesProp.GetArrayElementAtIndex(0).objectReferenceValue = content.gameObject;
         so.ApplyModifiedPropertiesWithoutUndo();
 
-        // Painel comeca desligado (Show/Hide controla)
         rootTr.gameObject.SetActive(false);
 
         EditorUtility.SetDirty(overlay);

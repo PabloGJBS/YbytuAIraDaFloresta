@@ -3,10 +3,6 @@ using UnityEditor;
 using UnityEditor.Animations;
 using System.Collections.Generic;
 
-/// <summary>
-/// Setup do EnemyPunk: cria clips, override controller, AnimData e atualiza EnemySkin.
-/// Rodar uma vez via menu "Tools/Setup/Enemy Punk".
-/// </summary>
 public static class EnemyPunkSetup
 {
     [MenuItem("Tools/Setup/Enemy Punk")]
@@ -23,7 +19,6 @@ public static class EnemyPunkSetup
         var hurtClip = CreateClip("Assets/Animations/Player/Clips/EnemyPunk_Hurt.anim",
             new[] { punk + "Hurt/hurt1.png", punk + "Hurt/hurt2.png", punk + "Hurt/hurt3.png", punk + "Hurt/hurt4.png" }, 12f, false);
 
-        // OnAttackHit no penultimo frame do Punch (frame 1 de 3, time = 0.0667)
         AnimationUtility.SetAnimationEvents(punchClip, new[] {
             new AnimationEvent { time = 1f / 15f, functionName = "OnAttackHit" }
         });

@@ -2,11 +2,6 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 
-/// <summary>
-/// Telegrafo de retaliacao do inimigo: contorno VERMELHO pulsante na borda do sprite
-/// + um "!" grande acima. Avisa o player que o inimigo vai revidar (recue!).
-/// Vive por `duration` e some sozinho. Criado pelo EnemyController antes de revidar.
-/// </summary>
 public class RetaliateTelegraph : MonoBehaviour
 {
     public static RetaliateTelegraph Spawn(Transform enemy, SpriteRenderer source, float duration)
@@ -29,7 +24,6 @@ public class RetaliateTelegraph : MonoBehaviour
         source = src;
         duration = dur;
 
-        // Contorno vermelho: silhueta maior do sprite ATRAS dele, entao so a borda aparece.
         if (source != null && source.sprite != null)
         {
             var gGo = new GameObject("Glow");
@@ -72,7 +66,6 @@ public class RetaliateTelegraph : MonoBehaviour
             {
                 if (source != null)
                 {
-                    // Acompanha o sprite/ordem atuais (YSort muda a ordem em runtime).
                     glow.sprite = source.sprite;
                     glow.flipX = source.flipX;
                     glow.sortingOrder = source.sortingOrder - 1;

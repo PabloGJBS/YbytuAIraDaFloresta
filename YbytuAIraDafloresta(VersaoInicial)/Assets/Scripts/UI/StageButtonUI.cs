@@ -2,9 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// Componente visual de um botao de fase no mapa de selecao.
-/// </summary>
 public class StageButtonUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text stageNameText;

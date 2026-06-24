@@ -2,11 +2,6 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-/// <summary>
-/// Espalha as zonas de combate da Stage1 pelo nivel inteiro e adiciona uma 4a zona
-/// (duplicada da CZ2) antes do boss. Da espaco de caminhada entre as zonas.
-/// Registra a nova zona no StageManager. Idempotente. Menu: Tools/Ybytu/Spread Combat Zones
-/// </summary>
 public static class SpreadCombatZones
 {
     private const string ScenePath = "Assets/Scenes/Stage1.unity";
@@ -24,7 +19,6 @@ public static class SpreadCombatZones
             Debug.LogError("[Spread] CombatZone1/2/3 nao encontradas."); return;
         }
 
-        // 4a zona = duplicata da CZ2 (medio), antes do boss
         var cz4 = GameObject.Find("CombatZone4");
         if (cz4 == null)
         {
@@ -37,7 +31,6 @@ public static class SpreadCombatZones
         cz4.transform.position = new Vector3(62f, -3f, 0f);
         cz3.transform.position = new Vector3(90f, -3f, 0f);
 
-        // Registra a CZ4 no StageManager.combatZones
         var smGo = GameObject.Find("StageManager");
         var sm = smGo != null ? smGo.GetComponent<StageManager>() : null;
         if (sm != null)

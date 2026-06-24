@@ -3,11 +3,6 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-/// <summary>
-/// Restaura o layout do quadro da StageScore para o arranjo final do usuario
-/// (RANK no topo, TEMPO|Golpes em linha, Abatidos no meio, PONTUACAO embaixo),
-/// usando as posicoes capturadas. One-shot. Menu: Tools/Ybytu/Restore Score Layout
-/// </summary>
 public static class RestoreScoreLayout
 {
     private const string ScenePath = "Assets/Scenes/StageScore.unity";

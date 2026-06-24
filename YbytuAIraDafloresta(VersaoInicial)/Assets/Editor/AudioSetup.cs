@@ -2,11 +2,6 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
-/// <summary>
-/// Setup do sistema de audio: cria SoundLibrary.asset apontando para SFX
-/// existentes e gera AudioManager.prefab pronto pra arrastar nas cenas.
-/// Roda uma vez via menu "Tools/Setup/Audio System".
-/// </summary>
 public static class AudioSetup
 {
     private const string LibraryPath = "Assets/Audio/SoundLibrary.asset";
@@ -18,7 +13,6 @@ public static class AudioSetup
         EnsureDir("Assets/Audio");
         EnsureDir("Assets/Prefabs");
 
-        // 1) Cria ou carrega a SoundLibrary
         var library = AssetDatabase.LoadAssetAtPath<SoundLibrary>(LibraryPath);
         if (library == null)
         {
@@ -26,7 +20,6 @@ public static class AudioSetup
             AssetDatabase.CreateAsset(library, LibraryPath);
         }
 
-        // 2) Assign clips a partir dos MP3 existentes em Assets/SoundEffects
         library.playerPunch     = Load("Assets/SoundEffects/SoundEffectPunch.mp3");
         library.playerKick      = Load("Assets/SoundEffects/SoundEffectKick.mp3");
         library.playerJab       = Load("Assets/SoundEffects/SoundEffectPunch.mp3"); // reusa

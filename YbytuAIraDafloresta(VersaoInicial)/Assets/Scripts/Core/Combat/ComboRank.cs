@@ -1,8 +1,3 @@
-/// <summary>
-/// Niveis de combo do sistema de combate.
-/// Cada nivel aumenta dano causado e dano recebido.
-/// C eh o rank inicial; ranks sobem ao encher a barra.
-/// </summary>
 public enum ComboRank
 {
     C = 0,

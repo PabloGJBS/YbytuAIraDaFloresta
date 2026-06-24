@@ -2,22 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// Orquestra a luta final (CombatZone4) com os 2 chefes.
-///
-/// Fluxo:
-///  - Ao ativar a zona: a arara grita a fala de contexto e os chefes entram em combate.
-///  - A vida SOMADA dos 2 chefes e monitorada. A cada 25% perdido (75% / 50% / 25%):
-///      * um chefe grita chamando os capangas;
-///      * os 2 chefes RECUAM pra fora da camera (intocaveis, IA pausada);
-///      * spawnam os capangas daquela leva (crescente: 2 / 3 / 4);
-///      * no limiar de 50% o tiro especial dos chefes e DESTRAVADO (vale dali em diante);
-///      * quando os capangas daquela leva morrem, os chefes VOLTAM e a luta continua.
-///  - Quando os 2 chefes morrem: toca o desfecho (reencontro dos javalis) e completa a fase.
-///
-/// A CombatZone4 deve estar configurada SEM waves e com testEmptyZoneDuration alto (fica
-/// trancada): este script dirige tudo e chama zone.ForceComplete() no fim.
-/// </summary>
 public class FinalBossEncounter : MonoBehaviour
 {
     [Header("Refs")]
@@ -71,7 +55,6 @@ public class FinalBossEncounter : MonoBehaviour
         stageManager = FindFirstObjectByType<StageManager>();
         if (zone != null) zone.OnZoneActivated += HandleZoneActivated;
 
-        // Chefes comecam parados (IA off) ate a zona ativar.
         foreach (var b in bosses)
             if (b != null) b.enabled = false;
     }
@@ -90,7 +73,6 @@ public class FinalBossEncounter : MonoBehaviour
 
     private IEnumerator RunEncounter()
     {
-        // 1) Fala da arara (segura a fuga dela pra falar antes de voar pra longe)
         var arara = AraraSpeechBubble.Instance;
         var companion = FindFirstObjectByType<CompanionFollow>();
         if (companion != null) companion.HoldFlee(true);
@@ -99,14 +81,11 @@ public class FinalBossEncounter : MonoBehaviour
             arara.Show(ResolveArara());
             yield return new WaitUntil(() => !arara.HasUntypedSpeech);
         }
-        if (companion != null) companion.HoldFlee(false); // libera a arara pra voar pra longe
+        if (companion != null) companion.HoldFlee(false);
 
-        // Combo nao quebra por inatividade durante a luta (so cai pela barra drenando):
-        // os intervalos das levas de capanga nao zeram o combo do player.
         var playerCombo = GameObject.FindGameObjectWithTag("Player")?.GetComponent<ComboSystem>();
         if (playerCombo != null) playerCombo.SetSuppressTimeoutBreak(true);
 
-        // 2) Liga os chefes (gun travado no inicio)
         int totalMax = 0;
         foreach (var b in bosses)
         {
@@ -120,7 +99,6 @@ public class FinalBossEncounter : MonoBehaviour
         }
         if (totalMax <= 0) yield break;
 
-        // 3) Monitora a vida somada; limiares 75/50/25%
         float[] thresholds = { 0.75f, 0.50f, 0.25f };
         int idx = 0;
 
@@ -148,7 +126,6 @@ public class FinalBossEncounter : MonoBehaviour
         float camX = cam != null ? cam.transform.position.x : 0f;
         float offRight = camX + halfW + 3f;
 
-        // grito chamando os capangas (varia por leva)
         var shouter = FirstAliveBoss();
         string bark = PickMinionBark(waveIndex);
         if (shouter != null && !string.IsNullOrEmpty(bark))
@@ -157,7 +134,6 @@ public class FinalBossEncounter : MonoBehaviour
         if (unlockGun)
             foreach (var b in bosses) if (b != null) b.gunUnlocked = true;
 
-        // chefes SAEM CORRENDO pra fora da tela (direita)
         int running = 0;
         foreach (var b in bosses)
         {
@@ -167,11 +143,9 @@ public class FinalBossEncounter : MonoBehaviour
         }
         yield return new WaitUntil(() => running == 0);
 
-        // spawna os capangas dessa leva e espera limpar
         yield return SpawnMinions(WaveFor(waveIndex));
         yield return new WaitUntil(AllMinionsDead);
 
-        // chefes VOLTAM ANDANDO pelo mesmo lado que fugiram (direita)
         int returning = 0;
         foreach (var b in bosses)
         {
@@ -187,11 +161,10 @@ public class FinalBossEncounter : MonoBehaviour
             EnemyBark.Spawn(back.transform.position + Vector3.up * 2.6f, bossReturnBark);
     }
 
-    // Chefe corre pra fora da tela (direita), depois fica parado/intocavel fora de cena.
     private IEnumerator RetreatRun(EnemyController b, float offRightX, System.Action onDone)
     {
         b.SetInvulnerable(true); // nao morre fugindo
-        b.SetCombatPaused(true); // IA off; nos dirigimos o movimento
+        b.SetCombatPaused(true);
         while (b != null && b.IsAlive && b.transform.position.x < offRightX)
         {
             b.FaceTowards(offRightX);
@@ -203,7 +176,6 @@ public class FinalBossEncounter : MonoBehaviour
         onDone?.Invoke();
     }
 
-    // Chefe volta ANDANDO pelo mesmo lado que fugiu (direita) ate a origem, e ai resume a IA.
     private IEnumerator ReturnWalk(EnemyController b, float offRightX, System.Action onDone)
     {
         Vector3 home = bossHome.TryGetValue(b, out var h) ? h : b.transform.position;
@@ -265,15 +237,11 @@ public class FinalBossEncounter : MonoBehaviour
         var playerCombo = GameObject.FindGameObjectWithTag("Player")?.GetComponent<ComboSystem>();
         if (playerCombo != null) playerCombo.SetSuppressTimeoutBreak(false);
 
-        // Abre as barreiras e completa a FASE direto (a luta final encerra a Stage1),
-        // sem depender das zonas anteriores estarem todas limpas.
         if (zone != null) zone.ForceComplete();
         if (stageManager != null) stageManager.CompleteStage();
 
-        // Fallback pra teste standalone (sem GameFlowManager, ex.: dar Play direto na Stage1):
-        // o CompleteStage nao consegue transicionar, entao carrega a cutscene de fim de fase.
         if (GameFlowManager.Instance == null)
-            UnityEngine.SceneManagement.SceneManager.LoadScene("FinalizacaoFase1Cutscene");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("CutsceneFinalizadoraFase1");
     }
 
     // --- helpers ---
@@ -311,8 +279,6 @@ public class FinalBossEncounter : MonoBehaviour
 
     private void HandleBossOrMinionScore(int scoreValue)
     {
-        // soma score E cura o player (igual a uma morte normal de inimigo da fase)
-        if (stageManager != null) stageManager.RegisterExternalKill(scoreValue);
     }
 
     private string PickMinionBark(int waveIndex)

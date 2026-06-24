@@ -3,14 +3,6 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-/// <summary>
-/// Configura o fluxo da Fase 1 de ponta a ponta:
-/// 1) Cria/atualiza o StageData (Stage1 como cena de gameplay, FinalizacaoFase1Cutscene como fim).
-/// 2) Pluga esse StageData no GameFlowManager.stages (na cena Disclaimer).
-/// 3) Garante Stage1 e FinalizacaoFase1Cutscene no Build Settings.
-/// Rodar DEPOIS de "Build FinalizacaoFase1Cutscene Scene".
-/// Menu: Tools/Ybytu/Setup Fase 1 Flow
-/// </summary>
 public static class Fase1FlowSetup
 {
     private const string StageAssetPath = "Assets/Data/Stages/Stage01.asset";
@@ -34,12 +26,12 @@ public static class Fase1FlowSetup
         stage.description = "Fase 1";
         stage.gameplaySceneName = "Stage1";
         stage.introCutsceneId = "";   // o prologo global ja eh a intro
-        stage.outroCutsceneId = "";   // fim de fase -> tela de score (StageScore), e o score leva a cutscene final
+        stage.outroCutsceneId = "";
+        stage.finalizerCutsceneId = "CutsceneFinalizadoraFase1";
         stage.unlockedByDefault = true;
         EditorUtility.SetDirty(stage);
         AssetDatabase.SaveAssets();
 
-        // 2) Plugar no GameFlowManager (cena Disclaimer = boot)
         var scene = EditorSceneManager.OpenScene(DisclaimerScene, OpenSceneMode.Single);
         GameFlowManager gfm = null;
         foreach (var root in scene.GetRootGameObjects())
@@ -75,7 +67,7 @@ public static class Fase1FlowSetup
         }
         Ensure("Assets/Scenes/Stage1.unity");
         Ensure("Assets/Scenes/StageScore.unity");
-        Ensure("Assets/Scenes/FinalizacaoFase1Cutscene.unity");
+        Ensure("Assets/Scenes/CutsceneFinalizadoraFase1.unity");
         EditorBuildSettings.scenes = scenes.ToArray();
 
         Debug.Log("[Fase1FlowSetup] Fluxo da Fase 1 configurado.");

@@ -1,15 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Faz um companheiro (ex.: a arara) seguir o player voando, com atraso suave.
-/// Fica atras do player (lado oposto ao que ele esta virado) e um pouco acima,
-/// com um leve balanco vertical pra dar sensacao de voo. Nao colide nem bloqueia
-/// o player: mexe so no Transform.
-///
-/// Durante uma zona de combate (CombatZone.OnAnyZoneActivated) ela voa pra longe
-/// (pra cima, saindo da tela) e volta voando quando a zona e limpa
-/// (CombatZone.OnAnyZoneCompleted).
-/// </summary>
 public class CompanionFollow : MonoBehaviour
 {
     [Header("Alvo")]
@@ -53,7 +43,6 @@ public class CompanionFollow : MonoBehaviour
     private bool combatActive;
     private bool fleeHeld;
 
-    /// <summary>Segura a fuga: a arara continua seguindo o player mesmo no combate (pra falar antes de voar).</summary>
     public void HoldFlee(bool hold) => fleeHeld = hold;
 
     private void Awake()
@@ -63,7 +52,7 @@ public class CompanionFollow : MonoBehaviour
 
     private void OnEnable()
     {
-        snapped = false; // re-snap se reativado depois de teleporte
+        snapped = false;
         CombatZone.OnAnyZoneActivated += HandleCombatStarted;
         CombatZone.OnAnyZoneCompleted += HandleCombatEnded;
     }
@@ -97,18 +86,15 @@ public class CompanionFollow : MonoBehaviour
         EnsureTarget();
         if (target == null) return;
 
-        // lado oposto ao facing do player: +1 = player olha direita
         float facingSign = 1f;
         if (targetSprite != null) facingSign = targetSprite.flipX ? -1f : 1f;
 
-        // A fuga pode estar SEGURADA (HoldFlee) enquanto a arara fala uma dica antes de voar.
         bool fleeing = combatActive && !fleeHeld;
 
         Vector3 desired;
         float t;
         if (fleeing)
         {
-            // foge pra cima/lado, saindo da tela
             desired = new Vector3(
                 target.position.x + fleeOffset.x,
                 target.position.y + fleeOffset.y,
@@ -126,7 +112,7 @@ public class CompanionFollow : MonoBehaviour
             t = smoothTime;
         }
 
-        if (!snapped && !fleeing)
+        if (!snapped)
         {
             transform.position = desired;
             velocity = Vector3.zero;

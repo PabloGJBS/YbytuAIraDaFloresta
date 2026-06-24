@@ -2,12 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// Cena de teste de animacoes: monta um "quadrado" por tipo de inimigo, cada um com 1 javali
-/// ao lado, e poe os dois pra brigar (o javali ataca; o inimigo eh forcado a mirar o javali).
-/// Serve pra conferir as animacoes (golpe / hurt / morte) de cada inimigo contra o javali.
-/// Basta colocar UM objeto com este componente e ligar os prefabs/controller no Inspector.
-/// </summary>
 public class JavaliArenaTest : MonoBehaviour
 {
     [Header("Inimigos (1 quadrado por prefab)")]
@@ -22,7 +16,7 @@ public class JavaliArenaTest : MonoBehaviour
     [Header("Layout")]
     public Vector2 startPos = new Vector2(-14f, 0f);
     public float spacingX = 8f;     // distancia entre os quadrados
-    public float pairGap = 2.4f;    // distancia javali <-> inimigo dentro do quadrado
+    public float pairGap = 2.4f;
 
     private void Start()
     {
@@ -45,7 +39,7 @@ public class JavaliArenaTest : MonoBehaviour
             var enemy = enemyGo.GetComponent<EnemyController>();
             if (enemy != null) enemy.enabled = true;
 
-            yield return null; // deixa Awake/OnEnable de ambos rodar
+            yield return null;
 
             if (javali != null) javali.Activate();
             if (enemy != null && javali != null)

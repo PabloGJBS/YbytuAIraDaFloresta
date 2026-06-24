@@ -3,11 +3,6 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-/// <summary>
-/// Adiciona o contador de HITS ao quadro da StageScore (sem rebuildar a cena,
-/// preservando os ajustes manuais). Insere HitsCaption + Hits abaixo do RANK e
-/// religa StageScoreUI.hitsText. Idempotente. Menu: Tools/Ybytu/Add Hits to StageScore
-/// </summary>
 public static class AddHitsToStageScore
 {
     private const string ScenePath = "Assets/Scenes/StageScore.unity";

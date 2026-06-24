@@ -1,10 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Um passaro da revoada: voa numa direcao com um leve balanco de asa e se
-/// auto-destroi depois de um tempo (ja saiu da tela). Vira o sprite pra direcao
-/// do voo. Mexe so no Transform.
-/// </summary>
 public class Bird : MonoBehaviour
 {
     [Tooltip("Velocidade de voo (x negativo = pra esquerda).")]
@@ -37,7 +32,7 @@ public class Bird : MonoBehaviour
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         baseY = transform.position.y;
-        phase = transform.position.x * 0.7f; // dessincroniza o balanco entre passaros
+        phase = transform.position.x * 0.7f;
     }
 
     private void Start()

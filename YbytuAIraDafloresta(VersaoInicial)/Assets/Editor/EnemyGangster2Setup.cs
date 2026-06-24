@@ -4,14 +4,6 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-/// <summary>
-/// Setup do EnemyGangster2 (inimigo "forte 1"):
-/// 1) Configura importer dos PNGs (PPU 32, Point, FullRect, sem compressao).
-/// 2) Cria clips Idle/Walk/Punch/Hurt + override controller + AnimData.
-/// 3) Cria EnemyData e EnemySkin assets.
-/// 4) Duplica prefab EnemyPunk_Enemy -> EnemyGangster2_Enemy e pluga refs.
-/// Rodar uma vez via menu "Tools/Setup/Enemy Gangster2".
-/// </summary>
 public static class EnemyGangster2Setup
 {
     private const string Root = "Assets/Sprites_Temporarios/Sprites/Enemy-Gangster2/";
@@ -34,7 +26,6 @@ public static class EnemyGangster2Setup
         Debug.Log("[EnemyGangster2Setup] OK: importers + 4 clips + override + animData + enemyData + skin + prefab.");
     }
 
-    // ---------- 1) Importer ----------
     private static void ConfigureImporters()
     {
         string[] guids = AssetDatabase.FindAssets("t:Texture2D", new[] { Root.TrimEnd('/') });
@@ -87,7 +78,6 @@ public static class EnemyGangster2Setup
             "Assets/Animations/Player/Clips/EnemyGangster2_Hurt.anim",
             BuildFrames("Hurt/hurt", 4), 12f, false);
 
-        // OnAttackHit no penultimo frame do Punch (frame 4 de 6, time = 4/15)
         AnimationUtility.SetAnimationEvents(punch, new[] {
             new AnimationEvent { time = 4f / 15f, functionName = "OnAttackHit" }
         });
@@ -140,7 +130,6 @@ public static class EnemyGangster2Setup
         return clip;
     }
 
-    // ---------- 3) Override controller ----------
     private static AnimatorOverrideController CreateOverride(AnimationClip idle, AnimationClip walk, AnimationClip punch, AnimationClip hurt)
     {
         var baseController = AssetDatabase.LoadAssetAtPath<AnimatorController>("Assets/Animations/Player/PlayerBase.controller");
@@ -176,7 +165,6 @@ public static class EnemyGangster2Setup
         return overrideController;
     }
 
-    // ---------- 4) AnimData ----------
     private static CharacterAnimationData CreateAnimData(AnimatorOverrideController overrideController)
     {
         const string path = "Assets/Data/CharacterSkins/EnemyGangster2_AnimData.asset";
@@ -193,7 +181,6 @@ public static class EnemyGangster2Setup
         return animData;
     }
 
-    // ---------- 5) EnemyData ----------
     private static EnemyData CreateEnemyData()
     {
         const string path = "Assets/Data/EnemyData/EnemyGangster2_EnemyData.asset";
@@ -203,7 +190,6 @@ public static class EnemyGangster2Setup
             data = ScriptableObject.CreateInstance<EnemyData>();
             AssetDatabase.CreateAsset(data, path);
         }
-        // Inimigo "forte 1": mais HP, mais dano, um pouco mais lento mas mais score
         data.enemyName = DisplayName;
         data.maxHealth = 45;
         data.moveSpeed = 2.3f;
@@ -215,12 +201,10 @@ public static class EnemyGangster2Setup
         data.attackRange = 1.3f;
         data.attackCooldown = 1.3f;
         data.scoreValue = 2200;
-        // behaviorType permanece default (0)
         EditorUtility.SetDirty(data);
         return data;
     }
 
-    // ---------- 6) EnemySkin ----------
     private static EnemySkin CreateEnemySkin(CharacterAnimationData animData)
     {
         const string path = "Assets/Data/EnemySkins/EnemyGangster2_EnemySkin.asset";
@@ -233,15 +217,12 @@ public static class EnemyGangster2Setup
         skin.skinName = DisplayName;
         skin.animationData = animData;
         skin.tintColor = Color.white;
-        // Sprite eh 128px com PPU 32 -> ~4 units. Punk usa 1.7 sobre sprite pequeno.
-        // 0.6 deixa o gangster ~2.4 units (proximo do Punk e do player). Ajuste fino in-editor.
         skin.spriteScale = new Vector2(0.6f, 0.6f);
-        skin.defaultFacesRight = false; // mesma orientacao default do Punk
+        skin.defaultFacesRight = false;
         EditorUtility.SetDirty(skin);
         return skin;
     }
 
-    // ---------- 7) Prefab ----------
     private static void DuplicatePrefab(EnemyData enemyData, EnemySkin enemySkin)
     {
         const string src = "Assets/Prefabs/Enemies/EnemyPunk_Enemy.prefab";
@@ -262,7 +243,6 @@ public static class EnemyGangster2Setup
         var prefabRoot = PrefabUtility.LoadPrefabContents(dst);
         prefabRoot.name = "EnemyGangster2_Enemy";
 
-        // Atualiza referencia do EnemyData / EnemySkin em qualquer componente que tenha esses campos
         var components = prefabRoot.GetComponentsInChildren<MonoBehaviour>(true);
         foreach (var comp in components)
         {

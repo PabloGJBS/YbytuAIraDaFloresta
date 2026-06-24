@@ -1,6 +1,3 @@
-/// <summary>
-/// Estados possiveis do fluxo do jogo.
-/// </summary>
 public enum GameState
 {
     Disclaimer,

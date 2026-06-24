@@ -1,9 +1,6 @@
 using UnityEngine;
 using System;
 
-/// <summary>
-/// Sistema de vida generico. Usado pelo player e inimigos.
-/// </summary>
 public class HealthSystem : MonoBehaviour
 {
     [Header("Vida")]
@@ -41,9 +38,6 @@ public class HealthSystem : MonoBehaviour
             invincibilityTimer -= Time.deltaTime;
     }
 
-    /// <summary>
-    /// Aplicar dano. Retorna o dano real aplicado.
-    /// </summary>
     public int TakeDamage(int baseDamage, float multiplier = 1f)
     {
         if (isDead || IsInvincible) return 0;
@@ -61,9 +55,6 @@ public class HealthSystem : MonoBehaviour
         return finalDamage;
     }
 
-    /// <summary>
-    /// Curar vida.
-    /// </summary>
     public void Heal(int amount)
     {
         if (isDead) return;
@@ -79,9 +70,6 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Define a vida maxima (ex.: vinda do EnemyData). refill=true enche a vida.
-    /// </summary>
     public void SetMaxHealth(int newMax, bool refill = true)
     {
         maxHealth = Mathf.Max(1, newMax);
@@ -89,9 +77,6 @@ public class HealthSystem : MonoBehaviour
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
-    /// <summary>
-    /// Restaurar vida completa (revive, novo round, etc).
-    /// </summary>
     public void FullRestore()
     {
         isDead = false;

@@ -3,11 +3,6 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-/// <summary>
-/// Setup do EnemyChefe1 (boss 1 - Gangsters_3).
-/// Espelha EnemyGangster2Setup com stats de boss.
-/// Rodar via menu "Tools/Setup/Enemy Chefe1".
-/// </summary>
 public static class EnemyChefe1Setup
 {
     private const string Root = "Assets/Sprites_Temporarios/Sprites/Enemy-Chefe1/";
@@ -60,7 +55,6 @@ public static class EnemyChefe1Setup
 
     private static (AnimationClip idle, AnimationClip walk, AnimationClip punch, AnimationClip hurt) CreateClips()
     {
-        // Chefe1 mais lento (boss lumbering): Idle 6fps, Walk 9fps, Punch 12fps, Hurt 12fps
         var idle = CreateClip(
             "Assets/Animations/Player/Clips/EnemyChefe1_Idle.anim",
             BuildFrames("Idle/idle", 7), 6f, true);
@@ -77,7 +71,6 @@ public static class EnemyChefe1Setup
             "Assets/Animations/Player/Clips/EnemyChefe1_Hurt.anim",
             BuildFrames("Hurt/hurt", 4), 12f, false);
 
-        // OnAttackHit no penultimo frame do Attack (frame 3 de 5)
         AnimationUtility.SetAnimationEvents(punch, new[] {
             new AnimationEvent { time = 3f / 12f, functionName = "OnAttackHit" }
         });
@@ -189,7 +182,6 @@ public static class EnemyChefe1Setup
             data = ScriptableObject.CreateInstance<EnemyData>();
             AssetDatabase.CreateAsset(data, path);
         }
-        // Boss: tank lento que pega pesado
         data.enemyName = DisplayName;
         data.maxHealth = 120;
         data.moveSpeed = 2.0f;
@@ -217,7 +209,6 @@ public static class EnemyChefe1Setup
         skin.skinName = DisplayName;
         skin.animationData = animData;
         skin.tintColor = Color.white;
-        // Boss um pouco maior que o Gangster2 (0.6) - 0.75 da presenca sem virar gigante
         skin.spriteScale = new Vector2(0.75f, 0.75f);
         skin.defaultFacesRight = false;
         EditorUtility.SetDirty(skin);

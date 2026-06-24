@@ -1,15 +1,8 @@
 using UnityEditor;
 using UnityEngine;
 
-/// <summary>
-/// Ajusta os import settings dos sprites do cenario da Fase 2 pro padrao do projeto:
-/// Sprite Single, PPU 32, Point filter, Compression None, Full Rect, sem mipmaps.
-/// Rodar via menu Tools/Setup/Setup Fase2 Sprites.
-/// </summary>
 public static class SetupFase2Sprites
 {
-    // Backgrounds e grounds de tela cheia: PPU 256 (igual a Fase 1), nao 32 (que e pro
-    // pixel-art de tiles/personagens). Tamanho final na tela = pixels/PPU * escala.
     private const string Root = "Assets/Sprites/Stage2";
     private const float PPU = 256f;
 

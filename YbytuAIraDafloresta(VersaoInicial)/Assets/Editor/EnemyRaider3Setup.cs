@@ -3,11 +3,6 @@ using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
-/// <summary>
-/// Setup do EnemyRaider3 (forte 2 - Raider_3, brawler).
-/// Stats entre Gangster2 (forte 1) e Chefe1 (boss).
-/// Rodar via menu "Tools/Setup/Enemy Raider3".
-/// </summary>
 public static class EnemyRaider3Setup
 {
     private const string Root = "Assets/Sprites_Temporarios/Sprites/Enemy-Raider3/";
@@ -60,7 +55,6 @@ public static class EnemyRaider3Setup
 
     private static (AnimationClip idle, AnimationClip walk, AnimationClip punch, AnimationClip hurt) CreateClips()
     {
-        // Raider3 entre Gangster2 (rapido) e Chefe1 (lento): Idle 7fps, Walk 11fps, Punch 14fps, Hurt 10fps
         var idle = CreateClip(
             "Assets/Animations/Player/Clips/EnemyRaider3_Idle.anim",
             BuildFrames("Idle/idle", 6), 7f, true);
@@ -77,7 +71,6 @@ public static class EnemyRaider3Setup
             "Assets/Animations/Player/Clips/EnemyRaider3_Hurt.anim",
             BuildFrames("Hurt/hurt", 2), 10f, false);
 
-        // OnAttackHit no penultimo frame do Attack_1 (frame 3 de 5)
         AnimationUtility.SetAnimationEvents(punch, new[] {
             new AnimationEvent { time = 3f / 14f, functionName = "OnAttackHit" }
         });
@@ -189,7 +182,6 @@ public static class EnemyRaider3Setup
             data = ScriptableObject.CreateInstance<EnemyData>();
             AssetDatabase.CreateAsset(data, path);
         }
-        // Forte 2 (entre Gangster2 e Chefe1)
         data.enemyName = DisplayName;
         data.maxHealth = 65;
         data.moveSpeed = 2.4f;

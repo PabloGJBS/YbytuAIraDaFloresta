@@ -2,11 +2,6 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-/// <summary>
-/// Da aos troncos um sortingOrder visivel em edit mode (= -Y*100, igual ao que o
-/// YSortRenderer aplicaria em runtime), pra eles aparecerem na frente do cenario
-/// e poderem ser posicionados. One-shot. Menu: Tools/Ybytu/Fix Tronco Sorting
-/// </summary>
 public static class FixTroncoSorting
 {
     private const string ScenePath = "Assets/Scenes/Stage1.unity";

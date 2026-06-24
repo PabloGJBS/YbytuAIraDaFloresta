@@ -1,12 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-/// <summary>
-/// Zona de teste de inimigo: spawna 1 inimigo do prefab, escuta a morte dele,
-/// e respawna depois de respawnDelay. Aplica EnemyZoneClamp no spawnado
-/// pra ele nao sair do retangulo da zona. Usado na EnemyTest pra calibrar
-/// movimento/golpes individualmente sem interferencia de outros inimigos.
-/// </summary>
 public class EnemyTestZone : MonoBehaviour
 {
     [Header("Spawn")]
@@ -50,8 +44,6 @@ public class EnemyTestZone : MonoBehaviour
     {
         if (currentEnemy == null) return;
 
-        // Aplica override de tamanho em tempo real. LateUpdate pra rodar depois do
-        // ApplySkin do EnemyController (Awake) sem disputa de ordem.
         if (sizeOverride.x > 0f && sizeOverride.y > 0f)
         {
             var t = currentEnemy.transform;
