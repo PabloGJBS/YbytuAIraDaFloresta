@@ -1,0 +1,1157 @@
+fileFormatVersion: 2
+guid: b34bbba52f0ece8488acf641c6429881
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1729156105923807546
+    second: Tiny01_Atlas_0
+  - first:
+      213: -4438217068967039455
+    second: Tiny01_Atlas_1
+  - first:
+      213: 3062078933004820710
+    second: Tiny01_Atlas_2
+  - first:
+      213: 2699326479818408461
+    second: Tiny01_Atlas_3
+  - first:
+      213: 5375062155112194208
+    second: Tiny01_Atlas_4
+  - first:
+      213: 970382632578049128
+    second: Tiny01_Atlas_5
+  - first:
+      213: -6073616505211637343
+    second: Tiny01_Atlas_6
+  - first:
+      213: 1922977530906084056
+    second: Tiny01_Atlas_7
+  - first:
+      213: 6307767678721726836
+    second: Tiny01_Atlas_8
+  - first:
+      213: 3052775844983942383
+    second: Tiny01_Atlas_9
+  - first:
+      213: -6075203657925512955
+    second: Tiny01_Atlas_10
+  - first:
+      213: -7675375865840028780
+    second: Tiny01_Atlas_11
+  - first:
+      213: -6542488282084303058
+    second: Tiny01_Atlas_12
+  - first:
+      213: -1053583093136362955
+    second: Tiny01_Atlas_13
+  - first:
+      213: -2610377244585328531
+    second: Tiny01_Atlas_14
+  - first:
+      213: 4730654235146272616
+    second: Tiny01_Atlas_15
+  - first:
+      213: -6098928935926545930
+    second: Tiny01_Atlas_16
+  - first:
+      213: 5443230710212933611
+    second: Tiny01_Atlas_17
+  - first:
+      213: -6713755690190099808
+    second: Tiny01_Atlas_18
+  - first:
+      213: 3921210320105550126
+    second: Tiny01_Atlas_19
+  - first:
+      213: -2559413617821346526
+    second: Tiny01_Atlas_20
+  - first:
+      213: 1549415958607708207
+    second: Tiny01_Atlas_21
+  - first:
+      213: 4117313213862763438
+    second: Tiny01_Atlas_22
+  - first:
+      213: -4445430809353937471
+    second: Tiny01_Atlas_23
+  - first:
+      213: 1740493407426967820
+    second: Tiny01_Atlas_24
+  - first:
+      213: -8001013703411923304
+    second: Tiny01_Atlas_25
+  - first:
+      213: 3025100437437129524
+    second: Tiny01_Atlas_26
+  - first:
+      213: -3100396450336421598
+    second: Tiny01_Atlas_27
+  - first:
+      213: 1815469883320166664
+    second: Tiny01_Atlas_28
+  - first:
+      213: 8612181418151233650
+    second: Tiny01_Atlas_29
+  - first:
+      213: -4552939415295578862
+    second: Tiny01_Atlas_30
+  - first:
+      213: 3400065603320768690
+    second: Tiny01_Atlas_31
+  - first:
+      213: 5322777194138414931
+    second: Tiny01_Atlas_32
+  - first:
+      213: -8869870542892302782
+    second: Tiny01_Atlas_33
+  - first:
+      213: 3861233210197980166
+    second: Tiny01_Atlas_34
+  - first:
+      213: 6004575553489338025
+    second: Tiny01_Atlas_35
+  - first:
+      213: 4741231099555004351
+    second: Tiny01_Atlas_36
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 1
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 0
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: VisionOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tiny01_Atlas_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 4
+        width: 23
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3949ce11523ff710800000000000000
+      internalID: 1729156105923807546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_1
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 4
+        width: 23
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12ee42827194862c0800000000000000
+      internalID: -4438217068967039455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_2
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 4
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e0a5f3e090be7a20800000000000000
+      internalID: 3062078933004820710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_3
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d02c16ab12fe57520800000000000000
+      internalID: 2699326479818408461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a0ab114d8e089a40800000000000000
+      internalID: 5375062155112194208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_5
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 864e50fecdd777d00800000000000000
+      internalID: 970382632578049128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_6
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a139e8c7fd26bba0800000000000000
+      internalID: -6073616505211637343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_7
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d207b040e9cfaa10800000000000000
+      internalID: 1922977530906084056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_8
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47916e7a841b98750800000000000000
+      internalID: 6307767678721726836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_9
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fec292be473ad5a20800000000000000
+      internalID: 3052775844983942383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_10
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 4
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 501323ff57a80bba0800000000000000
+      internalID: -6075203657925512955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_11
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 3
+        width: 28
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 493bffed0569b7590800000000000000
+      internalID: -7675375865840028780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_12
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2f953f22996435a0800000000000000
+      internalID: -6542488282084303058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_13
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 532ff3842cbe061f0800000000000000
+      internalID: -1053583093136362955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_14
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d608ab6f9b316cbd0800000000000000
+      internalID: -2610377244585328531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_15
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86f371976f8a6a140800000000000000
+      internalID: 4730654235146272616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_16
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f14fbf32704c5ba0800000000000000
+      internalID: -6098928935926545930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_17
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be73db0dd7d3a8b40800000000000000
+      internalID: 5443230710212933611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_18
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0aa267155c2f3d2a0800000000000000
+      internalID: -6713755690190099808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_19
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 4
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e21bc7bb200fa6630800000000000000
+      internalID: 3921210320105550126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_20
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 225167cffd22b7cd0800000000000000
+      internalID: -2559413617821346526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_21
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f20422eea91a08510800000000000000
+      internalID: 1549415958607708207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_22
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eabdf45bd82a32930800000000000000
+      internalID: 4117313213862763438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_23
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cd91e65b38ae42c0800000000000000
+      internalID: -4445430809353937471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_24
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c09f7935889772810800000000000000
+      internalID: 1740493407426967820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_25
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 896891d8d60b6f090800000000000000
+      internalID: -8001013703411923304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_26
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 433a157f1d05bf920800000000000000
+      internalID: 3025100437437129524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_27
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 229c0d2eadd29f4d0800000000000000
+      internalID: -3100396450336421598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_28
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 809e7b77d38d13910800000000000000
+      internalID: 1815469883320166664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_29
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 4
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 278cf1ade5d948770800000000000000
+      internalID: 8612181418151233650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_30
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21dae6b69b5b0d0c0800000000000000
+      internalID: -4552939415295578862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_31
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b865f2e6a57f2f20800000000000000
+      internalID: 3400065603320768690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_32
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35fab2328ad4ed940800000000000000
+      internalID: 5322777194138414931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_33
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24ef33f5cb3e7e480800000000000000
+      internalID: -8869870542892302782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_34
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 4
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 604bac0a52bd59530800000000000000
+      internalID: 3861233210197980166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_35
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 4
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aef9bcf6a9845350800000000000000
+      internalID: 6004575553489338025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiny01_Atlas_36
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 4
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbfb20f909c3cc140800000000000000
+      internalID: 4741231099555004351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Tiny01_Atlas_0: 1729156105923807546
+      Tiny01_Atlas_1: -4438217068967039455
+      Tiny01_Atlas_10: -6075203657925512955
+      Tiny01_Atlas_11: -7675375865840028780
+      Tiny01_Atlas_12: -6542488282084303058
+      Tiny01_Atlas_13: -1053583093136362955
+      Tiny01_Atlas_14: -2610377244585328531
+      Tiny01_Atlas_15: 4730654235146272616
+      Tiny01_Atlas_16: -6098928935926545930
+      Tiny01_Atlas_17: 5443230710212933611
+      Tiny01_Atlas_18: -6713755690190099808
+      Tiny01_Atlas_19: 3921210320105550126
+      Tiny01_Atlas_2: 3062078933004820710
+      Tiny01_Atlas_20: -2559413617821346526
+      Tiny01_Atlas_21: 1549415958607708207
+      Tiny01_Atlas_22: 4117313213862763438
+      Tiny01_Atlas_23: -4445430809353937471
+      Tiny01_Atlas_24: 1740493407426967820
+      Tiny01_Atlas_25: -8001013703411923304
+      Tiny01_Atlas_26: 3025100437437129524
+      Tiny01_Atlas_27: -3100396450336421598
+      Tiny01_Atlas_28: 1815469883320166664
+      Tiny01_Atlas_29: 8612181418151233650
+      Tiny01_Atlas_3: 2699326479818408461
+      Tiny01_Atlas_30: -4552939415295578862
+      Tiny01_Atlas_31: 3400065603320768690
+      Tiny01_Atlas_32: 5322777194138414931
+      Tiny01_Atlas_33: -8869870542892302782
+      Tiny01_Atlas_34: 3861233210197980166
+      Tiny01_Atlas_35: 6004575553489338025
+      Tiny01_Atlas_36: 4741231099555004351
+      Tiny01_Atlas_4: 5375062155112194208
+      Tiny01_Atlas_5: 970382632578049128
+      Tiny01_Atlas_6: -6073616505211637343
+      Tiny01_Atlas_7: 1922977530906084056
+      Tiny01_Atlas_8: 6307767678721726836
+      Tiny01_Atlas_9: 3052775844983942383
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,72 @@
+# ==============================================================
+# .gitignore - Projeto Unity (YbytuAIraDaFloresta)
+# Projeto Unity fica na subpasta "YbytuAIraDafloresta(VersaoInicial)/".
+# Padroes sem barra inicial casam em qualquer nivel, entao cobrem
+# tanto a raiz quanto a subpasta do projeto.
+# ==============================================================
+
+# ----- Pastas geradas pelo Unity -----
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+
+# Asset meta de pastas ignoradas
+!/[Aa]ssets/**/[Ll]ibrary/
+!/[Aa]ssets/**/[Ll]ibrary/*.meta
+
+# ----- Arquivos de projeto de IDE / solucao (gerados) -----
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# ----- Builds -----
+*.apk
+*.aab
+*.unitypackage
+*.app
+ExportedObj/
+.consulo/
+crashlytics-build.properties
+
+# ----- IDEs / Editores -----
+.vs/
+.vscode/
+.idea/
+.vsconfig
+*.csproj.bak
+Assembly-*.csproj
+
+# ----- Sistema operacional -----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ----- Python (scripts utilitarios de processamento de arte) -----
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# ----- Backups locais -----
+Tilesets_backup/
+*II'
+
+# ----- Arquivos temporarios da raiz do projeto Unity -----
+sysinfo.txt
+*.stackdump

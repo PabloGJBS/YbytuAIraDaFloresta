@@ -1,0 +1,360 @@
+{
+    "_meta": {
+        "language": "Português (Brasil)",
+        "code": "pt-BR",
+        "author": "",
+        "version": "1.0"
+    },
+
+    "world": {
+        "fauna": {
+            "coelho_sufoco": "Tá difícil de respirar...",
+            "javali_socorro": "Socorro! Levaram meus filhotes!",
+            "javali_despedida": "Se você puder procurar meus filhotes, por favor!",
+            "filhote_mae": "Mãe!",
+            "filhote_procura": "Mãe...? Pai...?",
+            "filhote_choro": "Buááá..."
+        },
+        "fala": {
+            "arara_chefes": "Ei, são aqueles caras que tão capturando os animais!",
+            "arara_filhote_sozinho": "Me perdoa, pequeno... a gente não conseguiu salvar seus pais."
+        }
+    },
+
+    "arara_tips": {
+        "zona1": "Quanto maior o seu medidor de combo, mais dano você causa!",
+        "zona2": "Você já viu que os inimigos ficam enfurecidos, né? Quando eles brilharem vermelho, é garantido que vão tentar te acertar!"
+    },
+
+
+
+    "ui": {
+        "main_menu": {
+            "title": "Ybytu - A Ira da Floresta",
+            "play": "Jogar",
+            "options": "Opções",
+            "quit": "Sair",
+            "language": "Idioma"
+        },
+        "save_select": {
+            "title": "Selecionar Save",
+            "empty_slot": "Vazio",
+            "delete": "Apagar",
+            "back": "Voltar",
+            "new_game": "Novo Jogo",
+            "continue": "Continuar"
+        },
+        "stage_select": {
+            "title": "Selecionar Fase",
+            "locked": "Bloqueada",
+            "best_score": "Melhor: {0}",
+            "play": "Iniciar",
+            "back": "Voltar"
+        },
+        "pause": {
+            "title": "Pausado",
+            "resume": "Continuar",
+            "retry": "Recomeçar",
+            "quit": "Sair para Menu"
+        },
+        "score": {
+            "title": "Resultado",
+            "score": "Pontuação",
+            "time": "Tempo",
+            "rank": "Rank",
+            "best": "Recorde: {0}",
+            "new_record": "Novo Recorde!",
+            "continue": "Continuar",
+            "retry": "Tentar Novamente"
+        },
+        "game_over": {
+            "title": "Fim de Jogo",
+            "retry": "Tentar Novamente",
+            "quit": "Sair para Menu",
+            "continue_cost": "Continuar? ({0} tentativas restantes)"
+        },
+        "hud": {
+            "lives": "Vidas",
+            "score": "Pontos",
+            "wave": "Wave {0}/{1}",
+            "combo": "Combo",
+            "rank_up": "Rank Up!",
+            "combo_break": "Combo Quebrado!"
+        },
+        "options": {
+            "title": "Opções",
+            "music_volume": "Música",
+            "sfx_volume": "Efeitos",
+            "fullscreen": "Tela Cheia",
+            "language": "Idioma",
+            "back": "Voltar"
+        },
+        "credits": {
+            "title": "Créditos",
+            "development": "Desenvolvimento",
+            "art": "Arte",
+            "music": "Música",
+            "special_thanks": "Agradecimentos Especiais",
+            "thanks": "Obrigado por jogar!"
+        },
+        "tutorial": {
+            "move": "Use {0} para mover",
+            "punch": "Pressione {0} para socar",
+            "kick": "Pressione {0} para chutar",
+            "jab": "Pressione {0} para jab",
+            "jump": "Pressione {0} para pular",
+            "combo_hint": "Acerte golpes em sequência para subir o combo!",
+            "skip": "Pressione qualquer tecla para pular",
+            "title": "Controles",
+            "controls_move": "WASD para movimentar",
+            "controls_attack": "JKL para golpes",
+            "controls_interact": "Espaço para interagir com objetos",
+            "back": "Voltar"
+        }
+    },
+
+
+
+    "cutscene": {
+        "prologue": {
+            "scene_01": {
+                "01": "Era uma aldeia que ninguém de fora encontrava. Vivia escondida no que sobrava de mata virgem.",
+                "02": "Lá ninguém tirava da terra mais do que precisava. Quem caçava agradecia, quem derrubava uma árvore plantava outra.",
+                "03": "Foi nesse lugar que Ybytu cresceu. Aprendeu a respeitar a mata antes de aprender a falar.",
+                "04": "Quem o criou foi Yara, a mãe. À noite ela contava as histórias do povo, e o fogo crepitava enquanto a floresta se acalmava lá fora.",
+                "05": "Aquela vida durou tempo demais pra alguém ali imaginar que pudesse acabar."
+            },
+            "scene_02": {
+                "01": "Vieram de madrugada. Caminhonetes, motosserras, fuzis.",
+                "02": "Não pediram licença pra nada. Não vieram cuidar da terra, vieram tirar tudo o que dava pra vender.",
+                "03": "Em pouco tempo a aldeia já era fumaça. Tiro, grito, fogo subindo pelos tetos de palha.",
+                "04": "Ybytu lutou enquanto conseguiu. Quando viu Yara cair, foi a vez dele.",
+                "05": "Caiu ali mesmo, com o braço estendido pra mãe. A floresta ficou em silêncio. Ninguém cantou naquela noite."
+            },
+            "scene_03": {
+                "01": "Mas a mata estava escutando. Sentiu cada corpo caindo no chão dela e não deixou aquilo passar em branco.",
+                "02": "Omama veio. Velho como o primeiro rio, de antes da palavra. Tocou Ybytu ainda quente e mandou ele voltar.",
+                "03": "Ele abriu os olhos de novo. Não era mais o mesmo. Tinha mata por dentro agora.",
+                "04": "O sangue pulsava no ritmo das raízes. Onde ele pisava, brotava.",
+                "05": "Ybytu se levantou no meio das ruínas. E a floresta inteira se levantou com ele.",
+                "06": "Disse só o que sobrou pra dizer: Pela floresta. Pelos meus."
+            }
+        },
+        "outro": {
+            "opening": {
+                "01": "A vitória de Ybytu é só uma história. Mas a floresta que ele protege é real, e ela sangra todos os dias."
+            },
+            "news_01": {
+                "01": "Em Minas Gerais, três mil mudas plantadas pela própria comunidade viraram cinzas num incêndio criminoso."
+            },
+            "news_02": {
+                "01": "No Pará, o povo Munduruku denuncia há mais de trinta anos o garimpo que queima suas casas e envenena seus rios."
+            },
+            "news_03": {
+                "01": "No Mato Grosso do Sul, 539 indígenas Guarani Kaiowá foram assassinados em apenas dezesseis anos."
+            },
+            "news_04": {
+                "01": "No Amapá, a invasão de uma aldeia e a morte de um líder espalharam o terror entre os Wajãpi."
+            },
+            "news_05": {
+                "01": "E na Terra Indígena Urubu Branco, as queimadas devastaram o território do povo Apÿawa."
+            },
+            "reflection": {
+                "01": "Sustentabilidade não é abrir mão de tudo. É usar sem destruir, colher sem esgotar e viver deixando viver.",
+                "02": "É garantir que quem vier depois de nós ainda encontre floresta, rio e ar limpo para chamar de seu."
+            },
+            "thanks": {
+                "01": "Ybytu: A Ira da Floresta é ficção, mas a luta que ela retrata não é.",
+                "02": "Esta é a primeira versão do jogo, feita com cuidado e propósito.",
+                "03": "Obrigado por jogar e por testar."
+            },
+            "message": {
+                "01": "Espero que essa pequena história tenha trazido uma reflexão a você, jogador. Nem sempre vai existir um herói para lutar pelo bem maior, na maioria das vezes, existimos só nós pessoas comuns, como eu e você, capazes de pequenas ações.",
+                "02": "Num mundo tão grande, um único gesto pode parecer insignificante. Mas cada pequena ação pelo bem, somada a tantas outras, se transforma em algo enorme.",
+                "03": "Plante uma árvore e regue ela nas secas. Anos depois, ela pode dar frutos para as crianças da rua ou abrigar aquele bem-te-vi que alegra as manhãs. Caminhe sem pressa e escute os pássaros de verdade, sinta o vento, tome sol, deixe a chuva escorrer no rosto.",
+                "04": "A vida é linda, e a natureza oferece tudo isso de graça. Não custa nada parar um instante para viver esses momentos."
+            },
+            "ending": {
+                "01": "Espero que essa pequena história tenha trazido uma reflexão a você. Nem sempre vai existir um herói para lutar pelo bem maior. Na maioria das vezes, existimos só nós, pessoas comuns como eu e você, capazes de pequenas ações.\n\nUm gesto sozinho pode parecer insignificante, mas somado a tantos outros se transforma em algo enorme. Plante uma árvore, escute os pássaros de verdade, sinta o vento e o sol. A vida é linda, e a natureza oferece tudo isso de graça. Não custa nada parar um instante para viver esses momentos.\n\nObrigado por jogar e por testar."
+            }
+        },
+        "fase2_final": {
+            "scene_01": {
+                "01": "A noite passou, e com ela a ameaça.",
+                "02": "Com a última centelha que a floresta lhe emprestou, o guardião se deita sobre a terra que o viu nascer.",
+                "03": "Agora pode enfim descansar, e voltar de vez ao lugar ao qual sempre pertenceu.",
+                "04": "Ao seu redor, os que ele salvou velam seu sono. E a floresta o acolhe de volta, como sempre acolhe os seus.",
+                "05": "Aqui, a história termina. Lá fora, ela ainda está sendo escrita."
+            },
+            "scene_02": {
+                "01": "O fogo da floresta não só destrói a vegetação, mas também causa um sofrimento enorme aos animais que a habitam. A onça Miranda andou quase 100 km com as patas queimadas, fugindo das chamas do Pantanal."
+            },
+            "scene_03": {
+                "01": "E quem é pequeno demais não consegue fugir. Cada queimada deixa filhotes feridos e órfãos, como este resgatado em São Paulo."
+            },
+            "scene_04": {
+                "01": "As jaulas que você quebrou existem de verdade. Numa só operação no sertão de Sergipe, 517 animais silvestres foram resgatados de cativeiro ilegal, muitos ameaçados de extinção."
+            },
+            "scene_05": {
+                "01": "A caça ilegal não mata só o animal caçado: rouba o alimento de quem depende dele. Hoje as onças-pintadas sofrem com a escassez de alimento na Mata Atlântica."
+            },
+            "scene_06": {
+                "01": "A floresta não precisa de super-heróis. Precisa de cuidados e proteção de todos."
+            }
+        },
+        "final": {
+            "scene_01": "Com o último inimigo derrotado, a floresta começa a se recuperar.",
+            "scene_02": "Ybytu sente a energia da natureza fluindo novamente em equilíbrio.",
+            "scene_03": "A paz retorna, mas o guardião sabe que deve permanecer vigilante.",
+            "scene_04": "Pois enquanto houver quem ameace a floresta, a Ira de Ybytu estará pronta."
+        },
+        "stage_01_intro": {
+            "scene_01": "Ybytu chega à entrada da floresta e encontra rastros de destruição.",
+            "scene_02": "Os invasores não estão longe. É hora de defender este lugar."
+        },
+        "stage_01_tutorial": {
+            "scene_01": "Acordou, né, amigo! Aparentemente a floresta resolveu te dar uma segunda chance.",
+            "scene_02": "Use W A S D para se movimentar.",
+            "scene_03": "Eu tava fugindo do fogo e te encontrei.",
+            "scene_04": "Aparentemente você morreu, colega, mas a energia espiritual tá atrasando a sua morte.",
+            "scene_05": "Você deve estar meio confuso ainda, mas como você meio que tá misturado com a natureza, eu consigo conversar com você.",
+            "scene_06": "Você deve conseguir se movimentar mais rápido que antes, mas a dor não vai passar.",
+            "scene_07": "Use J K L para golpear os inimigos.",
+            "scene_08": "Ei, tá vendo aquele totem ali? Se interagir com ele, talvez um pouco da sua energia espiritual volte!"
+        },
+        "stage_01_outro": {
+            "scene_01": "A entrada está segura, mas o perigo continua floresta adentro.",
+            "scene_02": "Ybytu avança mais fundo na mata."
+        },
+        "stage_02_intro": {
+            "scene_01": "No coração da floresta, a escuridão é mais densa.",
+            "scene_02": "As criaturas aqui são mais fortes. Ybytu precisa ter cautela."
+        },
+        "stage_02_outro": {
+            "scene_01": "O centro está purificado, mas a fonte da corrupção ainda existe.",
+            "scene_02": "Ela vem de um lugar mais profundo..."
+        },
+        "stage_03_intro": {
+            "scene_01": "A nascente sagrada... está completamente corrompida.",
+            "scene_02": "Uma presença maligna protege este lugar. O confronto final se aproxima."
+        },
+        "stage_03_outro": {
+            "scene_01": "A criatura cai, e a nascente começa a brilhar novamente.",
+            "scene_02": "A floresta está salva... por agora."
+        }
+    },
+
+
+
+    "stages": {
+        "stage_01": {
+            "name": "Entrada da Floresta",
+            "description": "Os primeiros invasores aparecem na borda da floresta."
+        },
+        "stage_02": {
+            "name": "Coração da Mata",
+            "description": "A corrupção se espalha pelo centro da floresta."
+        },
+        "stage_03": {
+            "name": "Nascente Corrompida",
+            "description": "A fonte da corrupção é revelada na nascente sagrada."
+        }
+    },
+
+
+
+    "character": {
+        "ybytu": {
+            "name": "Ybytu",
+            "battle_cry_01": "Pela floresta!",
+            "battle_cry_02": "Vocês não passarão!",
+            "hurt_01": "Argh!",
+            "hurt_02": "Isso... não é nada.",
+            "combo_rank_up": "Sinto o poder da floresta!",
+            "combo_max": "A Ira da Floresta!",
+            "death": "A floresta... precisa... de mim...",
+            "revive": "Ainda não acabou!",
+            "victory": "A floresta está a salvo."
+        }
+    },
+
+
+
+    "dialogue": {
+        "npc_elder": {
+            "name": "Ancião da Floresta",
+            "greeting": "Ybytu, que bom que veio. A floresta precisa de você.",
+            "hint_01": "Cuidado com os inimigos que atacam em grupo. Use seus combos!",
+            "hint_02": "Quanto maior seu combo, mais forte seus golpes ficam.",
+            "hint_03": "Mas cuidado, com grande poder vem grande vulnerabilidade.",
+            "farewell": "Vá com a benção da floresta, guardião."
+        },
+        "npc_spirit": {
+            "name": "Espírito da Mata",
+            "greeting": "Guardião... eu sinto sua presença.",
+            "hint_01": "As criaturas corrompidas temem a luz da nascente.",
+            "farewell": "Que os ventos guiem seu caminho."
+        }
+    },
+
+
+
+    "enemy": {
+        "invader": {
+            "name": "Invasor",
+            "taunt_01": "Essa floresta vai cair!",
+            "taunt_02": "Você não pode nos parar!"
+        },
+        "invader_strong": {
+            "name": "Invasor Forte",
+            "taunt_01": "Eu sou diferente dos outros."
+        },
+        "boss_01": {
+            "name": "Corruptor da Mata",
+            "intro": "Então você é o famoso guardião? Patético.",
+            "phase_02": "Hora de ficar sério!",
+            "death": "Impossível... derrotado por uma criatura da floresta..."
+        },
+        "boss_02": {
+            "name": "Sombra da Nascente",
+            "intro": "Esta nascente agora é minha. Você chegou tarde demais.",
+            "phase_02": "Sinta o poder da corrupção!",
+            "death": "A luz... ela queima... não..."
+        }
+    },
+
+
+
+    "item": {
+        "health_small": {
+            "name": "Fruto da Cura",
+            "description": "Recupera um pouco de vida."
+        },
+        "health_large": {
+            "name": "Fruto da Vida",
+            "description": "Recupera bastante vida."
+        },
+        "extra_life": {
+            "name": "Benção da Floresta",
+            "description": "Concede uma tentativa extra."
+        },
+        "score_bonus": {
+            "name": "Essência Dourada",
+            "description": "Aumenta a pontuação."
+        }
+    },
+
+
+
+    "system": {
+        "loading": "Carregando...",
+        "saving": "Salvando...",
+        "press_any_key": "Pressione qualquer tecla",
+        "confirm": "Confirmar",
+        "cancel": "Cancelar",
+        "yes": "Sim",
+        "no": "Não",
+        "delete_confirm": "Tem certeza que deseja apagar este save?",
+        "quit_confirm": "Deseja realmente sair?"
+    }
+}

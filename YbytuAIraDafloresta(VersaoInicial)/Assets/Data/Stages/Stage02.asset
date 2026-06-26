@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aadf8f47173af874bbe5d8dbce6834ce, type: 3}
+  m_Name: Stage02
+  m_EditorClassIdentifier:
+  stageName: O Avanco da Maquina
+  stageIndex: 1
+  description: Fase 2
+  stageIcon: {fileID: 0}
+  gameplaySceneName: Stage2
+  introCutsceneId:
+  outroCutsceneId:
+  finalizerCutsceneId: CutsceneFinalizadoraFase2
+  unlockedByDefault: 1
+  requiredStage: {fileID: 0}
+  maxScore: 10000
+  timeBonusMultiplier: 10
+  healthBonusMultiplier: 100
